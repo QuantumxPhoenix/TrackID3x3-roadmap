@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>TrackID3x3 Build Roadmap · 14-Day Zero to Submission</title>
+
+  <!-- SEO & Social Meta Tags -->
+  <meta name="title" content="TrackID3x3 Build Roadmap · 14-Day Zero to Submission">
+  <meta name="description" content="A day-by-day, step-by-step interactive roadmap and build guide for the ABC 2027 TrackID3x3 Challenge with automatic progress persistence and history tracking.">
+  <meta name="keywords" content="TrackID3x3, AI, Computer Vision, Basketball Tracking, MOT, YOLO, Colab, Homography, Challenge Roadmap">
+  <meta name="author" content="TrackID3x3 Participant">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="TrackID3x3 Build Roadmap · 14-Day Zero to Submission">
+  <meta property="og:description" content="Interactive 14-day guide for the TrackID3x3 Challenge with automated progress saving and full checkbox history.">
+  <meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 630' width='1200' height='630'%3E%3Crect width='1200' height='630' fill='%230f141b'/%3E%3Ccircle cx='600' cy='315' r='180' fill='none' stroke='%23d9480f' stroke-width='16'/%3E%3Cpath d='M420 315h360M600 135v360' stroke='%23d9480f' stroke-width='16'/%3E%3Ctext x='600' y='560' fill='%23ffffff' font-family='sans-serif' font-size='48' font-weight='bold' text-anchor='middle'%3ETrackID3x3 Build Roadmap%3C/text%3E%3C/svg%3E">
+
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="TrackID3x3 Build Roadmap · 14-Day Zero to Submission">
+  <meta name="twitter:description" content="Interactive 14-day guide for the TrackID3x3 Challenge with automated progress saving and full checkbox history.">
+
+  <!-- Theme Color -->
+  <meta name="theme-color" content="#1f4e8c" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0f141b" media="(prefers-color-scheme: dark)">
+
+  <!-- Favicon: Basketball & Tactical Board -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231f4e8c'/%3E%3Ccircle cx='16' cy='16' r='10' fill='none' stroke='%23ff7a3d' stroke-width='2.4'/%3E%3Cpath d='M6 16h20M16 6v20' stroke='%23ff7a3d' stroke-width='2' stroke-linecap='round'/%3E%3Ccircle cx='16' cy='16' r='3.5' fill='%23ffffff'/%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+  <style>
+  :root{
+    color-scheme: light;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    --bg:#f3f5f8; --surface:#ffffff; --fg:#17202b; --muted:#5b6778; --line:#d9dee6;
+    --accent:#d9480f; --accent-soft:#fde8dd; --court:#1f4e8c; --court-soft:#e3ecf8;
+    --ok:#2b8a3e; --ok-soft:#e3f4e6; --warn:#a15c00; --warn-soft:#fff1d6; --code:#eef1f6;
+    --display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+    --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0f141b; --surface:#161d27; --fg:#e6ebf2; --muted:#9aa6b6; --line:#2a3443;
+      --accent:#ff7a3d; --accent-soft:#3a2216; --court:#7fb0f0; --court-soft:#1a2a40;
+      --ok:#69c27a; --ok-soft:#173022; --warn:#f0b04a; --warn-soft:#33270f; --code:#0c1118;
+      color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0f141b; --surface:#161d27; --fg:#e6ebf2; --muted:#9aa6b6; --line:#2a3443;
+    --accent:#ff7a3d; --accent-soft:#3a2216; --court:#7fb0f0; --court-soft:#1a2a40;
+    --ok:#69c27a; --ok-soft:#173022; --warn:#f0b04a; --warn-soft:#33270f; --code:#0c1118;
+    color-scheme:dark;
+  }
+  :root[data-theme="light"]{
+    --bg:#f3f5f8; --surface:#ffffff; --fg:#17202b; --muted:#5b6778; --line:#d9dee6;
+    --accent:#d9480f; --accent-soft:#fde8dd; --court:#1f4e8c; --court-soft:#e3ecf8;
+    --ok:#2b8a3e; --ok-soft:#e3f4e6; --warn:#a15c00; --warn-soft:#fff1d6; --code:#eef1f6;
+    color-scheme:light;
+  }
+  *{box-sizing:border-box}
+  html{scroll-padding-top:env(safe-area-inset-top,0px)}
+  body{margin:0;padding:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.55}
+  img{max-width:100%}
+  [hidden]:not([hidden=until-found i]){display:none!important}
+  a{color:var(--court)}
+
+  .wrap{max-width:1000px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:24px 72px;display:flex;flex-direction:column;gap:28px}
+  h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;letter-spacing:.01em}
+  h1{font-size:clamp(2.1rem,6vw,3.1rem);line-height:1;text-transform:uppercase}
+  h2{font-size:1.9rem;text-transform:uppercase}
+  h3{font-size:1.4rem;text-transform:uppercase}
+  .eyebrow{font-family:var(--mono);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+  header{display:flex;flex-direction:column;gap:14px}
+  .top-bar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;padding-bottom:6px}
+  .top-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .top-btn{display:inline-flex;align-items:center;gap:6px;font:500 .8rem var(--mono);background:var(--surface);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:6px 11px;cursor:pointer;transition:all .15s ease}
+  .top-btn:hover{border-color:var(--court);color:var(--court);background:var(--court-soft)}
+  .top-btn:active{transform:scale(0.98)}
+  .badge{font-size:.7rem;background:var(--ok);color:#ffffff;padding:1px 6px;border-radius:999px;font-weight:600}
+
+  .lede{max-width:68ch;color:var(--muted);margin:0}
+  .board{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+  .cell{background:var(--surface);padding:12px 14px;display:flex;flex-direction:column;gap:2px;min-width:0}
+  .cell b{font-family:var(--display);font-size:1.9rem;line-height:1.05;font-variant-numeric:tabular-nums}
+  .cell span{font-size:.78rem;color:var(--muted)}
+  .cell.hot b{color:var(--accent)}
+  .bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+  .bar i{display:block;height:100%;background:var(--ok);width:0;transition:width .3s}
+  nav.jump{display:flex;flex-wrap:wrap;gap:6px}
+  nav.jump a{font:500 .78rem var(--mono);text-decoration:none;border:1px solid var(--line);background:var(--surface);color:var(--fg);padding:5px 9px;border-radius:4px;transition:border-color .15s}
+  nav.jump a:hover{border-color:var(--court)}
+  nav.jump a.today{border-color:var(--accent);color:var(--accent)}
+
+  .how{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+  .how div{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:12px 14px;min-width:0}
+  .how strong{display:block;margin-bottom:2px}
+  .how p{margin:0;font-size:.9rem;color:var(--muted)}
+  .rules{border-left:3px solid var(--accent);background:var(--surface);padding:14px 16px;border-radius:0 6px 6px 0;display:grid;gap:6px}
+  .rules ul{margin:0;padding-left:18px;display:grid;gap:3px;font-size:.9rem}
+
+  .controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .chip{font:500 .8rem var(--body);border:1px solid var(--line);background:var(--surface);color:var(--fg);padding:6px 11px;border-radius:999px;cursor:pointer;transition:all .15s}
+  .chip:hover{border-color:var(--court)}
+  .chip[aria-pressed="true"]{background:var(--court);border-color:var(--court);color:var(--surface)}
+  #q{font:inherit;font-size:.85rem;border:1px solid var(--line);background:var(--surface);color:var(--fg);padding:6px 12px;border-radius:999px;min-width:0;flex:1 1 180px;max-width:280px}
+  .chip:focus-visible,.task summary:focus-visible,input:focus-visible,nav.jump a:focus-visible,.top-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+  .day{display:flex;flex-direction:column;gap:10px;scroll-margin-top:12px}
+  .day-head{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;border-bottom:2px solid var(--fg);padding-bottom:6px}
+  .day-head .dates{font-family:var(--mono);font-size:.8rem;color:var(--muted)}
+  .day-head .pct{margin-left:auto;font-family:var(--mono);font-size:.8rem;color:var(--muted)}
+  .day-goal{margin:0;color:var(--muted);max-width:72ch}
+
+  .task{background:var(--surface);border:1px solid var(--line);border-radius:6px;transition:opacity .2s}
+  .task.done{opacity:.75}
+  .task summary{list-style:none;display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;padding:11px 14px;cursor:pointer}
+  .task summary::-webkit-details-marker{display:none}
+  .tid{font-family:var(--mono);font-size:.78rem;color:var(--muted);min-width:3.2em}
+  .ttl{font-weight:600;min-width:0}
+  .task.done .ttl{text-decoration:line-through}
+  .meta{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+  .pill{font:500 .7rem var(--mono);padding:2px 7px;border-radius:4px;white-space:nowrap}
+  .p-time{background:var(--bg);color:var(--muted);border:1px solid var(--line)}
+  .p-ask{background:var(--warn-soft);color:var(--warn)}
+  .p-gpu{background:var(--court-soft);color:var(--court)}
+  .p-cnt{background:var(--ok-soft);color:var(--ok)}
+
+  .body{padding:0 14px 16px;display:grid;gap:12px;min-width:0}
+  .why{margin:0;color:var(--muted);max-width:72ch}
+  ol.steps{margin:0;padding:0;list-style:none;display:grid;gap:8px;counter-reset:s}
+  ol.steps li{display:grid;grid-template-columns:22px 2.2em 1fr;gap:8px;align-items:start;min-width:0;position:relative}
+  ol.steps li input{width:18px;height:18px;margin:3px 0 0;accent-color:var(--ok);cursor:pointer}
+  ol.steps li .n{font:500 .75rem var(--mono);color:var(--muted);padding-top:3px}
+  ol.steps li .s{min-width:0}
+  ol.steps li.ck .s{color:var(--muted)}
+
+  /* Step completion timestamp badge */
+  .step-time-tag{display:inline-flex;align-items:center;margin-left:8px;vertical-align:middle}
+  .time-pill{font:500 .72rem var(--mono);color:var(--ok);background:var(--ok-soft);border:1px solid var(--ok);border-radius:4px;padding:1px 6px;display:inline-flex;align-items:center;gap:4px;white-space:nowrap;user-select:none}
+
+  pre{margin:6px 0 0;background:var(--code);border:1px solid var(--line);border-radius:5px;padding:10px 12px;overflow-x:auto;font:.8rem/1.5 var(--mono);color:var(--fg)}
+  code{font-family:var(--mono);font-size:.84em;background:var(--code);padding:1px 4px;border-radius:3px;overflow-wrap:anywhere}
+  pre code{background:none;padding:0;overflow-wrap:normal;white-space:pre}
+  .out{font-size:.88rem;border-top:1px dashed var(--line);padding-top:8px;display:flex;gap:8px;flex-wrap:wrap}
+  .out b{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ok);padding-top:2px}
+
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+  table{border-collapse:collapse;width:100%;min-width:760px;font-size:.88rem}
+  th,td{text-align:left;vertical-align:top;padding:9px 12px;border-bottom:1px solid var(--line)}
+  th{font:500 .72rem var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--bg)}
+  tr:last-child td{border-bottom:0}
+
+  .gloss{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}
+  .gloss div{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:10px 12px;min-width:0}
+  .gloss dt{font-weight:600}
+  .gloss dd{margin:2px 0 0;font-size:.88rem;color:var(--muted)}
+  section.block{display:flex;flex-direction:column;gap:12px;scroll-margin-top:12px}
+
+  /* Modal Dialogs */
+  .modal-backdrop{position:fixed;inset:0;background:rgba(10,15,22,0.65);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);z-index:1000;display:flex;align-items:center;justify-content:center;padding:16px;opacity:0;pointer-events:none;transition:opacity .2s ease}
+  .modal-backdrop.open{opacity:1;pointer-events:auto}
+  .modal{background:var(--surface);color:var(--fg);border:1px solid var(--line);border-radius:10px;width:100%;max-width:680px;max-height:86vh;display:flex;flex-direction:column;box-shadow:0 20px 48px rgba(0,0,0,0.35);transform:translateY(12px);transition:transform .2s ease;overflow:hidden}
+  .modal-backdrop.open .modal{transform:translateY(0)}
+  .modal-head{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid var(--line);background:var(--surface)}
+  .modal-head h3{font-size:1.3rem;margin:0}
+  .modal-close{background:none;border:none;font-size:1.6rem;line-height:1;color:var(--muted);cursor:pointer;padding:0 6px;border-radius:4px}
+  .modal-close:hover{color:var(--fg)}
+  .modal-body{padding:16px 18px;overflow-y:auto;display:flex;flex-direction:column;gap:14px;background:var(--surface)}
+  .modal-foot{padding:12px 18px;border-top:1px solid var(--line);display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap;background:var(--bg)}
+  .btn{font:500 .82rem var(--body);padding:7px 14px;border-radius:6px;border:1px solid var(--line);background:var(--surface);color:var(--fg);cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:all .15s}
+  .btn:hover{border-color:var(--court);color:var(--court)}
+  .btn-primary{background:var(--court);color:#ffffff;border-color:var(--court)}
+  .btn-primary:hover{opacity:.92;color:#ffffff}
+  .btn-danger{color:var(--accent);border-color:var(--accent)}
+  .btn-danger:hover{background:var(--accent-soft)}
+
+  /* History list in modal */
+  .hist-toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .hist-search{flex:1 1 180px;font:inherit;font-size:.85rem;border:1px solid var(--line);background:var(--bg);color:var(--fg);padding:6px 12px;border-radius:6px}
+  .hist-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+  .hist-item{background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:10px 12px;display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:start;font-size:.88rem}
+  .hist-badge-ck{background:var(--ok-soft);color:var(--ok);border:1px solid var(--ok);font:500 .7rem var(--mono);padding:2px 6px;border-radius:4px;white-space:nowrap}
+  .hist-badge-un{background:var(--warn-soft);color:var(--warn);border:1px solid var(--warn);font:500 .7rem var(--mono);padding:2px 6px;border-radius:4px;white-space:nowrap}
+  .hist-step-id{font-family:var(--mono);font-size:.78rem;font-weight:600;color:var(--muted)}
+  .hist-step-text{font-size:.84rem;color:var(--muted);margin-top:2px}
+  .hist-meta-col{display:flex;flex-direction:column;align-items:flex-end;gap:4px}
+  .hist-time{font-family:var(--mono);font-size:.74rem;color:var(--muted);white-space:nowrap}
+  .hist-jump-btn{font-family:var(--mono);font-size:.72rem;background:var(--surface);color:var(--court);border:1px solid var(--line);padding:2px 6px;border-radius:4px;cursor:pointer}
+  .hist-jump-btn:hover{border-color:var(--court)}
+  .hist-empty{text-align:center;color:var(--muted);padding:32px 16px;font-family:var(--mono);font-size:.9rem}
+
+  /* Toast Notification */
+  #toast{position:fixed;bottom:24px;right:24px;background:var(--fg);color:var(--bg);font:500 .84rem var(--mono);padding:10px 18px;border-radius:8px;box-shadow:0 10px 28px rgba(0,0,0,0.3);z-index:2000;opacity:0;pointer-events:none;transform:translateY(12px);transition:all .25s ease}
+  #toast.show{opacity:1;pointer-events:auto;transform:translateY(0)}
+
+  @media (max-width:560px){
+    .task summary{grid-template-columns:1fr}
+    .task summary .tid{display:none}
+    .meta{justify-content:flex-start}
+    ol.steps li{grid-template-columns:22px 1fr}
+    ol.steps li .n{display:none}
+    .hist-item{grid-template-columns:1fr;gap:6px}
+    .hist-meta-col{align-items:flex-start}
+    .top-actions{width:100%;justify-content:space-between}
+  }
+  @media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+
+  /* Print Stylesheet for clean paper / PDF export */
+  @media print{
+    body{background:#fff;color:#000}
+    .top-bar, .top-actions, .controls, nav.jump, .how, .rules, .modal-backdrop, #toast{display:none!important}
+    .wrap{max-width:100%;padding:0;gap:18px}
+    details.task{border:1px solid #ccc;opacity:1!important}
+    details.task:not([open])>div.body{display:grid!important}
+    summary::-webkit-details-marker{display:none}
+    summary{border-bottom:1px solid #eee}
+    .board{border-color:#ccc}
+    .cell{background:#fff}
+    pre{background:#f8f9fa;border-color:#ddd;color:#111}
+    table{border-color:#ccc}
+    th{background:#f0f0f0;color:#000}
+  }
+  </style>
+</head>
+<body>
+
+<div class="wrap">
+<header>
+  <div class="top-bar">
+    <div class="eyebrow">ABC 2027 · TrackID3x3 Challenge · beginner edition</div>
+    <div class="top-actions" role="toolbar" aria-label="Roadmap Tools">
+      <button class="top-btn" id="btnTheme" title="Toggle color scheme (Auto, Dark, Light)" aria-label="Toggle theme">
+        <span id="themeIcon">🌓</span> <span id="themeLabel">Theme</span>
+      </button>
+      <button class="top-btn" id="btnHistory" title="View Checkbox History & Activity Log" aria-label="View history">
+        <span>📜 History</span> <span class="badge" id="histBadge">0</span>
+      </button>
+      <button class="top-btn" id="btnBackup" title="Export or Import Progress" aria-label="Backup and restore">
+        <span>💾 Backup</span>
+      </button>
+      <button class="top-btn" id="btnPrint" title="Print Roadmap or Save as PDF" aria-label="Print roadmap">
+        <span>🖨️ Print</span>
+      </button>
+    </div>
+  </div>
+
+  <h1>Build roadmap: from zero to submission in 14 days</h1>
+  <p class="lede">A day-by-day guide for someone who has never used these tools. Every task is broken into small sub-steps with the exact thing to click, download or type. Tick each sub-step when it's done; a task finishes when all its sub-steps are ticked. Progress and full checkbox history are saved in this browser.</p>
+  
+  <div class="board" aria-label="Status">
+    <div class="cell hot"><b id="daysLeft">–</b><span>days to prediction deadline (Nov 3)</span></div>
+    <div class="cell"><b id="doneCount">0/0</b><span>sub-steps done</span></div>
+    <div class="cell"><b id="taskCount">0/0</b><span>tasks done</span></div>
+    <div class="cell"><b>0.635</b><span>baseline TI-HOTA to beat (tutorial clip)</span></div>
+  </div>
+  <div class="bar" aria-hidden="true"><i id="progBar"></i></div>
+  <nav class="jump" id="jump" aria-label="Jump to day"></nav>
+</header>
+
+<section class="block" aria-label="How this plan works">
+  <div class="how">
+    <div><strong>Your laptop</strong><p>Writing code (VS Code), clicking court points, and saving work to GitHub. Any Windows, Mac or Linux laptop works.</p></div>
+    <div><strong>Google Colab</strong><p>A free cloud computer with a GPU. Heavy jobs run here: detection, training, OCR, full pipeline.</p></div>
+    <div><strong>Google Drive</strong><p>Stores videos, data, trained weights and outputs, so nothing is lost when Colab disconnects.</p></div>
+    <div><strong>GitHub</strong><p>Private home of your code. Colab downloads it from here, and it becomes the code ZIP for the organizers.</p></div>
+  </div>
+  <div class="rules">
+    <strong>Rules that apply to every step</strong>
+    <ul>
+      <li>Train or fine-tune only on the official Training set. Public general-purpose pretrained models are fine; write each one down with its source.</li>
+      <li>Challenge videos (IMG_0114, IMG_0115): run your method on them and pick court points by hand. Never train on them, never hand-correct boxes, tracks, teams or jerseys.</li>
+      <li>Never download or use other TrackID3x3 annotations, including the public top-view GT of the challenge games.</li>
+      <li>Output rows: <code>frame_id,court_x,court_y,team_id,jersey_number</code>, no header, frames start at 1, every frame kept, centimetres, team A (offense at the start) or B (defense at the start).</li>
+    </ul>
+  </div>
+</section>
+
+<section class="block" id="schedule" aria-label="Schedule">
+  <h2>Schedule</h2>
+  <div class="controls" role="group" aria-label="Filter">
+    <button class="chip" data-f="all" aria-pressed="true" id="f-all">All</button>
+    <button class="chip" data-f="open" aria-pressed="false" id="f-open">Not done</button>
+    <button class="chip" data-f="done" aria-pressed="false" id="f-done">Completed</button>
+    <button class="chip" data-f="ask" aria-pressed="false" id="f-ask">Needs confirmation</button>
+    <button class="chip" data-f="gpu" aria-pressed="false" id="f-gpu">Runs on Colab GPU</button>
+    <button class="chip" data-x="1" aria-pressed="false" id="f-expand">Expand all</button>
+    <input id="q" type="search" placeholder="Search steps (e.g. homography)" aria-label="Search steps">
+  </div>
+  <div id="days" style="display:flex;flex-direction:column;gap:30px"></div>
+</section>
+
+<section class="block" id="toolbox" aria-label="Toolbox">
+  <h2>Toolbox: what to download and where</h2>
+  <p class="lede">Only download from these official pages. Packages marked <code>pip</code> install inside your Python environment with the command shown; you never download them by hand.</p>
+  <div class="tablewrap"><table id="tools"><thead><tr><th>Tool</th><th>What it does here</th><th>Where to get it</th><th>How to install</th></tr></thead><tbody></tbody></table></div>
+</section>
+
+<section class="block" id="glossary" aria-label="Glossary">
+  <h2>Glossary</h2>
+  <dl class="gloss" id="gl"></dl>
+</section>
+</div>
+
+<!-- History Modal -->
+<div class="modal-backdrop" id="modalHistory" role="dialog" aria-modal="true" aria-labelledby="histModalTitle">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="histModalTitle">Checkbox Activity History</h3>
+      <button class="modal-close" id="closeHistory" aria-label="Close dialog">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="hist-toolbar">
+        <input type="search" class="hist-search" id="histSearch" placeholder="Filter history (step ID, text)..." aria-label="Filter history">
+        <button class="chip" data-hf="all" aria-pressed="true" id="hf-all">All</button>
+        <button class="chip" data-hf="checked" aria-pressed="false" id="hf-ck">Checked</button>
+        <button class="chip" data-hf="unchecked" aria-pressed="false" id="hf-un">Unchecked</button>
+      </div>
+      <ul class="hist-list" id="histList"></ul>
+    </div>
+    <div class="modal-foot">
+      <button class="btn" id="btnExportHist">📥 Export JSON</button>
+      <button class="btn" id="btnCopyHistMd">📋 Copy as Markdown</button>
+      <button class="btn btn-danger" id="btnClearHist">🗑️ Clear History</button>
+    </div>
+  </div>
+</div>
+
+<!-- Backup / Restore Modal -->
+<div class="modal-backdrop" id="modalBackup" role="dialog" aria-modal="true" aria-labelledby="backupModalTitle">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="backupModalTitle">Backup & Restore Progress</h3>
+      <button class="modal-close" id="closeBackup" aria-label="Close dialog">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p style="margin:0;color:var(--muted);font-size:.92rem">
+        Your progress and check history are automatically saved in this browser. To transfer your progress to another computer, or keep a snapshot in GitHub, export a backup file.
+      </p>
+      
+      <div style="background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:8px">
+        <strong>Export Progress & History</strong>
+        <p style="margin:0;font-size:.85rem;color:var(--muted)">Download a JSON file containing all your checked sub-steps and complete activity history log.</p>
+        <button class="btn btn-primary" id="btnExportData" style="align-self:flex-start">📥 Download Backup (.json)</button>
+      </div>
+
+      <div style="background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:8px">
+        <strong>Import Backup</strong>
+        <p style="margin:0;font-size:.85rem;color:var(--muted)">Upload a previously exported JSON backup to restore your checkmarks and history.</p>
+        <input type="file" id="importFileInput" accept=".json" style="font-size:.85rem">
+      </div>
+
+      <div style="background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:8px">
+        <strong style="color:var(--accent)">Reset All Progress</strong>
+        <p style="margin:0;font-size:.85rem;color:var(--muted)">Clear all checked boxes and wipe activity history. This cannot be undone.</p>
+        <button class="btn btn-danger" id="btnResetAll" style="align-self:flex-start">⚠️ Reset Everything</button>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn" id="closeBackupBtn">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast Notification -->
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const C=s=>"<pre><code>"+esc(s.replace(/^\n+|\s+$/g,""))+"</code></pre>";
+
+const DAYS=[
+{k:"D0",label:"Day 0",date:"2026-10-16",title:"Accounts and registration",goal:"Tonight: get registered and create the free accounts every later step needs.",tasks:[
+ {t:"Register the team",time:"20 min",why:"Every participant, including solo entrants, must submit the Team Registration Google Form before taking part.",steps:[
+  "Open the challenge page and find the Team Registration Form link.",
+  "Pick a team name. Write it down exactly; you must use the identical name on the prediction form later.",
+  "Fill in every team member's name and email.",
+  "Submit, then save a screenshot of the confirmation into a folder called <code>admin</code> on your computer.",
+  "If several teams come from the same lab, agree in writing that no code or data is shared between teams."],
+  out:"Screenshot of the registration confirmation"},
+ {t:"Create a Google account for Colab and Drive",time:"10 min",why:"Colab gives you a free GPU and Drive stores large files. A Gmail account unlocks both.",steps:[
+  "If you don't have one, create an account at <a href=\"https://accounts.google.com/signup\" target=\"_blank\" rel=\"noopener\">accounts.google.com/signup</a>.",
+  "Open <a href=\"https://colab.research.google.com\" target=\"_blank\" rel=\"noopener\">colab.research.google.com</a> and sign in to check it loads.",
+  "Open <a href=\"https://drive.google.com\" target=\"_blank\" rel=\"noopener\">drive.google.com</a> and check you have at least 10 GB free (bottom left). If not, delete old files or buy 100 GB.",
+  "Optional: Colab Pro (paid) gives longer sessions and faster GPUs. The free T4 GPU is enough for this plan."],
+  out:"You can open Colab and Drive"},
+ {t:"Create a GitHub account",time:"10 min",why:"GitHub stores your code and its history, which you will zip for the organizers.",steps:[
+  "Sign up at <a href=\"https://github.com/signup\" target=\"_blank\" rel=\"noopener\">github.com/signup</a>.",
+  "Verify your email address.",
+  "Turn on two-factor authentication under Settings → Password and authentication."],
+  out:"A working GitHub login"},
+ {t:"Read the rules and the tutorial once",time:"40 min",why:"Knowing the full pipeline before you start makes every later step make sense.",steps:[
+  "Read <code>Challenge Registration.txt</code> in the project, especially the Data Use section.",
+  "Skim the tutorial notebook headings: detection and tracking, MOT format, homography, court filtering, jersey OCR and teams, TI-HOTA, minimaps.",
+  "Skim the dataset paper abstract: <a href=\"https://arxiv.org/abs/2503.18282v2\" target=\"_blank\" rel=\"noopener\">arxiv.org/abs/2503.18282v2</a>.",
+  "Read the Glossary at the bottom of this page."],
+  out:"You can name the 6 pipeline stages from memory"}
+]},
+{k:"D1",label:"Day 1",date:"2026-10-17",title:"Install the tools on your laptop",goal:"A laptop that can run Python, edit code and push to GitHub.",tasks:[
+ {t:"Install Python 3.11",time:"20 min",why:"Python runs all code. Version 3.11 works with every library in this plan.",steps:[
+  "Go to <a href=\"https://www.python.org/downloads/\" target=\"_blank\" rel=\"noopener\">python.org/downloads</a> and pick the latest 3.11.x release for your system.",
+  "Windows: run the installer and tick <b>Add python.exe to PATH</b> on the first screen before clicking Install Now.",
+  "Mac: run the .pkg installer, then open Applications → Python 3.11 and double-click <code>Install Certificates.command</code>.",
+  "Open a terminal (Windows: search \"PowerShell\"; Mac: Terminal app) and type:"+C("python --version"),
+  "Mac/Linux may need <code>python3</code> instead of <code>python</code>. You should see <code>Python 3.11.x</code>. If not, close and reopen the terminal and try again."],
+  out:"<code>python --version</code> prints 3.11"},
+ {t:"Install Git",time:"15 min",why:"Git tracks every change to your code and sends it to GitHub.",steps:[
+  "Download from <a href=\"https://git-scm.com/downloads\" target=\"_blank\" rel=\"noopener\">git-scm.com/downloads</a>. On Mac you can also type <code>git</code> in Terminal and accept the install prompt.",
+  "Windows: accept all default options in the installer.",
+  "In a new terminal, set your name and email (use your GitHub email):"+C('git config --global user.name "Your Name"\ngit config --global user.email "you@example.com"'),
+  "Check it works:"+C("git --version")],
+  out:"<code>git --version</code> prints a version"},
+ {t:"Install VS Code and its Python extensions",time:"15 min",why:"VS Code is the editor where you write and run scripts.",steps:[
+  "Download from <a href=\"https://code.visualstudio.com/\" target=\"_blank\" rel=\"noopener\">code.visualstudio.com</a> and install with defaults.",
+  "Open VS Code → Extensions (square icon on the left) → install <b>Python</b> and <b>Jupyter</b> (both by Microsoft).",
+  "Open View → Terminal. This terminal is where you will type commands from now on."],
+  out:"VS Code opens with a terminal at the bottom"},
+ {t:"Install FFmpeg (video helper)",time:"15 min",why:"Lets you check frame counts and frame rates of the .MOV videos.",steps:[
+  "Windows: in PowerShell run <code>winget install Gyan.FFmpeg</code>, then reopen the terminal.",
+  "Mac: install Homebrew from <a href=\"https://brew.sh\" target=\"_blank\" rel=\"noopener\">brew.sh</a>, then run <code>brew install ffmpeg</code>.",
+  "Linux: <code>sudo apt install ffmpeg</code>.",
+  "Other systems: see <a href=\"https://ffmpeg.org/download.html\" target=\"_blank\" rel=\"noopener\">ffmpeg.org/download.html</a>.",
+  "Check: <code>ffprobe -version</code>."],
+  out:"<code>ffprobe -version</code> works"},
+ {t:"Create your private GitHub repository",time:"25 min",why:"One place for all code. Keep it private: sharing competition code outside your team is not allowed.",steps:[
+  "On GitHub click <b>New repository</b>. Name: <code>trackid3x3</code>. Choose <b>Private</b>. Tick \"Add a README\". Create.",
+  "Click the green <b>Code</b> button and copy the HTTPS URL.",
+  "In the VS Code terminal, go to where you keep projects and clone:"+C("cd ~/Documents\ngit clone https://github.com/YOURNAME/trackid3x3.git\ncd trackid3x3"),
+  "Git will ask you to sign in to GitHub in the browser the first time. Approve it.",
+  "In VS Code: File → Open Folder → choose the <code>trackid3x3</code> folder.",
+  "Add teammates under the repo's Settings → Collaborators."],
+  out:"The repo folder is open in VS Code"},
+ {t:"Create the folder layout and .gitignore",time:"15 min",why:"Videos and weights are too big for GitHub, so tell Git to ignore them.",steps:[
+  "Create these folders (right-click in the VS Code file panel → New Folder): <code>src</code>, <code>scripts</code>, <code>configs</code>, <code>calib</code>, <code>tests</code>, <code>notebooks</code>.",
+  "Create a file named <code>.gitignore</code> with:"+C("*.MOV\n*.mov\n*.mp4\n*.pt\ndata/\noutputs/\nruns/\n.venv/\n__pycache__/\n*.zip"),
+  "Create empty files <code>DATA.md</code>, <code>COMPLIANCE.md</code> and <code>src/__init__.py</code>.",
+  "Save and send to GitHub:"+C('git add .\ngit commit -m "Project skeleton"\ngit push')],
+  out:"The folders show up on github.com"},
+ {t:"Create a virtual environment and install the libraries",time:"30 min",why:"A virtual environment keeps this project's libraries separate from everything else on your laptop.",steps:[
+  "In the repo folder:"+C("python -m venv .venv"),
+  "Activate it. Windows: <code>.venv\\Scripts\\activate</code>. Mac/Linux: <code>source .venv/bin/activate</code>. You'll see <code>(.venv)</code> at the start of the line. Activate it every time you open a new terminal.",
+  "Upgrade pip and install the libraries (takes a few minutes):"+C("python -m pip install --upgrade pip\npip install ultralytics opencv-python pandas numpy scipy scikit-learn ndjson easyocr gdown lap ortools pyyaml matplotlib pytest"),
+  "Only if your laptop has an NVIDIA GPU: open <a href=\"https://pytorch.org/get-started/locally/\" target=\"_blank\" rel=\"noopener\">pytorch.org/get-started/locally</a>, pick Pip + your CUDA version, and run the command it shows. Otherwise skip; Colab has the GPU.",
+  "Save exact versions so the organizers can reproduce your setup:"+C("pip freeze > requirements.txt"),
+  "In VS Code press Ctrl/Cmd+Shift+P → \"Python: Select Interpreter\" → pick the one inside <code>.venv</code>.",
+  "Commit <code>requirements.txt</code> and push."],
+  out:"<code>python -c \"import ultralytics, cv2; print('ok')\"</code> prints ok"},
+ {t:"Learn the commands you'll use every day",time:"20 min",why:"About ten commands cover almost everything in this plan.",steps:[
+  "Move between folders: <code>cd foldername</code>, go up with <code>cd ..</code>, list files with <code>ls</code> (Mac/Linux) or <code>dir</code> (Windows).",
+  "Run a script: <code>python scripts/name.py --arg value</code>.",
+  "Save your work to GitHub: <code>git add .</code> → <code>git commit -m \"what changed\"</code> → <code>git push</code>.",
+  "Get teammates' changes: <code>git pull</code>. Do this before starting work each day.",
+  "See what changed: <code>git status</code> and <code>git diff</code>.",
+  "Stop a running script: Ctrl+C."],
+  out:"You pushed at least one commit yourself"}
+]},
+{k:"D2",label:"Day 2",date:"2026-10-18",title:"Data and the tutorial baseline",goal:"All allowed data in Drive, and the tutorial running end to end on a Colab GPU.",tasks:[
+ {t:"Create the Drive folder structure",time:"10 min",why:"Every script will read and write here, so the paths stay the same.",steps:[
+  "In Google Drive create: <code>MyDrive/trackid3x3/</code>",
+  "Inside it create <code>data/tutorial</code>, <code>data/training</code>, <code>data/challenge</code>, <code>weights</code>, <code>outputs</code>, <code>runs</code>.",
+  "Write this path down. In Colab it will appear as <code>/content/drive/MyDrive/trackid3x3/</code>."],
+  out:"Folders exist in Drive"},
+ {t:"Get the tutorial files",time:"15 min",why:"The tutorial clip has ground truth, which makes it your main test video for measuring progress.",steps:[
+  "Open the tutorial Drive folder: <a href=\"https://drive.google.com/drive/folders/1_yDMy8YVpxyqcKg2_eXN1xz_vg2FeCGu\" target=\"_blank\" rel=\"noopener\">tutorial files</a>.",
+  "It contains <code>IMG_0104_1.MOV</code>, <code>IMG_0104_1_tutorial_challenge.csv</code>, <code>Outdoor.ndjson</code>, <code>Outdoor.png</code>.",
+  "Select all four → right-click → <b>Download</b>, then upload them into <code>MyDrive/trackid3x3/data/tutorial</code>.",
+  "Also keep a copy on your laptop in a <code>data/tutorial</code> folder inside the repo (Git ignores it)."],
+  out:"Four tutorial files in Drive and on your laptop"},
+ {t:"Get the official Training set and the Challenge videos",time:"30 min",ask:true,why:"These are the only data you may use. Training is for learning; challenge videos are for running your method only.",steps:[
+  "Use the download links given on the challenge page or in the organizers' emails. Do not use other TrackID3x3 files from GitHub or anywhere else.",
+  "Upload the Training set to <code>data/training</code> and <code>IMG_0114</code>, <code>IMG_0115</code> to <code>data/challenge</code> in Drive.",
+  "If you can't find the Training link, email the organizers and ask for the official Training set location.",
+  "In <code>DATA.md</code> write where each file came from and the date you downloaded it."],
+  out:"Training set and two challenge videos in Drive"},
+ {t:"Run the tutorial notebook on Colab",time:"60 min",gpu:true,why:"Seeing the full baseline run once shows what each stage produces.",steps:[
+  "Download the notebook <code>TrackID3x3_Challenge_Tutorial.ipynb</code> from the project to your laptop.",
+  "In Colab: File → Upload notebook → choose it.",
+  "Runtime → Change runtime type → <b>T4 GPU</b> → Save.",
+  "Run the cells one at a time with Shift+Enter, top to bottom. Wait for each to finish (a spinning icon means running).",
+  "Step 3 (tracking) takes the longest. Don't close the tab while it runs.",
+  "At the TI-HOTA cell, check you get about <b>TI-HOTA 0.6351, DetA 0.6362, AssA 0.6341</b>.",
+  "Download the overlay video at the end and watch it: coloured dots are players on the court map.",
+  "Save a copy to Drive: File → Save a copy in Drive."],
+  out:"Your run prints TI-HOTA ≈ 0.635"},
+ {t:"Understand what each tutorial stage does",time:"40 min",why:"You will improve each stage separately, so you need to know its inputs and outputs.",steps:[
+  "Stage 3: YOLO finds people in each frame and ByteTrack gives each person a track ID. Output: one box per person per frame.",
+  "Stage 4: converts boxes to MOT text format: <code>frame,id,x,y,w,h,conf,-1,-1,-1</code>.",
+  "Stage 5: a homography turns image pixels into court centimetres using 4 court corners from <code>Outdoor.ndjson</code>.",
+  "Stage 6: drops tracks that are not players (e.g. people outside the court) using the foot point on the court map.",
+  "Stage 7: EasyOCR reads jersey numbers, colour histograms split players into two teams, and each track gets a (team, number) identity. Gaps are filled by linear interpolation.",
+  "Stages 8–9: TI-HOTA scores the result against ground truth with a 100 cm distance limit.",
+  "Write a 6-line summary of this in your repo <code>README.md</code> and commit it."],
+  out:"README describes the pipeline"},
+ {t:"Inspect the Training data format",time:"45 min",gpu:true,ask:true,why:"How you train the detector and OCR depends on what labels the Training set has.",steps:[
+  "In a new Colab notebook, mount Drive:"+C("from google.colab import drive\ndrive.mount('/content/drive')"),
+  "List the files:"+C("!ls -R /content/drive/MyDrive/trackid3x3/data/training | head -50"),
+  "Open one annotation file and look at it:"+C("import pandas as pd\ndf = pd.read_csv('/content/drive/MyDrive/trackid3x3/data/training/FILE.csv')\nprint(df.columns.tolist())\nprint(df.head(10))\nprint(df.describe())"),
+  "Answer and write in <code>DATA.md</code>: Are there bounding boxes? Jersey numbers? Team labels? Court x/y in cm? What is the min and max of x and y? Which frame number does it start at?",
+  "Look at one video frame from Training to see the camera view (top view vs oblique).",
+  "If anything is unclear, write the question down for the organizers (next task)."],
+  out:"<code>DATA.md</code> describes columns and units"},
+ {t:"Record file checksums",time:"10 min",gpu:true,why:"Proves which exact files you used, for the reproducibility check.",steps:[
+  "In Colab:"+C("import hashlib, glob\nfor f in sorted(glob.glob('/content/drive/MyDrive/trackid3x3/data/**/*.*', recursive=True)):\n    h = hashlib.sha256(open(f, 'rb').read()).hexdigest()\n    print(h[:16], f)"),
+  "Paste the output into <code>DATA.md</code> and commit."],
+  out:"Checksums in DATA.md"},
+ {t:"Email the organizers your open questions",time:"20 min",ask:true,why:"A few answers decide whole days of work. Ask early.",steps:[
+  "May the tutorial clip ground truth be used to tune thresholds (not to train weights)?",
+  "Which court keypoint template and coordinate frame (origin, axis directions) apply to IMG_0114 and IMG_0115?",
+  "Are the rosters (jersey numbers per team) for the challenge videos provided, or must they be inferred?",
+  "Confirm that Team A means the team on offense at the start of the video.",
+  "Where is the official Training set, and does it include boxes and jersey labels? (if not clear from the files)",
+  "Save their answers in <code>admin/organizer_answers.md</code>."],
+  out:"Email sent"}
+]},
+{k:"D3",label:"Day 3",date:"2026-10-19",title:"Turn the notebook into a project",goal:"The baseline runs from your GitHub code with one command, and you can score any prediction file.",tasks:[
+ {t:"Connect Colab to your private GitHub repo",time:"30 min",gpu:true,why:"Colab needs to download your latest code each session.",steps:[
+  "On GitHub: Settings → Developer settings → Personal access tokens → <b>Fine-grained tokens</b> → Generate new token.",
+  "Repository access: only <code>trackid3x3</code>. Permissions: Contents → Read and write. Set an expiry after Nov 30. Copy the token.",
+  "In Colab click the key icon (Secrets) on the left → Add new secret named <code>GH_TOKEN</code>, paste the token, turn on notebook access.",
+  "Create a notebook <code>notebooks/colab_runner.ipynb</code> whose first cells are:"+C("from google.colab import drive, userdata\ndrive.mount('/content/drive')\ntok = userdata.get('GH_TOKEN')\n!git clone https://{tok}@github.com/YOURNAME/trackid3x3.git\n%cd trackid3x3\n!pip install -q -r requirements.txt"),
+  "Each new session, re-run these cells. Inside an existing clone, use <code>!git pull</code> to get updates.",
+  "Never paste the token into code that you commit."],
+  out:"Colab clones your repo without errors"},
+ {t:"Copy the notebook code into modules",time:"2–3 h",why:"Scripts are reproducible and easy to improve one piece at a time. The organizers need runnable code.",steps:[
+  "Create <code>src/paths.py</code> with one variable <code>DRIVE = '/content/drive/MyDrive/trackid3x3'</code> so paths live in one place.",
+  "<code>src/detect_track.py</code>: paste the notebook's stage 3 and 4 code. Wrap it in a function <code>run_tracking(video_path, out_dir)</code> that returns the MOT file path.",
+  "<code>src/calib.py</code>: paste the homography code (stage 5). Functions: <code>load_homography(...)</code> and <code>to_court(x, y, H)</code>.",
+  "<code>src/court_filter.py</code>: paste stage 6 as <code>filter_tracks(mot_df, H)</code>.",
+  "<code>src/identify.py</code>: paste stage 7 OCR and team clustering as functions.",
+  "<code>src/postprocess.py</code>: paste the interpolation and writing of the prediction table.",
+  "<code>src/tihota.py</code>: paste all of stage 8 (the TI-HOTA functions) unchanged.",
+  "Delete all <code>!pip</code>, <code>cv2_imshow</code> and display lines from modules; those belong in notebooks only.",
+  "Create <code>scripts/run_baseline.py</code> that calls the functions in order, using <code>argparse</code> for <code>--video</code>, <code>--keypoints</code>, <code>--out</code>.",
+  "Commit and push."],
+  out:"<code>src/</code> holds 7 modules"},
+ {t:"Build the scoring script",time:"60 min",why:"Every change from now on is judged by this number.",steps:[
+  "Create <code>scripts/evaluate.py</code> that reads a GT CSV (has a header) and a prediction file (no header) and prints TI-HOTA, DetA, AssA, TP, FP, FN.",
+  "Read predictions with explicit names:"+C("pred = pd.read_csv(path, header=None,\n    names=['frame_id','court_x','court_y','team_id','jersey_number'])"),
+  "Use τ = 100 cm, as the challenge does.",
+  "Also print the diagnostics from notebook cell 9.1: median position error, team accuracy, jersey accuracy.",
+  "Usage:"+C("python scripts/evaluate.py --gt data/tutorial/IMG_0104_1_tutorial_challenge.csv --pred outputs/baseline/IMG_0104_1.txt")],
+  out:"The script prints the six numbers"},
+ {t:"Write small tests for the scorer",time:"40 min",why:"A broken scorer would mislead every later decision.",steps:[
+  "Create <code>tests/test_tihota.py</code>.",
+  "Test 1: prediction equal to GT → TI-HOTA = 1.0.",
+  "Test 2: empty prediction → 0.",
+  "Test 3: GT with all jersey numbers swapped between two players → AssA drops.",
+  "Test 4: positions shifted by 150 cm → DetA = 0.",
+  "Run <code>pytest -q</code> on your laptop. All tests should pass."],
+  out:"<code>pytest</code> shows all passed"},
+ {t:"Reproduce the baseline from your scripts",time:"45 min",gpu:true,why:"Proves your refactor didn't break anything.",steps:[
+  "In Colab (runner notebook), run:"+C("!python scripts/run_baseline.py --video $DRIVE/data/tutorial/IMG_0104_1.MOV \\\n  --keypoints $DRIVE/data/tutorial/Outdoor.ndjson --out $DRIVE/outputs/baseline\n!python scripts/evaluate.py --gt $DRIVE/data/tutorial/IMG_0104_1_tutorial_challenge.csv \\\n  --pred $DRIVE/outputs/baseline/IMG_0104_1.txt"),
+  "Set <code>DRIVE</code> first with <code>%env DRIVE=/content/drive/MyDrive/trackid3x3</code>.",
+  "The score should match 0.635 within ±0.005. If not, compare outputs cell by cell with the notebook.",
+  "Write the numbers into a new file <code>RESULTS.md</code> as the first row of a results table."],
+  out:"Baseline reproduced from scripts"},
+ {t:"Tag the baseline and start the compliance log",time:"15 min",why:"You will compare every improvement to this version, and the paper needs the log.",steps:[
+  "Tag:"+C("git tag baseline-v0\ngit push --tags"),
+  "In <code>COMPLIANCE.md</code> add: <code>yolo11x.pt</code>, Ultralytics, COCO-pretrained, no fine-tuning (yet); EasyOCR default English model; ByteTrack (no weights).",
+  "Add a line: \"Challenge GT and other public TrackID3x3 annotations were never downloaded.\""],
+  out:"Tag on GitHub, log started"}
+]},
+{k:"D4",label:"Day 4",date:"2026-10-20",title:"Court calibration",goal:"An accurate pixel→centimetre mapping for each challenge video.",tasks:[
+ {t:"Understand the homography",time:"20 min",why:"Position error comes straight from this mapping. A small mistake here moves every player.",steps:[
+  "A homography is a 3×3 matrix that maps points on one flat plane (the image of the court floor) to another (the court map in cm).",
+  "You need at least 4 matching points; more points make it more accurate.",
+  "It works only for points on the floor, which is why we use the player's foot point, not the box centre.",
+  "In the tutorial, 4 court corners in <code>Outdoor.ndjson</code> map to (0,0), (0,1105), (1505,0), (1505,1105) cm."],
+  out:"You can explain why foot points are used"},
+ {t:"Save a clean frame from each challenge video",time:"20 min",why:"You click court points on a still image.",steps:[
+  "On your laptop, download IMG_0114 and IMG_0115 from Drive into <code>data/challenge/</code>.",
+  "Create <code>scripts/grab_frame.py</code>:"+C("import cv2, sys\ncap = cv2.VideoCapture(sys.argv[1])\ncap.set(cv2.CAP_PROP_POS_FRAMES, int(sys.argv[3]))\nok, f = cap.read()\ncv2.imwrite(sys.argv[2], f)\nprint('frames', cap.get(cv2.CAP_PROP_FRAME_COUNT), 'fps', cap.get(cv2.CAP_PROP_FPS), 'size', f.shape)"),
+  "Run it for a frame where few players block the lines:"+C("python scripts/grab_frame.py data/challenge/IMG_0114.MOV calib/IMG_0114_frame.png 0"),
+  "Open the PNG. If it's rotated compared with the video, note it; your detection code must read frames the same way.",
+  "Cross-check the frame count: <code>ffprobe -v error -count_frames -select_streams v:0 -show_entries stream=nb_read_frames data/challenge/IMG_0114.MOV</code>. If it differs from OpenCV, tell the team; frame IDs must match the original video."],
+  out:"Two PNG frames in <code>calib/</code>"},
+ {t:"Build the court landmark list in centimetres",time:"60 min",ask:true,why:"Each point you click needs its true court position, in the same coordinate frame as the Training ground truth.",steps:[
+  "Open <code>Outdoor.ndjson</code> in VS Code and list every keypoint name (<code>rku_0</code> … <code>rku_11</code>). The tutorial uses only four of them.",
+  "Open <code>Outdoor.png</code> to see where each keypoint sits on the court.",
+  "Find the cm coordinates of the other keypoints from the organizers' court definition or the reference code at <a href=\"https://github.com/open-starlab/TrackID3x3\" target=\"_blank\" rel=\"noopener\">github.com/open-starlab/TrackID3x3</a> (read code only; don't download its annotations).",
+  "Check whether IMG_0114/0115 are filmed on the same court as the tutorial. If not, ask the organizers for that court's template.",
+  "Write <code>calib/court_template.json</code>, mapping names to cm:"+C('{\n  "rku_0": [0, 0],\n  "rku_1": [0, 1105],\n  "rku_10": [1505, 0],\n  "rku_11": [1505, 1105]\n}'),
+  "Check one thing with the Training GT: player x and y values should fall inside this court's range."],
+  out:"<code>court_template.json</code> with 6+ points"},
+ {t:"Click the landmarks (allowed manual step)",time:"45 min",why:"Manual selection of fixed court landmarks is permitted, and must be described in your paper.",steps:[
+  "Create <code>scripts/click_points.py</code> (runs on your laptop; OpenCV windows don't work in Colab):"+C("import cv2, json, sys\nimg = cv2.imread(sys.argv[1]); pts = []\ndef on_click(e, x, y, flags, p):\n    if e == cv2.EVENT_LBUTTONDOWN:\n        name = input(f'name for ({x},{y}): ')\n        pts.append({'name': name, 'x': x, 'y': y})\n        cv2.circle(img, (x, y), 5, (0, 0, 255), -1)\n        cv2.imshow('frame', img)\ncv2.namedWindow('frame', cv2.WINDOW_NORMAL)\ncv2.setMouseCallback('frame', on_click)\ncv2.imshow('frame', img)\ncv2.waitKey(0)\njson.dump(pts, open(sys.argv[2], 'w'), indent=2)"),
+  "Run:"+C("python scripts/click_points.py calib/IMG_0114_frame.png calib/IMG_0114_clicks.json"),
+  "Click exactly where line edges meet (zoom with the window size). After each click, type the keypoint name in the terminal and press Enter.",
+  "Click at least 6 points spread over the whole court, not all on one side.",
+  "Press any key in the image window to save and quit. Repeat for IMG_0115.",
+  "In <code>COMPLIANCE.md</code> write: who clicked, date, frame number, which points."],
+  out:"Two <code>*_clicks.json</code> files"},
+ {t:"Fit the homography and check the error",time:"45 min",why:"Shows how many centimetres off your mapping is before any player is detected.",steps:[
+  "Create <code>scripts/fit_homography.py</code>:"+C("import cv2, json, numpy as np, sys\nclicks = json.load(open(sys.argv[1]))\ncourt = json.load(open('calib/court_template.json'))\nimg = np.float32([[p['x'], p['y']] for p in clicks])\ncm = np.float32([court[p['name']] for p in clicks])\nH, inl = cv2.findHomography(img, cm, cv2.RANSAC, 15.0)\nproj = cv2.perspectiveTransform(img[None], H)[0]\nprint('error cm:', np.linalg.norm(proj - cm, axis=1).round(1))\njson.dump({'H': H.tolist()}, open(sys.argv[2], 'w'))"),
+  "Run it for both videos. Aim for every point under ~10 cm.",
+  "If one point has a large error, re-click it; it was probably misnamed or misplaced.",
+  "Visual check: warp the frame to a top view and look at the lines:"+C("H = np.array(json.load(open('calib/IMG_0114.json'))['H'])\ntop = cv2.warpPerspective(cv2.imread('calib/IMG_0114_frame.png'), H, (1505, 1105))\ncv2.imwrite('calib/IMG_0114_top.png', top)"),
+  "Court lines in the top view should be straight and at right angles. Curved far lines mean lens distortion (next task)."],
+  out:"<code>calib/IMG_0114.json</code> and <code>IMG_0115.json</code>"},
+ {t:"Check for lens distortion",time:"30 min",why:"Phone wide lenses bend lines near the image edge, which a homography can't fix.",steps:[
+  "Look at <code>*_top.png</code>. If sidelines are clearly curved, distortion matters.",
+  "Quick test: refit using only points near the image centre, and compare the error on edge points.",
+  "If edge errors are above ~30 cm, consider undistorting with <code>cv2.undistortPoints</code> and a guessed radial coefficient tuned to straighten the lines.",
+  "Keep this only if position error on the tutorial clip goes down. Otherwise note \"not needed\" in <code>RESULTS.md</code>."],
+  out:"Decision written down"},
+ {t:"Make the playing-area mask",time:"30 min",why:"Removes spectators, benches and passers-by before tracking.",steps:[
+  "In <code>src/court_filter.py</code> add <code>inside_court(x_cm, y_cm, margin_cm)</code> that returns True if the point is within the court rectangle plus a margin.",
+  "Start with a 50 cm margin. Players step slightly outside lines.",
+  "Later (Day 7) you'll tune 0, 50, 100 cm on the tutorial clip.",
+  "Commit everything from today."],
+  out:"Mask function committed"}
+]},
+{k:"D5",label:"Day 5",date:"2026-10-21",title:"Detection: measure and prepare training data",goal:"Know how good the pretrained detector is, and build a training dataset from the official Training set.",tasks:[
+ {t:"Learn the YOLO basics",time:"30 min",gpu:true,why:"YOLO is the detector. You'll run it, measure it and fine-tune it.",steps:[
+  "Read the quickstart: <a href=\"https://docs.ultralytics.com/quickstart/\" target=\"_blank\" rel=\"noopener\">docs.ultralytics.com/quickstart</a>.",
+  "Model sizes: n, s, m, l, x. Bigger is more accurate but slower. <code>yolo11x.pt</code> is the largest.",
+  "Weights download automatically the first time you use a model name (from Ultralytics' GitHub releases). That's a public general-purpose checkpoint, which is allowed.",
+  "Try it in Colab on one frame:"+C("!yolo predict model=yolo11x.pt source=$DRIVE/calib_frame.png classes=0 imgsz=1280 conf=0.25 save=True"),
+  "<code>classes=0</code> means person in the COCO dataset. Open the saved image in <code>runs/detect/predict</code>."],
+  out:"You've seen boxes drawn on a frame"},
+ {t:"Write a detection-recall checker",time:"60 min",gpu:true,why:"Tells you what share of real players the detector finds, before tracking changes anything.",steps:[
+  "Create <code>scripts/det_recall.py</code>: for each tutorial frame, run YOLO, take each box's bottom centre, convert to cm with the homography.",
+  "Match detections to GT positions of the same frame with the Hungarian method:"+C("from scipy.optimize import linear_sum_assignment\nD = np.linalg.norm(gt[:, None, :] - det[None, :, :], axis=2)\nr, c = linear_sum_assignment(D)\nhits = (D[r, c] <= 100).sum()"),
+  "Recall = hits / number of GT players. Precision = hits / number of detections inside the court.",
+  "Run on every 5th frame to save time."],
+  out:"Recall and precision printed"},
+ {t:"Try detector settings",time:"60 min",gpu:true,why:"Image size and confidence threshold change recall a lot for small, far players.",steps:[
+  "Run the checker with <code>imgsz</code> 960, 1280 and 1920.",
+  "For each, try <code>conf</code> 0.1, 0.25 and 0.4.",
+  "Write a small table in <code>RESULTS.md</code>: settings, recall, precision, seconds per frame.",
+  "Note which players are missed: far side, blocked by others, near the hoop."],
+  out:"Settings table"},
+ {t:"Convert the Training set to YOLO format",time:"2–3 h",gpu:true,ask:true,why:"Fine-tuning needs images plus one label file per image.",steps:[
+  "YOLO label format: one text file per image, one line per player: <code>class x_center y_center width height</code>, all divided by image width or height, e.g. <code>0 0.512 0.433 0.041 0.120</code>.",
+  "<b>If Training has boxes:</b> write <code>scripts/make_yolo_dataset.py</code> that reads each annotation row and writes these lines.",
+  "<b>If Training has only court positions:</b> auto-label. Run YOLO11x on Training frames, map each box foot to court cm with that video's homography, keep boxes within 100 cm of a GT player as class 0. This uses only Training data, so it's allowed.",
+  "Save every 5th frame only; neighbouring frames are nearly identical.",
+  "Split by game, not by frame: about 85% of games for train, 15% for val.",
+  "Folder layout:"+C("yolo_players/\n  images/train/*.jpg   labels/train/*.txt\n  images/val/*.jpg     labels/val/*.txt"),
+  "Spot-check 10 images with boxes drawn to make sure labels line up."],
+  out:"<code>yolo_players/</code> in Drive"},
+ {t:"Write the dataset config file",time:"10 min",why:"Tells YOLO where the images are and what the class is called.",steps:[
+  "Create <code>configs/players.yaml</code>:"+C("path: /content/drive/MyDrive/trackid3x3/data/yolo_players\ntrain: images/train\nval: images/val\nnames:\n  0: player"),
+  "Commit it."],
+  out:"<code>players.yaml</code> committed"}
+]},
+{k:"D6",label:"Day 6",date:"2026-10-22",title:"Train your detector",goal:"A fine-tuned player detector that beats the COCO model on the tutorial clip, or a clear decision to keep COCO.",tasks:[
+ {t:"Start a fine-tuning run on Colab",time:"30 min + 2–4 h waiting",gpu:true,why:"Fine-tuning teaches the detector what a player looks like in this setting.",steps:[
+  "Open your runner notebook, check the GPU with <code>!nvidia-smi</code>.",
+  "Start training, saving to Drive so nothing is lost:"+C("!yolo detect train data=configs/players.yaml model=yolo11m.pt imgsz=1280 \\\n  epochs=60 batch=8 patience=15 \\\n  degrees=10 perspective=0.0005 scale=0.5 mosaic=1.0 hsv_v=0.4 \\\n  project=$DRIVE/runs name=det_v1"),
+  "What the options mean: <code>model</code> = starting weights; <code>epochs</code> = passes over the data; <code>batch</code> = images per step (lower it to 4 if you get \"CUDA out of memory\"); <code>patience</code> = stop early if no improvement; <code>degrees/perspective/scale</code> = random tilts and zoom so a top-view-trained model handles oblique views.",
+  "Keep the tab open. Free Colab may disconnect after a few idle hours; click in the page now and then."],
+  out:"Training is running"},
+ {t:"Resume if Colab disconnects",time:"10 min",gpu:true,why:"Disconnections are normal on free Colab.",steps:[
+  "Re-run the setup cells (mount, clone, install).",
+  "Resume from the last checkpoint:"+C("!yolo train resume model=$DRIVE/runs/det_v1/weights/last.pt")],
+  out:"Training finishes"},
+ {t:"Read the training results",time:"30 min",why:"Check that the model learned and didn't overfit.",steps:[
+  "Open <code>runs/det_v1/results.png</code>. Loss curves should go down; <code>mAP50</code> should rise and level off.",
+  "Open <code>val_batch0_pred.jpg</code> to see predictions on validation images.",
+  "Best weights are at <code>runs/det_v1/weights/best.pt</code>."],
+  out:"mAP50 written in RESULTS.md"},
+ {t:"Compare against the COCO model on the oblique clip",time:"45 min",gpu:true,why:"Training data is top view; only the tutorial clip shows whether it helps on oblique video.",steps:[
+  "Run <code>det_recall.py</code> with <code>best.pt</code> and with <code>yolo11x.pt</code> using the best settings from Day 5.",
+  "Keep whichever has higher recall at similar precision.",
+  "If fine-tuning hurt, try <code>model=yolo11x.pt</code> and fewer epochs (20), or train with stronger <code>perspective</code>.",
+  "Copy the winner to <code>$DRIVE/weights/player_det.pt</code>."],
+  out:"Chosen detector saved"},
+ {t:"Log the detector",time:"10 min",why:"Required disclosure for the code check and paper.",steps:[
+  "In <code>COMPLIANCE.md</code>: base checkpoint, source, fine-tuning data (\"official Training set only\"), the exact training command, and the SHA-256 of <code>player_det.pt</code>.",
+  "Commit."],
+  out:"Log updated"}
+]},
+{k:"D7",label:"Day 7",date:"2026-10-23",title:"Foot points and filtering",goal:"Players' court positions within a few centimetres, and no spectators in the data.",tasks:[
+ {t:"Run a pose model to find ankles",time:"60 min",gpu:true,why:"The bottom of a box is not where the feet are when legs are spread or a player jumps.",steps:[
+  "The pose model downloads automatically like the detector: <code>yolo11x-pose.pt</code> (COCO-pretrained, allowed; log it).",
+  "Get keypoints:"+C("from ultralytics import YOLO\npose = YOLO('yolo11x-pose.pt')\nr = pose(frame, imgsz=1280, classes=[0], verbose=False)[0]\nkp = r.keypoints.data.cpu().numpy()   # (N, 17, 3): x, y, confidence\nleft_ankle, right_ankle = kp[:, 15], kp[:, 16]"),
+  "Keypoints 5/6 are shoulders and 11/12 are hips; you'll use them for jersey crops later."],
+  out:"Ankles found on a test frame"},
+ {t:"Choose the foot point rule",time:"45 min",gpu:true,why:"Better foot points directly lower position error.",steps:[
+  "Rule: if both ankles have confidence above 0.5, use their midpoint; if one does, use it; otherwise use the box bottom centre.",
+  "Match pose boxes to your detector boxes by overlap (IoU above 0.5).",
+  "Compute median court error on the tutorial clip for: box bottom centre vs ankle rule.",
+  "Keep the better one. The tutorial got 14 cm median."],
+  out:"Median error in RESULTS.md"},
+ {t:"Tune the court margin",time:"30 min",gpu:true,why:"Too small drops real players at the lines; too big keeps spectators.",steps:[
+  "Run the pipeline with margins 0, 50 and 100 cm.",
+  "Compare TI-HOTA and count of false positives.",
+  "Pick the best and put it in <code>configs/final.yaml</code> (create the file now with a <code>court_margin_cm</code> entry)."],
+  out:"Margin chosen"},
+ {t:"Cache detections to files",time:"45 min",gpu:true,why:"Detection is the slowest stage. Saving results lets you test tracking ideas in minutes.",steps:[
+  "Create <code>scripts/cache_detections.py</code> that writes, per video, a CSV with columns: <code>frame_id, x1, y1, x2, y2, conf, foot_px_x, foot_px_y, court_x, court_y</code> and the 17 keypoints.",
+  "Run it for the tutorial clip, IMG_0114 and IMG_0115. Save to <code>$DRIVE/outputs/cache/</code>.",
+  "From now on, tracking code reads these files instead of running YOLO again."],
+  out:"Three cache files in Drive"}
+]},
+{k:"D8",label:"Day 8",date:"2026-10-24",title:"Tracking",goal:"Pick the tracker that keeps the six players' IDs most stable.",tasks:[
+ {t:"Install BoxMOT and try its trackers",time:"60 min",gpu:true,why:"BoxMOT packages several modern trackers (ByteTrack, BoT-SORT, DeepOCSORT) behind one interface.",steps:[
+  "Read the README: <a href=\"https://github.com/mikel-brostrom/boxmot\" target=\"_blank\" rel=\"noopener\">github.com/mikel-brostrom/boxmot</a>.",
+  "Install in Colab: <code>!pip install boxmot</code>, then add it to <code>requirements.txt</code> with its version.",
+  "Typical use (check the README for exact class and argument names in your version):"+C("from boxmot import BotSort\nfrom pathlib import Path\ntracker = BotSort(reid_weights=Path('osnet_x0_25_msmt17.pt'), device='cuda:0', half=True)\nfor frame_id, frame, dets in frames:      # dets: N x 6 array [x1,y1,x2,y2,conf,cls]\n    tracks = tracker.update(dets, frame)  # rows: x1,y1,x2,y2,track_id,conf,cls,idx"),
+  "The ReID weights download automatically. They're a public person-ReID model (trained on MSMT17); log them in <code>COMPLIANCE.md</code>."],
+  out:"A tracker runs on the tutorial clip"},
+ {t:"Compare trackers fairly",time:"90 min",gpu:true,why:"Use the score, not intuition, to choose.",steps:[
+  "Write <code>scripts/run_tracker.py --tracker bytetrack|botsort|deepocsort</code> that reads the detection cache and the video, and writes MOT format.",
+  "Feed each MOT file through the rest of the baseline pipeline (filter → identify → postprocess → evaluate).",
+  "Record TI-HOTA, AssA, and number of track IDs created (fewer is usually better: ideally close to 6).",
+  "Keep the best one in <code>configs/final.yaml</code>."],
+  out:"Tracker table in RESULTS.md"},
+ {t:"Split tracks that jump impossibly",time:"45 min",why:"A track that moves 3 m in one frame has swapped players.",steps:[
+  "A sprinting player moves under ~10 m/s, i.e. about 35 cm per frame at 30 fps. Check your video's fps.",
+  "In <code>src/track_clean.py</code>, walk each track in time order and cut it into two where the court distance between consecutive frames exceeds a threshold (start with 150 cm).",
+  "Re-evaluate. Splitting looks worse alone but helps once stitching (Day 9) rejoins correct pieces."],
+  out:"Function committed"}
+]},
+{k:"D9",label:"Day 9",date:"2026-10-25",title:"Stitching and smoothing",goal:"Long tracks: broken pieces of the same player joined back together.",tasks:[
+ {t:"Build a tracklet table",time:"45 min",why:"Stitching works on summaries of each track piece.",steps:[
+  "For each track ID record: start frame, end frame, start (x,y), end (x,y), mean appearance feature, mean torso colour.",
+  "Save as <code>outputs/tracklets_VIDEO.csv</code>.",
+  "Mean appearance feature: average the ReID vector over the track (BoxMOT can return it, or run the OSNet model on crops)."],
+  out:"Tracklet table"},
+ {t:"Link tracklets with the Hungarian method",time:"2 h",why:"Joining pieces is the biggest boost to association accuracy (AssA).",steps:[
+  "Candidate link A→B when B starts after A ends, the gap is ≤ 60 frames, and the distance ≤ 35 cm × gap + 100 cm.",
+  "Cost = distance/(gap+1) normalised + (1 − cosine similarity of appearance) + colour difference.",
+  "Solve with <code>scipy.optimize.linear_sum_assignment</code> on the cost matrix; reject matches above a threshold.",
+  "Merge linked pairs into one ID and repeat until no new links.",
+  "Never merge two tracklets that exist in the same frame.",
+  "Evaluate and record the change in AssA."],
+  out:"AssA improved over Day 8"},
+ {t:"Smooth positions and fill short gaps",time:"45 min",why:"Removes jitter so positions stay within 100 cm more often.",steps:[
+  "Smooth x and y over time:"+C("from scipy.signal import savgol_filter\nx_s = savgol_filter(x, window_length=9, polyorder=2)"),
+  "Fill gaps up to 30 frames with linear interpolation (<code>pandas.Series.interpolate</code>).",
+  "Test window lengths 5, 9, 15 and keep the best."],
+  out:"Lower median error"}
+]},
+{k:"D10",label:"Day 10",date:"2026-10-26",title:"Team identification",goal:"Every track labelled A (offense at the start) or B (defense at the start).",tasks:[
+ {t:"Crop torsos with pose keypoints",time:"45 min",why:"Jersey colour sits between shoulders and hips. Fixed box fractions catch floor and arms.",steps:[
+  "Use keypoints 5, 6 (shoulders) and 11, 12 (hips) to define a rectangle.",
+  "Skip crops where those keypoints have confidence under 0.4.",
+  "Sample up to 40 frames per track, spread over its life."],
+  out:"Torso crops per track"},
+ {t:"Make colour features",time:"45 min",why:"Teams differ mainly by jersey colour.",steps:[
+  "Convert crops to HSV and build a 16×8 hue/saturation histogram with <code>cv2.calcHist</code>, as in the tutorial.",
+  "Ignore very dark and very bright pixels (low V or low S) so shadows and skin matter less.",
+  "Normalise each histogram and average per track."],
+  out:"One feature vector per track"},
+ {t:"Cluster into two teams",time:"45 min",why:"Clustering on the challenge video during inference is not training, so it's allowed.",steps:[
+  "Cluster:"+C("from sklearn.cluster import KMeans\nlabels = KMeans(n_clusters=2, n_init=10, random_state=0).fit_predict(F)"),
+  "If referees appear, try 3 clusters and drop the smallest one.",
+  "Check: each cluster should end up with about three players at any moment."],
+  out:"Cluster label per track"},
+ {t:"Decide which cluster is Team A",time:"90 min",ask:true,why:"A means the team on offense at the start. Getting this backwards makes every identity wrong.",steps:[
+  "Look at how the tutorial labels the first frame: the offensive team at the start is A.",
+  "Write a rule you can compute automatically, for example: at the start the offense stands farther from the basket than the defense.",
+  "Test the rule on every Training game. Count how often it picks the right team.",
+  "If it's below ~100%, try other cues (who holds positions near the top of the arc, movement direction).",
+  "Write the final rule in <code>README.md</code>; the paper must describe it."],
+  out:"Rule correct on Training games"},
+ {t:"Measure team accuracy",time:"15 min",why:"Tutorial baseline: 92.4%.",steps:[
+  "Run <code>evaluate.py</code> and read team accuracy.",
+  "Record it in <code>RESULTS.md</code>.",
+  "Commit."],
+  out:"Team accuracy above 92%"}
+]},
+{k:"D11",label:"Day 11",date:"2026-10-27",title:"Jersey numbers",goal:"A correct jersey number for each track, read from many frames.",tasks:[
+ {t:"Make good jersey crops",time:"60 min",why:"OCR quality depends mostly on how clear the crop is.",steps:[
+  "Use the torso rectangle from Day 10.",
+  "Upscale ×3 with <code>cv2.resize(..., interpolation=cv2.INTER_CUBIC)</code>.",
+  "Skip blurry crops: compute <code>cv2.Laplacian(gray, cv2.CV_64F).var()</code> and drop crops below a threshold you pick by looking at examples.",
+  "Skip crops shorter than 40 pixels before upscaling.",
+  "Save 50 sample crops to Drive and look at them."],
+  out:"Crop samples look readable"},
+ {t:"Run EasyOCR with digits only",time:"45 min",gpu:true,why:"Your baseline OCR, already in the tutorial.",steps:[
+  "Docs: <a href=\"https://github.com/JaidedAI/EasyOCR\" target=\"_blank\" rel=\"noopener\">github.com/JaidedAI/EasyOCR</a>.",
+  "Code:"+C("import easyocr\nreader = easyocr.Reader(['en'], gpu=True)\nfor box, text, conf in reader.readtext(crop, allowlist='0123456789'):\n    print(text, conf)"),
+  "Keep reads with confidence ≥ 0.1 and values 0–99."],
+  out:"Reads saved per crop"},
+ {t:"Try a stronger text recogniser (PARSeq)",time:"90 min",gpu:true,why:"Modern scene-text models often read jersey digits better.",steps:[
+  "Repo: <a href=\"https://github.com/baudm/parseq\" target=\"_blank\" rel=\"noopener\">github.com/baudm/parseq</a>. It's a public general-purpose model; log it.",
+  "Load and run (follow the README for preprocessing):"+C("import torch\nparseq = torch.hub.load('baudm/parseq', 'parseq', pretrained=True).eval()\n# image: resize to 32x128, normalise as in the README\nprobs = parseq(img_tensor).softmax(-1)\nlabels, confs = parseq.tokenizer.decode(probs)"),
+  "Keep only results made of digits.",
+  "Hand-label 100 crops from Training or the tutorial clip (not the challenge videos) and compare per-crop accuracy of EasyOCR vs PARSeq."],
+  out:"Accuracy comparison in RESULTS.md"},
+ {t:"Vote one number per track",time:"45 min",why:"Many noisy reads add up to one reliable answer.",steps:[
+  "For each track, add up confidence per number read.",
+  "Give two-digit reads extra weight so \"1\" from a half-hidden \"11\" doesn't win.",
+  "If the top number's share is below ~50%, leave the track unlabelled; Day 12 will decide."],
+  out:"Number per track"},
+ {t:"Infer each video's roster automatically",time:"45 min",ask:true,why:"Manual identity labelling of challenge videos is forbidden, so code must find the six numbers unless the organizers provide them.",steps:[
+  "If the organizers give rosters, store them in <code>configs/rosters.yaml</code> and cite their source.",
+  "Otherwise: for each team cluster, sum vote weights per number across all tracks and keep the top three.",
+  "Check on the tutorial clip that this recovers A: 4, 10, 12 and B: 6, 9, 11.",
+  "Measure jersey accuracy with <code>evaluate.py</code>. Tutorial baseline: 92.3%."],
+  out:"Roster found automatically"}
+]},
+{k:"D12",label:"Day 12",date:"2026-10-28",title:"Identity assignment and output files",goal:"Each track gets one of the six identities, and the output files are valid.",tasks:[
+ {t:"Build the track-to-identity score table",time:"45 min",why:"Combines team, jersey and timing evidence into one decision.",steps:[
+  "Rows: tracks. Columns: the six (team, jersey) identities.",
+  "Score = jersey vote share for that number × team match (0 if team cluster differs) + small bonus for long tracks.",
+  "Find every pair of tracks that overlap in time; they can't be the same person."],
+  out:"Score table"},
+ {t:"Solve the assignment with OR-Tools",time:"90 min",why:"Guarantees no identity appears twice in one frame.",steps:[
+  "Docs: <a href=\"https://developers.google.com/optimization\" target=\"_blank\" rel=\"noopener\">developers.google.com/optimization</a>.",
+  "Code:"+C("from ortools.sat.python import cp_model\nm = cp_model.CpModel()\nx = {(t, i): m.NewBoolVar(f'x{t}_{i}') for t in T for i in IDS}\nfor t in T:\n    m.Add(sum(x[t, i] for i in IDS) <= 1)\nfor a, b in overlapping_pairs:\n    for i in IDS:\n        m.Add(x[a, i] + x[b, i] <= 1)\nm.Maximize(sum(int(1000 * score[t, i]) * x[t, i] for t in T for i in IDS))\nsolver = cp_model.CpSolver()\nsolver.parameters.max_time_in_seconds = 60\nsolver.Solve(m)"),
+  "Tracks that get no identity are dropped.",
+  "Evaluate. AssA should rise compared with per-track voting alone."],
+  out:"AssA improved"},
+ {t:"Choose what to output in uncertain frames",time:"60 min",why:"Every frame is scored, including before the game starts. Extra rows can be false positives; missing rows are false negatives.",steps:[
+  "Option 1: output each identity only where its tracks exist.",
+  "Option 2: also fill gaps between that identity's tracks.",
+  "Option 3: also extend to the start and end of the video by holding the first/last position.",
+  "Score all three on the tutorial clip; keep the best in <code>configs/final.yaml</code>."],
+  out:"Policy chosen"},
+ {t:"Write the submission writer and validator",time:"60 min",why:"A format mistake can zero your score.",steps:[
+  "Writer: one file per video named <code>IMG_0114.txt</code>, <code>IMG_0115.txt</code>, rows <code>frame_id,court_x,court_y,team_id,jersey_number</code>, no header, comma-separated.",
+  "Validator <code>scripts/validate_submission.py</code> checks: exactly 5 columns; no header line; frame_id integer from 1 to the video's frame count; team_id only A or B; jersey integer; x and y inside the court range; no duplicate (frame, team, jersey).",
+  "Run the validator on the tutorial output and fix anything it reports."],
+  out:"Validator passes"}
+]},
+{k:"D13",label:"Day 13",date:"2026-10-29",title:"One command, ablations, first challenge run",goal:"The whole method runs from one command, and you know what each part is worth.",tasks:[
+ {t:"Build run.py with a config file",time:"90 min",why:"Organizers must reproduce your predictions exactly.",steps:[
+  "<code>configs/final.yaml</code> holds every setting: detector path, imgsz, conf, margin, tracker, stitching thresholds, smoothing window, OCR model, output policy.",
+  "<code>run.py</code> loads it with <code>yaml.safe_load</code> and runs every stage, reusing caches if present.",
+  "Usage:"+C("python run.py --video IMG_0114.MOV --calib calib/IMG_0114.json \\\n  --config configs/final.yaml --out outputs/final"),
+  "Set fixed random seeds (numpy, torch, KMeans random_state)."],
+  out:"One command produces a prediction file"},
+ {t:"Test from a fresh clone",time:"45 min",gpu:true,why:"Catches missing files and hard-coded paths.",steps:[
+  "Open a brand-new Colab notebook, clone, install requirements, run <code>run.py</code> on the tutorial clip.",
+  "Score must match your best result.",
+  "Fix any errors and push."],
+  out:"Fresh clone reproduces the score"},
+ {t:"Run the ablation table",time:"2 h",gpu:true,why:"Shows which parts help. This becomes the main table of your paper.",steps:[
+  "Start from the baseline and switch on one improvement at a time: detector, foot points, margin, tracker, jump split, stitching, smoothing, team features, OCR model, voting, assignment, output policy.",
+  "For each row record TI-HOTA, DetA, AssA in <code>RESULTS.md</code>.",
+  "Remove anything that doesn't help."],
+  out:"Ablation table filled"},
+ {t:"First run on the challenge videos",time:"60 min",gpu:true,why:"Look for obvious problems without touching outputs by hand.",steps:[
+  "Run <code>run.py</code> on IMG_0114 and IMG_0115.",
+  "Make minimap overlay videos with the notebook's stage 10–12 code and watch them.",
+  "Check: about six players most of the time; two team colours; jersey labels stable.",
+  "If something is wrong, fix the method, re-check on the tutorial clip, and rerun. Never edit the output files."],
+  out:"Candidate predictions for both videos"}
+]},
+{k:"D14",label:"Day 14",date:"2026-10-30",title:"Freeze and package",goal:"Final files validated, code and weights preserved exactly as used.",tasks:[
+ {t:"Make the final predictions",time:"60 min",gpu:true,why:"These are the files you'll submit.",steps:[
+  "Rerun <code>run.py</code> on both challenge videos from a clean clone.",
+  "Run the validator on both files.",
+  "Save SHA-256 hashes of both prediction files in <code>RESULTS.md</code>."],
+  out:"Two validated .txt files"},
+ {t:"Upload weights to fixed-version links",time:"30 min",why:"Weight files are too big for the ZIP; links must stay valid during the review.",steps:[
+  "On GitHub: your repo → Releases → Draft a new release, tag <code>submission-v1</code>.",
+  "Attach <code>player_det.pt</code> and any other weights you trained or downloaded (each file must be under 2 GB).",
+  "Publish the release and copy each file's download link into <code>README.md</code> with its SHA-256."],
+  out:"Release with weights"},
+ {t:"Write the README for reproduction",time:"60 min",why:"Organizers will follow it exactly.",steps:[
+  "Sections: requirements and install; where to put videos; calibration procedure (manual clicks, with the files in <code>calib/</code>); how to run; expected outputs and run time; hardware used.",
+  "List every pretrained model with source and training data (copy from <code>COMPLIANCE.md</code>).",
+  "Describe the roster and Team A rules.",
+  "Update <code>requirements.txt</code> with <code>pip freeze</code> from Colab."],
+  out:"README complete"},
+ {t:"Tag and zip the code",time:"20 min",why:"The submitted code must be the exact version that made the predictions.",steps:[
+  "Tag the commit:"+C("git tag submission-v1\ngit push --tags"),
+  "Make the ZIP from that tag:"+C("git archive --format=zip -o trackid3x3_code.zip submission-v1"),
+  "Unzip it in a new folder and check the README and configs are inside.",
+  "From now on, don't change this tag. Any later fix gets a new tag and needs new predictions before Nov 3."],
+  out:"<code>trackid3x3_code.zip</code>"}
+]},
+{k:"B",label:"Buffer",date:"2026-10-31",end:"2026-11-02",title:"Buffer days",goal:"Spare time for things that took longer. Don't start big new ideas here.",tasks:[
+ {t:"Fix, rerun, re-tag if needed",time:"as needed",why:"Leaves room for disconnections and bugs.",steps:[
+  "Finish any unticked tasks above.",
+  "If you improve the method, rerun everything, re-validate, and create <code>submission-v2</code> with new predictions.",
+  "Stop changing the method by the evening of Nov 2."],
+  out:"Final tag chosen"}
+]},
+{k:"S",label:"Nov 3",date:"2026-11-03",title:"Submit",goal:"Predictions in before the deadline; everything preserved.",tasks:[
+ {t:"Submit predictions",time:"30 min",why:"There is one submission and no test-set ranking stage.",steps:[
+  "Open the prediction Google Form from the organizers' announcement.",
+  "Enter the exact team name from registration.",
+  "Upload <code>IMG_0114.txt</code> and <code>IMG_0115.txt</code>.",
+  "Save the confirmation in <code>admin/</code>.",
+  "Keep the tag, release and Drive files unchanged until the checks are complete."],
+  out:"Confirmation saved"},
+ {t:"Send the code package when asked",time:"20 min",why:"Needed for integrity and reproducibility checks; public release isn't required.",steps:[
+  "Upload <code>trackid3x3_code.zip</code> as the organizers instruct.",
+  "Make sure the weight links in the README still work in a private browser window."],
+  out:"Code package sent"}
+]},
+{k:"P",label:"After",date:"2026-11-04",end:"2026-11-20",title:"Paper and workshop",goal:"An 8–12 page ABC-format paper and a presenter ready.",tasks:[
+ {t:"Write the paper",time:"5–7 days",ask:true,why:"Accepted papers are published in IJABC by default.",steps:[
+  "Get the paper template from the ABC 2027 main website; write it in Overleaf (<a href=\"https://www.overleaf.com\" target=\"_blank\" rel=\"noopener\">overleaf.com</a>) if it's LaTeX.",
+  "Abstract: method in 3 sentences and your scores.",
+  "Methodology: dataset, preprocessing, calibration (including the manual clicks), each pipeline stage, pretrained models and training data, metric.",
+  "Results and Discussion: the ablation table, overlay screenshots, failure cases.",
+  "Conclusion and future work.",
+  "References: the three main dataset papers, including <a href=\"https://arxiv.org/abs/2503.18282v2\" target=\"_blank\" rel=\"noopener\">arXiv 2503.18282</a>, plus YOLO, BoxMOT/trackers, EasyOCR/PARSeq.",
+  "Describe only the version you submitted on Nov 3, not later improvements.",
+  "Submit through the CMT link once the organizers announce it."],
+  out:"Paper submitted"},
+ {t:"Prepare the workshop talk",time:"1 day",why:"At least one team member must present.",steps:[
+  "Slides: problem, pipeline diagram, ablation table, a short overlay clip, lessons learned.",
+  "Register for ABC 2027 through the main website.",
+  "Rehearse once with a timer."],
+  out:"Presenter registered and ready"}
+]}
+];
+
+const TOOLS=[
+ ["Python 3.11","Runs all code","<a href=\"https://www.python.org/downloads/\" target=\"_blank\" rel=\"noopener\">python.org/downloads</a>","Installer; tick \"Add to PATH\" on Windows"],
+ ["Git","Tracks code changes","<a href=\"https://git-scm.com/downloads\" target=\"_blank\" rel=\"noopener\">git-scm.com/downloads</a>","Installer, defaults"],
+ ["VS Code","Code editor and terminal","<a href=\"https://code.visualstudio.com/\" target=\"_blank\" rel=\"noopener\">code.visualstudio.com</a>","Installer + Python and Jupyter extensions"],
+ ["GitHub","Private code storage, releases for weights","<a href=\"https://github.com\" target=\"_blank\" rel=\"noopener\">github.com</a>","Free account"],
+ ["Google Colab","Free GPU for heavy jobs","<a href=\"https://colab.research.google.com\" target=\"_blank\" rel=\"noopener\">colab.research.google.com</a>","Browser; choose T4 GPU runtime"],
+ ["Google Drive","Stores videos, data, weights, outputs","<a href=\"https://drive.google.com\" target=\"_blank\" rel=\"noopener\">drive.google.com</a>","Browser; mount in Colab"],
+ ["FFmpeg / ffprobe","Checks frame counts and fps","<a href=\"https://ffmpeg.org/download.html\" target=\"_blank\" rel=\"noopener\">ffmpeg.org/download.html</a>","<code>winget install Gyan.FFmpeg</code> / <code>brew install ffmpeg</code>"],
+ ["PyTorch","Deep-learning engine under YOLO and OCR","<a href=\"https://pytorch.org/get-started/locally/\" target=\"_blank\" rel=\"noopener\">pytorch.org/get-started/locally</a>","Comes with ultralytics; local NVIDIA GPU only: use the selector"],
+ ["Ultralytics YOLO11","Player detection, pose, training","<a href=\"https://docs.ultralytics.com\" target=\"_blank\" rel=\"noopener\">docs.ultralytics.com</a>","<code>pip install ultralytics</code>; weights auto-download"],
+ ["OpenCV","Video reading, homography, drawing","<a href=\"https://opencv.org\" target=\"_blank\" rel=\"noopener\">opencv.org</a>","<code>pip install opencv-python</code>"],
+ ["BoxMOT","Trackers (ByteTrack, BoT-SORT, DeepOCSORT) and ReID","<a href=\"https://github.com/mikel-brostrom/boxmot\" target=\"_blank\" rel=\"noopener\">github.com/mikel-brostrom/boxmot</a>","<code>pip install boxmot</code>"],
+ ["EasyOCR","Baseline jersey reading","<a href=\"https://github.com/JaidedAI/EasyOCR\" target=\"_blank\" rel=\"noopener\">github.com/JaidedAI/EasyOCR</a>","<code>pip install easyocr</code>"],
+ ["PARSeq","Stronger text recogniser to compare","<a href=\"https://github.com/baudm/parseq\" target=\"_blank\" rel=\"noopener\">github.com/baudm/parseq</a>","<code>torch.hub.load('baudm/parseq', 'parseq', pretrained=True)</code>"],
+ ["pandas, NumPy, SciPy","Tables, maths, Hungarian matching, smoothing","<a href=\"https://pypi.org\" target=\"_blank\" rel=\"noopener\">pypi.org</a>","<code>pip install pandas numpy scipy</code>"],
+ ["scikit-learn","K-means team clustering","<a href=\"https://scikit-learn.org\" target=\"_blank\" rel=\"noopener\">scikit-learn.org</a>","<code>pip install scikit-learn</code>"],
+ ["OR-Tools","Identity assignment with constraints","<a href=\"https://developers.google.com/optimization\" target=\"_blank\" rel=\"noopener\">developers.google.com/optimization</a>","<code>pip install ortools</code>"],
+ ["ndjson, gdown, PyYAML, pytest, lap","Read keypoints, download Drive files, configs, tests, tracker helper","<a href=\"https://pypi.org\" target=\"_blank\" rel=\"noopener\">pypi.org</a>","<code>pip install ndjson gdown pyyaml pytest lap</code>"],
+ ["Tutorial files","Clip with ground truth, court keypoints","<a href=\"https://drive.google.com/drive/folders/1_yDMy8YVpxyqcKg2_eXN1xz_vg2FeCGu\" target=\"_blank\" rel=\"noopener\">Tutorial Drive folder</a>","Download and upload to your Drive"],
+ ["Official Training set and Challenge videos","Training data; videos to predict","Organizers' challenge page or emails","Download only from there"],
+ ["TrackID3x3 paper and code","Background; court definitions","<a href=\"https://arxiv.org/abs/2503.18282v2\" target=\"_blank\" rel=\"noopener\">arXiv</a> · <a href=\"https://github.com/open-starlab/TrackID3x3\" target=\"_blank\" rel=\"noopener\">GitHub</a>","Read only; don't use its other annotations"],
+ ["Overleaf","Writing the paper","<a href=\"https://www.overleaf.com\" target=\"_blank\" rel=\"noopener\">overleaf.com</a>","Free account"]
+];
+
+const GLOSS=[
+ ["Bounding box","A rectangle around a person in the image: x, y, width, height in pixels."],
+ ["Detection","One box the model found in one frame, with a confidence score from 0 to 1."],
+ ["Confidence threshold","Boxes below this score are thrown away. Lower finds more players but also more mistakes."],
+ ["YOLO","A fast object detector. YOLO11 comes in sizes n, s, m, l, x."],
+ ["Pretrained weights / checkpoint","A model file (.pt) that already learned from a big public dataset like COCO."],
+ ["Fine-tuning","Training a pretrained model a bit more on your own data (here: only the official Training set)."],
+ ["Epoch","One full pass over the training images."],
+ ["mAP50","Detector quality on validation images: higher is better, 1.0 is perfect."],
+ ["Pose keypoints","17 body points (shoulders, hips, ankles…) found by a pose model."],
+ ["Foot point","Where the player touches the floor in the image. It's the point mapped to the court."],
+ ["Homography","A 3×3 matrix that maps points on the court floor in the image to court centimetres."],
+ ["Court coordinates","Position on the court map in centimetres, in the same frame as the Training ground truth."],
+ ["Tracking","Linking detections across frames so each person keeps the same ID."],
+ ["Tracklet","A piece of one person's track, broken where the tracker lost them."],
+ ["ID switch","When a track jumps from one player to another. Hurts AssA."],
+ ["ReID","Re-identification: a model that turns a person crop into a vector so the same person looks similar later."],
+ ["Kalman filter","Predicts where a player will be next frame from their recent motion."],
+ ["Hungarian method","Finds the best one-to-one matching in a cost table (scipy linear_sum_assignment)."],
+ ["OCR","Optical character recognition: reading the jersey number from an image."],
+ ["Roster","The six (team, jersey number) identities in a video."],
+ ["Team A / Team B","A = team on offense at the start of the video; B = team on defense at the start."],
+ ["MOT format","Text rows: frame, track id, box x, y, w, h, confidence, -1, -1, -1."],
+ ["TI-HOTA","The challenge score. Combines detection accuracy (DetA) and identity association accuracy (AssA). Matches must be within 100 cm and have the right team and jersey."],
+ ["Ablation","Testing a method with one part switched on or off to see what that part adds."],
+ ["Virtual environment","A private folder of Python libraries for one project (.venv)."],
+ ["Colab runtime","The cloud computer behind a Colab notebook. It resets when disconnected, so save to Drive."]
+];
+
+/* --- Storage & History Core --- */
+const KEY = "trackid3x3-roadmap-v2";
+const HIST_KEY = "trackid3x3-roadmap-history";
+const THEME_KEY = "trackid3x3-theme";
+const DAY_MS = 864e5, DL = new Date("2026-11-03");
+const todayStr = new Date().toISOString().slice(0,10);
+
+let st = {};
+try { st = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch(e) { st = {}; }
+
+let hist = [];
+try { hist = JSON.parse(localStorage.getItem(HIST_KEY) || "[]"); } catch(e) { hist = []; }
+
+const saveState = () => { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch(e){} };
+const saveHistory = () => { try { localStorage.setItem(HIST_KEY, JSON.stringify(hist)); } catch(e){} };
+
+/* Pre-compute task IDs and relationships */
+DAYS.forEach(d => d.tasks.forEach((t, i) => { t.id = d.k + "." + (i + 1); t.day = d.k; }));
+const ALL = DAYS.flatMap(d => d.tasks);
+const sid = (t, j) => t.id + "." + (j + 1);
+
+/* Normalize step status for backward compatibility (supports 1, true, or object) */
+const isStepDone = id => {
+  const v = st[id];
+  return Boolean(v && (v === 1 || v === true || v.checked));
+};
+
+const getStepMeta = id => {
+  const v = st[id];
+  if (!v) return null;
+  if (typeof v === "object" && v.at) return v;
+  return { checked: true, ts: null, at: null };
+};
+
+const taskDone = t => t.steps.every((_, j) => isStepDone(sid(t, j)));
+
+const cleanText = str => (str || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+
+const fmtDate = d => new Date(d + "T12:00:00").toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
+
+function formatTimeBadge(isoOrTs) {
+  if (!isoOrTs) return "Done";
+  const d = new Date(isoOrTs);
+  if (isNaN(d.getTime())) return "Done";
+  return d.toLocaleDateString("en-US", { month: "short", day: "numeric" }) + " · " +
+         d.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: false });
+}
+
+function formatFullTime(isoOrTs) {
+  if (!isoOrTs) return "Completed";
+  const d = new Date(isoOrTs);
+  if (isNaN(d.getTime())) return "Completed";
+  return "Completed on " + d.toLocaleDateString("en-US", { weekday: "short", year: "numeric", month: "short", day: "numeric" }) + " at " +
+         d.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+}
+
+function formatRelativeTime(ts) {
+  if (!ts) return "";
+  const diff = Date.now() - Number(ts);
+  if (diff < 60000) return "Just now";
+  if (diff < 3600000) return Math.floor(diff / 60000) + "m ago";
+  if (diff < 86400000) return Math.floor(diff / 3600000) + "h ago";
+  const d = new Date(ts);
+  return d.toLocaleDateString("en-US", { month: "short", day: "numeric" }) + " " +
+         d.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: false });
+}
+
+/* Toast Notification */
+let toastTimer = null;
+function showToast(msg, duration = 2800) {
+  const toast = document.getElementById("toast");
+  toast.textContent = msg;
+  toast.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove("show"), duration);
+}
+
+/* Scoreboard Stats */
+function stats() {
+  const tot = ALL.reduce((a, t) => a + t.steps.length, 0);
+  const dn = ALL.reduce((a, t) => a + t.steps.filter((_, j) => isStepDone(sid(t, j))).length, 0);
+  document.getElementById("doneCount").textContent = dn + "/" + tot;
+  document.getElementById("taskCount").textContent = ALL.filter(taskDone).length + "/" + ALL.length;
+  document.getElementById("progBar").style.width = tot > 0 ? (dn / tot * 100) + "%" : "0%";
+  const today = new Date(todayStr);
+  document.getElementById("daysLeft").textContent = Math.max(0, Math.round((DL - today) / DAY_MS));
+  DAYS.forEach(d => {
+    const el = document.getElementById("pct-" + d.k);
+    if (el) {
+      const n = d.tasks.filter(taskDone).length;
+      el.textContent = n + "/" + d.tasks.length + " tasks";
+    }
+  });
+  updateHistBadge();
+}
+
+function updateHistBadge() {
+  const b = document.getElementById("histBadge");
+  if (b) b.textContent = hist.length;
+}
+
+function inDay(d) {
+  const end = d.end || d.date;
+  return todayStr >= d.date && todayStr <= end;
+}
+
+function getTimeTagHtml(sId) {
+  if (!isStepDone(sId)) return "";
+  const meta = getStepMeta(sId);
+  const timeStr = meta && meta.at ? formatTimeBadge(meta.at) : "Done";
+  const fullStr = meta && meta.at ? formatFullTime(meta.at) : "Completed step";
+  return `<span class="time-pill" title="${fullStr}">✓ ${timeStr}</span>`;
+}
+
+/* --- Render Main Roadmap --- */
+function render() {
+  const jump = document.getElementById("jump");
+  jump.innerHTML = DAYS.map(d => `<a href="#${d.k}" class="${inDay(d) ? "today" : ""}">${d.label}</a>`).join("") +
+                   `<a href="#toolbox">Toolbox</a><a href="#glossary">Glossary</a>`;
+  
+  const root = document.getElementById("days");
+  root.innerHTML = "";
+
+  DAYS.forEach(d => {
+    const sec = document.createElement("section");
+    sec.className = "day";
+    sec.id = d.k;
+    sec.innerHTML = `<div class="day-head"><h3>${d.label} · ${d.title}</h3><span class="dates">${fmtDate(d.date)}${d.end ? " – " + fmtDate(d.end) : ""}${inDay(d) ? " · today" : ""}</span><span class="pct" id="pct-${d.k}"></span></div><p class="day-goal">${d.goal}</p>`;
+    
+    d.tasks.forEach(t => {
+      const el = document.createElement("details");
+      el.className = "task" + (taskDone(t) ? " done" : "");
+      el.dataset.ask = t.ask ? "1" : "0";
+      el.dataset.gpu = t.gpu ? "1" : "0";
+      el.dataset.text = (t.t + " " + t.why + " " + t.steps.join(" ")).replace(/<[^>]+>/g, " ").toLowerCase();
+      const n = t.steps.filter((_, j) => isStepDone(sid(t, j))).length;
+      
+      el.innerHTML = `
+        <summary>
+          <span class="tid">${t.id}</span>
+          <span class="ttl">${t.t}</span>
+          <span class="meta">
+            ${t.ask ? '<span class="pill p-ask">Confirm</span>' : ''}
+            ${t.gpu ? '<span class="pill p-gpu">Colab</span>' : ''}
+            <span class="pill p-time">${t.time}</span>
+            <span class="pill p-cnt">${n}/${t.steps.length}</span>
+          </span>
+        </summary>
+        <div class="body">
+          <p class="why">${t.why}</p>
+          <ol class="steps">
+            ${t.steps.map((s, j) => {
+              const sId = sid(t, j);
+              const done = isStepDone(sId);
+              return `<li class="${done ? "ck" : ""}">
+                <input type="checkbox" id="cb-${sId}" data-s="${sId}" aria-label="Step ${j + 1} of ${t.t}" ${done ? "checked" : ""}>
+                <span class="n">${j + 1}</span>
+                <div class="s">${s} <span class="step-time-tag" id="tag-${sId}">${getTimeTagHtml(sId)}</span></div>
+              </li>`;
+            }).join("")}
+          </ol>
+          <div class="out"><b>Done when</b><span>${t.out}</span></div>
+        </div>`;
+
+      /* Checkbox change handler with history logging */
+      el.querySelectorAll("input[data-s]").forEach((cb, j) => {
+        cb.addEventListener("change", () => {
+          const sId = cb.dataset.s;
+          const now = new Date();
+          const ts = now.getTime();
+          const iso = now.toISOString();
+          const stepSnippet = cleanText(t.steps[j]).slice(0, 140);
+
+          if (cb.checked) {
+            st[sId] = { checked: true, ts, at: iso };
+            hist.unshift({
+              id: "h_" + ts + "_" + Math.random().toString(36).slice(2, 6),
+              stepId: sId,
+              taskId: t.id,
+              taskTitle: t.t,
+              stepNum: j + 1,
+              text: stepSnippet,
+              action: "checked",
+              ts,
+              iso
+            });
+          } else {
+            delete st[sId];
+            hist.unshift({
+              id: "h_" + ts + "_" + Math.random().toString(36).slice(2, 6),
+              stepId: sId,
+              taskId: t.id,
+              taskTitle: t.t,
+              stepNum: j + 1,
+              text: stepSnippet,
+              action: "unchecked",
+              ts,
+              iso
+            });
+          }
+
+          if (hist.length > 800) hist = hist.slice(0, 800);
+          saveState();
+          saveHistory();
+
+          cb.closest("li").classList.toggle("ck", cb.checked);
+          const tagEl = document.getElementById("tag-" + sId);
+          if (tagEl) tagEl.innerHTML = getTimeTagHtml(sId);
+
+          const k = t.steps.filter((_, idx) => isStepDone(sid(t, idx))).length;
+          el.querySelector(".p-cnt").textContent = k + "/" + t.steps.length;
+          el.classList.toggle("done", taskDone(t));
+          
+          stats();
+          applyFilter();
+        });
+      });
+
+      sec.appendChild(el);
+    });
+    root.appendChild(sec);
+  });
+
+  document.querySelector("#tools tbody").innerHTML = TOOLS.map(r => `<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td></tr>`).join("");
+  document.getElementById("gl").innerHTML = GLOSS.map(g => `<div><dt>${g[0]}</dt><dd>${g[1]}</dd></div>`).join("");
+  
+  stats();
+  applyFilter();
+}
+
+/* --- Filter Logic --- */
+let filt = "all";
+function applyFilter() {
+  const q = document.getElementById("q").value.trim().toLowerCase();
+  document.querySelectorAll(".task").forEach(el => {
+    let show = true;
+    if (filt === "open") show = !el.classList.contains("done");
+    if (filt === "done") show = el.classList.contains("done");
+    if (filt === "ask") show = el.dataset.ask === "1";
+    if (filt === "gpu") show = el.dataset.gpu === "1";
+    if (q && !el.dataset.text.includes(q)) show = false;
+    el.hidden = !show;
+  });
+  document.querySelectorAll(".day").forEach(s => {
+    s.hidden = ![...s.querySelectorAll(".task")].some(t => !t.hidden);
+  });
+}
+
+document.querySelectorAll(".chip[data-f], .chip[data-x]").forEach(b => b.addEventListener("click", () => {
+  if (b.dataset.x) {
+    const on = b.getAttribute("aria-pressed") !== "true";
+    b.setAttribute("aria-pressed", on);
+    b.textContent = on ? "Collapse all" : "Expand all";
+    document.querySelectorAll(".task").forEach(d => d.open = on);
+    return;
+  }
+  filt = b.dataset.f;
+  document.querySelectorAll(".chip[data-f]").forEach(x => x.setAttribute("aria-pressed", x === b));
+  applyFilter();
+}));
+document.getElementById("q").addEventListener("input", applyFilter);
+
+/* --- Checkbox History Modal --- */
+let histFilt = "all";
+const modalHist = document.getElementById("modalHistory");
+
+function openHistoryModal() {
+  renderHistoryList();
+  modalHist.classList.add("open");
+  document.getElementById("histSearch").focus();
+}
+
+function closeHistoryModal() {
+  modalHist.classList.remove("open");
+}
+
+function renderHistoryList() {
+  const listEl = document.getElementById("histList");
+  const q = (document.getElementById("histSearch").value || "").trim().toLowerCase();
+  
+  let filtered = hist.filter(item => {
+    if (histFilt === "checked" && item.action !== "checked") return false;
+    if (histFilt === "unchecked" && item.action !== "unchecked") return false;
+    if (q) {
+      const match = (item.stepId + " " + item.taskTitle + " " + item.text).toLowerCase();
+      if (!match.includes(q)) return false;
+    }
+    return true;
+  });
+
+  if (filtered.length === 0) {
+    listEl.innerHTML = `<li class="hist-empty">${hist.length === 0 ? "No activity logged yet. Check any step above to record history!" : "No events match your search."}</li>`;
+    return;
+  }
+
+  listEl.innerHTML = filtered.map(item => {
+    const isCk = item.action === "checked";
+    const badge = isCk ? `<span class="hist-badge-ck">✓ Checked</span>` : `<span class="hist-badge-un">↺ Unchecked</span>`;
+    const relTime = formatRelativeTime(item.ts);
+    const absTime = item.iso ? new Date(item.iso).toLocaleString("en-US", { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit", second: "2-digit" }) : "";
+    
+    return `<li class="hist-item">
+      <div>${badge}</div>
+      <div>
+        <div class="hist-step-id">${item.stepId} · ${item.taskTitle} (Step ${item.stepNum})</div>
+        <div class="hist-step-text">${item.text}</div>
+      </div>
+      <div class="hist-meta-col">
+        <span class="hist-time" title="${absTime}">${relTime}</span>
+        <button class="hist-jump-btn" data-jump="${item.stepId}">View Step</button>
+      </div>
+    </li>`;
+  }).join("");
+
+  listEl.querySelectorAll(".hist-jump-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const sId = btn.dataset.jump;
+      closeHistoryModal();
+      jumpToStep(sId);
+    });
+  });
+}
+
+function jumpToStep(sId) {
+  const cb = document.getElementById("cb-" + sId);
+  if (!cb) return;
+  const taskDetails = cb.closest("details.task");
+  if (taskDetails) taskDetails.open = true;
+  cb.closest("li").scrollIntoView({ behavior: "smooth", block: "center" });
+  cb.focus();
+  const li = cb.closest("li");
+  li.style.transition = "background .3s";
+  const origBg = li.style.background;
+  li.style.background = "var(--accent-soft)";
+  setTimeout(() => { li.style.background = origBg; }, 1200);
+}
+
+document.getElementById("btnHistory").addEventListener("click", openHistoryModal);
+document.getElementById("closeHistory").addEventListener("click", closeHistoryModal);
+document.getElementById("histSearch").addEventListener("input", renderHistoryList);
+
+document.querySelectorAll(".chip[data-hf]").forEach(b => b.addEventListener("click", () => {
+  histFilt = b.dataset.hf;
+  document.querySelectorAll(".chip[data-hf]").forEach(x => x.setAttribute("aria-pressed", x === b));
+  renderHistoryList();
+}));
+
+/* Export History as JSON */
+document.getElementById("btnExportHist").addEventListener("click", () => {
+  if (hist.length === 0) { showToast("No history to export."); return; }
+  const blob = new Blob([JSON.stringify(hist, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `trackid3x3-history-${todayStr}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast("✓ History log downloaded");
+});
+
+/* Copy History as Markdown */
+document.getElementById("btnCopyHistMd").addEventListener("click", () => {
+  if (hist.length === 0) { showToast("No history to copy."); return; }
+  let md = `# TrackID3x3 Roadmap Activity History\n*Exported: ${new Date().toLocaleString()}*\n\n`;
+  hist.forEach(h => {
+    const symbol = h.action === "checked" ? "[x]" : "[ ]";
+    const time = h.iso ? new Date(h.iso).toLocaleString() : "";
+    md += `- ${symbol} **${h.stepId}** (${time}): ${h.taskTitle} - Step ${h.stepNum}: ${h.text}\n`;
+  });
+  navigator.clipboard.writeText(md).then(() => {
+    showToast("✓ History copied as Markdown!");
+  }).catch(() => {
+    showToast("Failed to copy to clipboard");
+  });
+});
+
+/* Clear History */
+document.getElementById("btnClearHist").addEventListener("click", () => {
+  if (confirm("Clear all recorded history events? (Your current checkmarks will stay intact).")) {
+    hist = [];
+    saveHistory();
+    renderHistoryList();
+    updateHistBadge();
+    showToast("History cleared.");
+  }
+});
+
+/* --- Backup & Restore Modal --- */
+const modalBackup = document.getElementById("modalBackup");
+document.getElementById("btnBackup").addEventListener("click", () => modalBackup.classList.add("open"));
+document.getElementById("closeBackup").addEventListener("click", () => modalBackup.classList.remove("open"));
+document.getElementById("closeBackupBtn").addEventListener("click", () => modalBackup.classList.remove("open"));
+
+/* Export Full Progress (State + History) */
+document.getElementById("btnExportData").addEventListener("click", () => {
+  const exportPayload = {
+    app: "TrackID3x3 Build Roadmap",
+    version: 2,
+    exportedAt: new Date().toISOString(),
+    completedStepsCount: ALL.reduce((a, t) => a + t.steps.filter((_, j) => isStepDone(sid(t, j))).length, 0),
+    totalStepsCount: ALL.reduce((a, t) => a + t.steps.length, 0),
+    state: st,
+    history: hist
+  };
+  const blob = new Blob([JSON.stringify(exportPayload, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `trackid3x3-roadmap-backup-${todayStr}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast("✓ Full backup downloaded");
+});
+
+/* Import Backup */
+document.getElementById("importFileInput").addEventListener("change", e => {
+  const file = e.target.files && e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = evt => {
+    try {
+      const data = JSON.parse(evt.target.result);
+      if (data && (data.state || typeof data === "object")) {
+        if (confirm("Restore progress and history from this backup? This will update your current checkmarks.")) {
+          st = data.state || (data.history ? {} : data);
+          if (Array.isArray(data.history)) {
+            hist = data.history;
+          }
+          saveState();
+          saveHistory();
+          render();
+          modalBackup.classList.remove("open");
+          showToast("✓ Progress and history restored!");
+        }
+      } else {
+        alert("Invalid backup file format.");
+      }
+    } catch(err) {
+      alert("Error reading file: " + err.message);
+    }
+  };
+  reader.readAsText(file);
+  e.target.value = "";
+});
+
+/* Reset Everything */
+document.getElementById("btnResetAll").addEventListener("click", () => {
+  if (confirm("WARNING: Are you sure you want to reset ALL checkboxes and history?")) {
+    if (confirm("Confirm one more time: Reset all progress?")) {
+      st = {};
+      hist = [];
+      saveState();
+      saveHistory();
+      render();
+      modalBackup.classList.remove("open");
+      showToast("Progress and history reset.");
+    }
+  }
+});
+
+/* --- Theme Switcher --- */
+const themes = ["auto", "dark", "light"];
+let curTheme = localStorage.getItem(THEME_KEY) || "auto";
+
+function applyTheme(theme) {
+  curTheme = theme;
+  localStorage.setItem(THEME_KEY, theme);
+  const root = document.documentElement;
+  const icon = document.getElementById("themeIcon");
+  const label = document.getElementById("themeLabel");
+  
+  if (theme === "auto") {
+    root.removeAttribute("data-theme");
+    if (icon) icon.textContent = "🌓";
+    if (label) label.textContent = "Auto";
+  } else if (theme === "dark") {
+    root.setAttribute("data-theme", "dark");
+    if (icon) icon.textContent = "🌙";
+    if (label) label.textContent = "Dark";
+  } else {
+    root.setAttribute("data-theme", "light");
+    if (icon) icon.textContent = "☀️";
+    if (label) label.textContent = "Light";
+  }
+}
+
+document.getElementById("btnTheme").addEventListener("click", () => {
+  const nextIdx = (themes.indexOf(curTheme) + 1) % themes.length;
+  applyTheme(themes[nextIdx]);
+  showToast("Theme: " + curTheme.toUpperCase(), 1500);
+});
+applyTheme(curTheme);
+
+/* --- Print Button --- */
+document.getElementById("btnPrint").addEventListener("click", () => {
+  window.print();
+});
+
+/* Close modals on ESC or outside click */
+window.addEventListener("keydown", e => {
+  if (e.key === "Escape") {
+    closeHistoryModal();
+    modalBackup.classList.remove("open");
+  }
+});
+[modalHist, modalBackup].forEach(m => {
+  m.addEventListener("click", e => {
+    if (e.target === m) {
+      m.classList.remove("open");
+    }
+  });
+});
+
+/* Initial render */
+render();
+</script>
+
+</body>
+</html>
