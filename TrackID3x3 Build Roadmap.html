@@ -34,6 +34,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 
+  <!-- Supabase JS Client & Config -->
+  <script src="supabase-config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
   <style>
   :root{
     color-scheme: light;
@@ -204,6 +208,17 @@
   #toast{position:fixed;bottom:24px;right:24px;background:var(--fg);color:var(--bg);font:500 .84rem var(--mono);padding:10px 18px;border-radius:8px;box-shadow:0 10px 28px rgba(0,0,0,0.3);z-index:2000;opacity:0;pointer-events:none;transform:translateY(12px);transition:all .25s ease}
   #toast.show{opacity:1;pointer-events:auto;transform:translateY(0)}
 
+  /* Cloud Sync Status Indicator & Modal */
+  .sync-dot{width:8px;height:8px;border-radius:50%;display:inline-block;background:var(--muted);transition:background .2s ease;flex-shrink:0}
+  .sync-dot.connected{background:var(--ok);box-shadow:0 0 6px var(--ok)}
+  .sync-dot.syncing{background:var(--warn);animation:syncPulse 1s infinite alternate}
+  .sync-dot.error{background:var(--accent)}
+  .sync-dot.offline{background:var(--muted)}
+  @keyframes syncPulse{from{opacity:.4;transform:scale(0.85)}to{opacity:1;transform:scale(1.15)}}
+  @keyframes remoteHighlight{0%{background:var(--court-soft)}100%{background:transparent}}
+  .step-remote-update{animation:remoteHighlight 1.5s ease}
+  .sync-status-box{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:14px}
+
   @media (max-width:560px){
     .task summary{grid-template-columns:1fr}
     .task summary .tid{display:none}
@@ -240,6 +255,9 @@
   <div class="top-bar">
     <div class="eyebrow">ABC 2027 · TrackID3x3 Challenge · beginner edition</div>
     <div class="top-actions" role="toolbar" aria-label="Roadmap Tools">
+      <button class="top-btn" id="btnSync" title="Cloud Sync Status & Settings" aria-label="Supabase Cloud Sync">
+        <span id="syncDot" class="sync-dot offline"></span> <span id="syncStatus">Cloud Sync</span>
+      </button>
       <button class="top-btn" id="btnTheme" title="Toggle color scheme (Auto, Dark, Light)" aria-label="Toggle theme">
         <span id="themeIcon">🌓</span> <span id="themeLabel">Theme</span>
       </button>
@@ -256,6 +274,7 @@
   </div>
 
   <h1>TrackID3x3 Build Roadmap</h1>
+
   
   <div class="board" aria-label="Status">
     <div class="cell hot"><b id="daysLeft">–</b><span>days to prediction deadline (Nov 3)</span></div>
@@ -367,6 +386,58 @@
     </div>
     <div class="modal-foot">
       <button class="btn" id="closeBackupBtn">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Supabase Cloud Sync Modal -->
+<div class="modal-backdrop" id="modalSync" role="dialog" aria-modal="true" aria-labelledby="syncModalTitle">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="syncModalTitle">Supabase Cloud Sync</h3>
+      <button class="modal-close" id="closeSync" aria-label="Close dialog">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div id="syncStatusBox" class="sync-status-box">
+        <div style="display:flex;align-items:center;gap:10px">
+          <span id="modalSyncDot" class="sync-dot offline" style="width:12px;height:12px"></span>
+          <strong id="modalSyncTitle">Not Connected</strong>
+        </div>
+        <p id="modalSyncDesc" style="margin:4px 0 0;font-size:.85rem;color:var(--muted)">
+          Connect to your Supabase project to enable a shared, real-time checklist across all devices.
+        </p>
+      </div>
+
+      <div style="background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:10px">
+        <strong>Project Credentials</strong>
+        <p style="margin:0;font-size:.84rem;color:var(--muted)">
+          Configure your Supabase project credentials. These can also be preset in <code>supabase-config.js</code>.
+        </p>
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <label for="cfgSupabaseUrl" style="font-size:.8rem;font-weight:600;color:var(--muted);font-family:var(--mono)">Project URL</label>
+          <input type="url" id="cfgSupabaseUrl" placeholder="https://xyzcompany.supabase.co" style="font:inherit;font-size:.85rem;padding:7px 10px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--fg)">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <label for="cfgSupabaseKey" style="font-size:.8rem;font-weight:600;color:var(--muted);font-family:var(--mono)">Publishable / Anon API Key</label>
+          <input type="password" id="cfgSupabaseKey" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." style="font:inherit;font-size:.85rem;padding:7px 10px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--fg)">
+          <small style="font-size:.74rem;color:var(--muted)">Only provide your public <code>anon</code> key. <strong>NEVER</strong> enter your <code>service_role</code> secret key.</small>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:4px;flex-wrap:wrap">
+          <button class="btn btn-primary" id="btnSaveSync">💾 Save & Connect</button>
+          <button class="btn" id="btnTestSync">⚡ Test Connection</button>
+          <button class="btn btn-danger" id="btnClearSync">Disconnect</button>
+        </div>
+      </div>
+
+      <div style="background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:6px">
+        <strong>Database Setup Checklist</strong>
+        <p style="margin:0;font-size:.84rem;color:var(--muted)">
+          Ensure you have executed the SQL script in <code>supabase-schema.sql</code> in your Supabase SQL Editor. This sets up the <code>checklist_items</code> table, Row Level Security (RLS) policies, and Realtime replication.
+        </p>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn" id="closeSyncBtn">Close</button>
     </div>
   </div>
 </div>
@@ -986,6 +1057,10 @@ const saveHistory = () => { try { localStorage.setItem(HIST_KEY, JSON.stringify(
 DAYS.forEach(d => d.tasks.forEach((t, i) => { t.id = d.k + "." + (i + 1); t.day = d.k; }));
 const ALL = DAYS.flatMap(d => d.tasks);
 const sid = (t, j) => t.id + "." + (j + 1);
+const findTaskForStep = sId => {
+  const parts = sId.split(".");
+  return ALL.find(t => t.id === parts.slice(0, -1).join("."));
+};
 
 /* Normalize step status for backward compatibility (supports 1, true, or object) */
 const isStepDone = id => {
@@ -1130,58 +1205,9 @@ function render() {
           <div class="out"><b>Done when</b><span>${t.out}</span></div>
         </div>`;
 
-      /* Checkbox change handler with history logging */
+      /* Checkbox change handler with history logging and Supabase sync */
       el.querySelectorAll("input[data-s]").forEach((cb, j) => {
-        cb.addEventListener("change", () => {
-          const sId = cb.dataset.s;
-          const now = new Date();
-          const ts = now.getTime();
-          const iso = now.toISOString();
-          const stepSnippet = cleanText(t.steps[j]).slice(0, 140);
-
-          if (cb.checked) {
-            st[sId] = { checked: true, ts, at: iso };
-            hist.unshift({
-              id: "h_" + ts + "_" + Math.random().toString(36).slice(2, 6),
-              stepId: sId,
-              taskId: t.id,
-              taskTitle: t.t,
-              stepNum: j + 1,
-              text: stepSnippet,
-              action: "checked",
-              ts,
-              iso
-            });
-          } else {
-            delete st[sId];
-            hist.unshift({
-              id: "h_" + ts + "_" + Math.random().toString(36).slice(2, 6),
-              stepId: sId,
-              taskId: t.id,
-              taskTitle: t.t,
-              stepNum: j + 1,
-              text: stepSnippet,
-              action: "unchecked",
-              ts,
-              iso
-            });
-          }
-
-          if (hist.length > 800) hist = hist.slice(0, 800);
-          saveState();
-          saveHistory();
-
-          cb.closest("li").classList.toggle("ck", cb.checked);
-          const tagEl = document.getElementById("tag-" + sId);
-          if (tagEl) tagEl.innerHTML = getTimeTagHtml(sId);
-
-          const k = t.steps.filter((_, idx) => isStepDone(sid(t, idx))).length;
-          el.querySelector(".p-cnt").textContent = k + "/" + t.steps.length;
-          el.classList.toggle("done", taskDone(t));
-          
-          stats();
-          applyFilter();
-        });
+        cb.addEventListener("change", () => onCheckboxChanged(cb, t, j));
       });
 
       sec.appendChild(el);
@@ -1412,7 +1438,7 @@ document.getElementById("importFileInput").addEventListener("change", e => {
 });
 
 /* Reset Everything */
-document.getElementById("btnResetAll").addEventListener("click", () => {
+document.getElementById("btnResetAll").addEventListener("click", async () => {
   if (confirm("WARNING: Are you sure you want to reset ALL checkboxes and history?")) {
     if (confirm("Confirm one more time: Reset all progress?")) {
       st = {};
@@ -1421,7 +1447,18 @@ document.getElementById("btnResetAll").addEventListener("click", () => {
       saveHistory();
       render();
       modalBackup.classList.remove("open");
-      showToast("Progress and history reset.");
+
+      if (supabaseClient) {
+        try {
+          const resetIso = new Date().toISOString();
+          await supabaseClient.from("checklist_items").update({ checked: false, updated_at: resetIso }).neq("id", "");
+          showToast("Progress and history reset locally and on Supabase cloud.");
+        } catch(err) {
+          showToast("Progress reset locally. (Cloud reset notice: " + err.message + ")");
+        }
+      } else {
+        showToast("Progress and history reset.");
+      }
     }
   }
 });
@@ -1464,14 +1501,426 @@ document.getElementById("btnPrint").addEventListener("click", () => {
   window.print();
 });
 
+/* --- Supabase Cloud Sync & Realtime Core --- */
+let supabaseClient = null;
+let realtimeChannel = null;
+let syncStatusState = "offline"; // "connected" | "syncing" | "error" | "offline"
+
+function getSupabaseCredentials() {
+  let url = "";
+  let key = "";
+  if (window.SUPABASE_CONFIG) {
+    url = (window.SUPABASE_CONFIG.url || "").trim();
+    key = (window.SUPABASE_CONFIG.anonKey || "").trim();
+  }
+  if (!url || !key) {
+    try {
+      url = (localStorage.getItem("supabase_url") || "").trim();
+      key = (localStorage.getItem("supabase_anon_key") || "").trim();
+    } catch(e) {}
+  }
+  return { url, key };
+}
+
+function updateSyncUI(status, label, desc) {
+  syncStatusState = status;
+  const dot = document.getElementById("syncDot");
+  const text = document.getElementById("syncStatus");
+  const mDot = document.getElementById("modalSyncDot");
+  const mTitle = document.getElementById("modalSyncTitle");
+  const mDesc = document.getElementById("modalSyncDesc");
+
+  if (dot) dot.className = "sync-dot " + status;
+  if (text) text.textContent = label;
+  if (mDot) mDot.className = "sync-dot " + status;
+  if (mTitle) mTitle.textContent = label;
+  if (mDesc && desc) mDesc.textContent = desc;
+}
+
+async function initSupabase() {
+  const { url, key } = getSupabaseCredentials();
+
+  const urlInput = document.getElementById("cfgSupabaseUrl");
+  const keyInput = document.getElementById("cfgSupabaseKey");
+  if (urlInput && !urlInput.value) urlInput.value = url;
+  if (keyInput && !keyInput.value) keyInput.value = key;
+
+  if (!url || !key || url.includes("your-project-id") || key.includes("your-anon-publishable-key")) {
+    updateSyncUI("offline", "Cloud Setup", "Supabase is not configured yet. Progress is currently saved locally. Click to connect cloud sync.");
+    return;
+  }
+
+  if (!window.supabase || typeof window.supabase.createClient !== "function") {
+    updateSyncUI("error", "SDK Missing", "Supabase client library failed to load. Check your internet connection.");
+    return;
+  }
+
+  try {
+    updateSyncUI("syncing", "Connecting...", "Connecting to Supabase...");
+    supabaseClient = window.supabase.createClient(url, key, {
+      auth: { persistSession: false }
+    });
+
+    // 1. Fetch remote states and reconcile
+    await fetchAndApplyRemoteState();
+
+    // 2. Subscribe to Realtime Postgres changes
+    subscribeToRealtime();
+  } catch (err) {
+    console.error("Supabase init error:", err);
+    updateSyncUI("error", "Sync Error", err.message || "Failed to initialize Supabase.");
+  }
+}
+
+async function fetchAndApplyRemoteState() {
+  if (!supabaseClient) return;
+  updateSyncUI("syncing", "Syncing...", "Fetching checklist items from Supabase...");
+
+  try {
+    const { data, error } = await supabaseClient
+      .from("checklist_items")
+      .select("id, checked, updated_at");
+
+    if (error) {
+      console.error("Error fetching checklist_items:", error);
+      updateSyncUI("error", "Sync Error", "Fetch error: " + error.message);
+      showToast("⚠️ Could not fetch cloud checklist: " + error.message);
+      return;
+    }
+
+    if (Array.isArray(data)) {
+      let changedCount = 0;
+      data.forEach(item => {
+        if (!item || !item.id) return;
+        const sId = item.id;
+        const isDone = Boolean(item.checked);
+        const currentDone = isStepDone(sId);
+        const itemTs = item.updated_at ? new Date(item.updated_at).getTime() : Date.now();
+        const itemIso = item.updated_at || new Date(itemTs).toISOString();
+
+        if (isDone) {
+          st[sId] = { checked: true, ts: itemTs, at: itemIso };
+        } else {
+          delete st[sId];
+        }
+
+        if (isDone !== currentDone) {
+          changedCount++;
+        }
+      });
+
+      saveState();
+      refreshAllCheckboxesDOM();
+      stats();
+      applyFilter();
+
+      if (changedCount > 0) {
+        showToast(`✓ Synced with Supabase (${changedCount} items updated)`);
+      }
+    }
+  } catch (netErr) {
+    console.error("Network error fetching checklist:", netErr);
+    updateSyncUI("error", "Offline", "Network error connecting to Supabase.");
+  }
+}
+
+function subscribeToRealtime() {
+  if (!supabaseClient) return;
+  if (realtimeChannel) {
+    supabaseClient.removeChannel(realtimeChannel);
+    realtimeChannel = null;
+  }
+
+  realtimeChannel = supabaseClient
+    .channel("public:checklist_items")
+    .on(
+      "postgres_changes",
+      { event: "*", schema: "public", table: "checklist_items" },
+      payload => {
+        handleRealtimeChange(payload);
+      }
+    )
+    .subscribe((status) => {
+      if (status === "SUBSCRIBED") {
+        updateSyncUI("connected", "Live Sync", "Connected to Supabase. Realtime synchronization active across all visitors.");
+      } else if (status === "TIMED_OUT") {
+        updateSyncUI("error", "Sync Timeout", "Realtime connection timed out. Reconnecting...");
+      } else if (status === "CHANNEL_ERROR") {
+        updateSyncUI("error", "Realtime Error", "Realtime channel error. Ensure table is added to supabase_realtime publication.");
+      } else if (status === "CLOSED") {
+        updateSyncUI("offline", "Channel Closed", "Realtime channel closed.");
+      }
+    });
+}
+
+function handleRealtimeChange(payload) {
+  const item = payload.new;
+  if (!item || !item.id) return;
+  const sId = item.id;
+  const isDone = Boolean(item.checked);
+  const currentDone = isStepDone(sId);
+  const itemTs = item.updated_at ? new Date(item.updated_at).getTime() : Date.now();
+  const itemIso = item.updated_at || new Date(itemTs).toISOString();
+
+  if (isDone === currentDone && st[sId] && st[sId].at === itemIso) return;
+
+  if (isDone) {
+    st[sId] = { checked: true, ts: itemTs, at: itemIso };
+  } else {
+    delete st[sId];
+  }
+  saveState();
+
+  const cb = document.getElementById("cb-" + sId);
+  if (cb) {
+    cb.checked = isDone;
+    const li = cb.closest("li");
+    if (li) {
+      li.classList.toggle("ck", isDone);
+      li.classList.add("step-remote-update");
+      setTimeout(() => li.classList.remove("step-remote-update"), 1500);
+    }
+  }
+
+  const tagEl = document.getElementById("tag-" + sId);
+  if (tagEl) {
+    tagEl.innerHTML = getTimeTagHtml(sId);
+  }
+
+  const t = findTaskForStep(sId);
+  if (t) {
+    const k = t.steps.filter((_, idx) => isStepDone(sid(t, idx))).length;
+    const taskEl = cb ? cb.closest("details.task") : null;
+    if (taskEl) {
+      const pCnt = taskEl.querySelector(".p-cnt");
+      if (pCnt) pCnt.textContent = k + "/" + t.steps.length;
+      taskEl.classList.toggle("done", taskDone(t));
+    }
+
+    const stepIdx = parseInt(sId.split(".").pop(), 10) - 1;
+    const stepSnippet = cleanText(t.steps[stepIdx] || "").slice(0, 140);
+    hist.unshift({
+      id: "h_" + itemTs + "_" + Math.random().toString(36).slice(2, 6),
+      stepId: sId,
+      taskId: t.id,
+      taskTitle: t.t,
+      stepNum: stepIdx + 1,
+      text: stepSnippet,
+      action: isDone ? "checked" : "unchecked",
+      ts: itemTs,
+      iso: itemIso
+    });
+    if (hist.length > 800) hist = hist.slice(0, 800);
+    saveHistory();
+    updateHistBadge();
+    if (modalHist.classList.contains("open")) renderHistoryList();
+  }
+
+  stats();
+  applyFilter();
+}
+
+async function onCheckboxChanged(cb, t, j) {
+  const sId = cb.dataset.s;
+  const isChecked = cb.checked;
+  const now = new Date();
+  const ts = now.getTime();
+  const iso = now.toISOString();
+  const stepSnippet = cleanText(t.steps[j]).slice(0, 140);
+
+  // Optimistic local update
+  if (isChecked) {
+    st[sId] = { checked: true, ts, at: iso };
+    hist.unshift({
+      id: "h_" + ts + "_" + Math.random().toString(36).slice(2, 6),
+      stepId: sId,
+      taskId: t.id,
+      taskTitle: t.t,
+      stepNum: j + 1,
+      text: stepSnippet,
+      action: "checked",
+      ts,
+      iso
+    });
+  } else {
+    delete st[sId];
+    hist.unshift({
+      id: "h_" + ts + "_" + Math.random().toString(36).slice(2, 6),
+      stepId: sId,
+      taskId: t.id,
+      taskTitle: t.t,
+      stepNum: j + 1,
+      text: stepSnippet,
+      action: "unchecked",
+      ts,
+      iso
+    });
+  }
+
+  if (hist.length > 800) hist = hist.slice(0, 800);
+  saveState();
+  saveHistory();
+
+  cb.closest("li").classList.toggle("ck", isChecked);
+  const tagEl = document.getElementById("tag-" + sId);
+  if (tagEl) tagEl.innerHTML = getTimeTagHtml(sId);
+
+  const k = t.steps.filter((_, idx) => isStepDone(sid(t, idx))).length;
+  const taskEl = cb.closest("details.task");
+  if (taskEl) {
+    const pCnt = taskEl.querySelector(".p-cnt");
+    if (pCnt) pCnt.textContent = k + "/" + t.steps.length;
+    taskEl.classList.toggle("done", taskDone(t));
+  }
+
+  stats();
+  applyFilter();
+
+  // If Supabase is connected, sync change to database
+  if (supabaseClient) {
+    try {
+      const { error } = await supabaseClient
+        .from("checklist_items")
+        .upsert({ id: sId, checked: isChecked, updated_at: iso }, { onConflict: "id" });
+
+      if (error) {
+        console.error("Failed to sync checkbox state to Supabase:", error);
+        // Rollback optimistic update
+        if (isChecked) {
+          delete st[sId];
+        } else {
+          st[sId] = { checked: true, ts, at: iso };
+        }
+        saveState();
+        cb.checked = !isChecked;
+        cb.closest("li").classList.toggle("ck", !isChecked);
+        if (tagEl) tagEl.innerHTML = getTimeTagHtml(sId);
+        if (taskEl) {
+          const revK = t.steps.filter((_, idx) => isStepDone(sid(t, idx))).length;
+          const pCnt = taskEl.querySelector(".p-cnt");
+          if (pCnt) pCnt.textContent = revK + "/" + t.steps.length;
+          taskEl.classList.toggle("done", taskDone(t));
+        }
+        stats();
+        applyFilter();
+        showToast("⚠️ Sync failed: " + error.message + " (Reverted)", 4500);
+        updateSyncUI("error", "Sync Error", error.message);
+      }
+    } catch (netErr) {
+      console.error("Network error syncing checkbox:", netErr);
+      showToast("⚠️ Network error syncing to Supabase", 3500);
+      updateSyncUI("error", "Network Error", netErr.message);
+    }
+  }
+}
+
+function refreshAllCheckboxesDOM() {
+  document.querySelectorAll("input[data-s]").forEach(cb => {
+    const sId = cb.dataset.s;
+    const isDone = isStepDone(sId);
+    cb.checked = isDone;
+    const li = cb.closest("li");
+    if (li) li.classList.toggle("ck", isDone);
+    const tagEl = document.getElementById("tag-" + sId);
+    if (tagEl) tagEl.innerHTML = getTimeTagHtml(sId);
+  });
+
+  document.querySelectorAll("details.task").forEach(taskEl => {
+    const firstCb = taskEl.querySelector("input[data-s]");
+    if (firstCb) {
+      const t = findTaskForStep(firstCb.dataset.s);
+      if (t) {
+        const k = t.steps.filter((_, idx) => isStepDone(sid(t, idx))).length;
+        const pCnt = taskEl.querySelector(".p-cnt");
+        if (pCnt) pCnt.textContent = k + "/" + t.steps.length;
+        taskEl.classList.toggle("done", taskDone(t));
+      }
+    }
+  });
+}
+
+/* --- Cloud Sync Modal Controls --- */
+const modalSync = document.getElementById("modalSync");
+document.getElementById("btnSync").addEventListener("click", () => {
+  const { url, key } = getSupabaseCredentials();
+  document.getElementById("cfgSupabaseUrl").value = url;
+  document.getElementById("cfgSupabaseKey").value = key;
+  modalSync.classList.add("open");
+});
+document.getElementById("closeSync").addEventListener("click", () => modalSync.classList.remove("open"));
+document.getElementById("closeSyncBtn").addEventListener("click", () => modalSync.classList.remove("open"));
+
+document.getElementById("btnSaveSync").addEventListener("click", async () => {
+  const url = (document.getElementById("cfgSupabaseUrl").value || "").trim();
+  const key = (document.getElementById("cfgSupabaseKey").value || "").trim();
+
+  if (!url || !key) {
+    alert("Please enter both the Supabase Project URL and Anon Key.");
+    return;
+  }
+
+  localStorage.setItem("supabase_url", url);
+  localStorage.setItem("supabase_anon_key", key);
+  showToast("Connecting to Supabase...");
+  await initSupabase();
+  modalSync.classList.remove("open");
+});
+
+document.getElementById("btnTestSync").addEventListener("click", async () => {
+  const url = (document.getElementById("cfgSupabaseUrl").value || "").trim();
+  const key = (document.getElementById("cfgSupabaseKey").value || "").trim();
+
+  if (!url || !key) {
+    alert("Please enter both the Project URL and Anon Key to test.");
+    return;
+  }
+
+  if (!window.supabase || typeof window.supabase.createClient !== "function") {
+    alert("Supabase SDK is not loaded. Please verify your internet connection.");
+    return;
+  }
+
+  try {
+    const testClient = window.supabase.createClient(url, key, { auth: { persistSession: false } });
+    const { data, error } = await testClient.from("checklist_items").select("id").limit(1);
+    if (error) {
+      alert("Connection test failed:\n\n" + error.message + "\n\nTip: Did you run supabase-schema.sql in the Supabase SQL Editor?");
+    } else {
+      alert("✓ Connection successful!\nConnected to Supabase and verified 'checklist_items' table.");
+    }
+  } catch (err) {
+    alert("Error during connection test:\n\n" + err.message);
+  }
+});
+
+document.getElementById("btnClearSync").addEventListener("click", () => {
+  if (confirm("Disconnect from Supabase cloud sync? Your progress will remain saved locally.")) {
+    localStorage.removeItem("supabase_url");
+    localStorage.removeItem("supabase_anon_key");
+    if (window.SUPABASE_CONFIG) {
+      window.SUPABASE_CONFIG.url = "";
+      window.SUPABASE_CONFIG.anonKey = "";
+    }
+    if (realtimeChannel && supabaseClient) {
+      supabaseClient.removeChannel(realtimeChannel);
+      realtimeChannel = null;
+    }
+    supabaseClient = null;
+    updateSyncUI("offline", "Cloud Setup", "Disconnected. Operating in local-only mode.");
+    modalSync.classList.remove("open");
+    showToast("Disconnected from Supabase.");
+  }
+});
+
 /* Close modals on ESC or outside click */
 window.addEventListener("keydown", e => {
   if (e.key === "Escape") {
     closeHistoryModal();
     modalBackup.classList.remove("open");
+    modalSync.classList.remove("open");
   }
 });
-[modalHist, modalBackup].forEach(m => {
+[modalHist, modalBackup, modalSync].forEach(m => {
   m.addEventListener("click", e => {
     if (e.target === m) {
       m.classList.remove("open");
@@ -1481,6 +1930,7 @@ window.addEventListener("keydown", e => {
 
 /* Initial render */
 render();
+initSupabase();
 </script>
 
 </body>
