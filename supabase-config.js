@@ -2,16 +2,13 @@
 // Supabase Configuration
 // ========================================================
 // Configure your Supabase project credentials below to enable shared checklist persistence.
-// You can find these in your Supabase Dashboard:
-// Settings -> API -> Project URL & Project API Keys (anon public key).
-//
-// Alternatively, leave these empty and configure them directly in the website UI
-// by clicking the "Cloud Sync" button in the top navigation bar!
+// With these credentials set, any visitor opening the site on any device will automatically
+// connect to the shared database and stay in sync in real-time.
 //
 // SECURITY WARNING:
-// ONLY use your public anon key here. NEVER use your service_role secret key in frontend code.
+// ONLY use your public anon / publishable key here. NEVER use your service_role secret key in frontend code.
 
 window.SUPABASE_CONFIG = {
-  url: "",      // e.g. "https://your-project-id.supabase.co"
-  anonKey: ""   // e.g. "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+  url: "https://nbxouypyzocfbufpfvow.supabase.co",
+  anonKey: "sb_publishable_i_gvDkIo3BySQpAyRL-Ftg_3z6sGgtl"
 };
