@@ -1,6 +1,6 @@
 # TrackID3x3 Build Roadmap 🏀
 
-> **From zero to submission in 14 days** — an interactive build roadmap and day-by-day collaborative checklist for participants in the ABC 2027 TrackID3x3 Challenge.
+> **From zero to submission in 10 days** — an interactive build roadmap and day-by-day collaborative checklist for participants in the ABC 2027 TrackID3x3 Challenge. — an interactive build roadmap and day-by-day collaborative checklist for participants in the ABC 2027 TrackID3x3 Challenge.
 
 ---
 
@@ -85,7 +85,7 @@ Follow these steps to connect your roadmap checklist to a shared Supabase Postgr
    - Enables **Row Level Security (RLS)**.
    - Configures public policies allowing `SELECT`, `UPDATE`, and `INSERT` (upsert).
    - Adds `checklist_items` to `supabase_realtime` publication with `REPLICA IDENTITY FULL`.
-   - Seeds all 336 checklist step records (idempotent, won't overwrite existing progress).
+   - Seeds all 336 10-Day Sprint checklist step records (idempotent, won't overwrite existing progress).
 
 ### 3. Obtain Credentials
 1. In your Supabase Dashboard, go to **Project Settings** (gear icon) → **API**.
