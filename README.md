@@ -1,6 +1,6 @@
 # TrackID3x3 Build Roadmap 🏀
 
-> **From zero to submission in 10 days** — an interactive build roadmap and day-by-day collaborative checklist for participants in the ABC 2027 TrackID3x3 Challenge. — an interactive build roadmap and day-by-day collaborative checklist for participants in the ABC 2027 TrackID3x3 Challenge.
+> **From zero to submission in 10 days (sprint ends Oct 26, revised Oct 19; official deadline Nov 3)** — an interactive build roadmap and day-by-day collaborative checklist for participants in the ABC 2027 TrackID3x3 Challenge.
 
 ---
 

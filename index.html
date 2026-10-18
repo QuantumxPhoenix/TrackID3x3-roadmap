@@ -14,14 +14,14 @@
 
   <!-- Open Graph / Social Sharing -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="TrackID3x3 Build Roadmap · 14-Day Zero to Submission">
-  <meta property="og:description" content="Interactive 14-day guide for the TrackID3x3 Challenge with automated progress saving and full checkbox history.">
+  <meta property="og:title" content="TrackID3x3 Build Roadmap · 10-Day Sprint to Submission">
+  <meta property="og:description" content="Interactive 10-day guide for the TrackID3x3 Challenge with automated progress saving and full checkbox history.">
   <meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 630' width='1200' height='630'%3E%3Crect width='1200' height='630' fill='%230f141b'/%3E%3Ccircle cx='600' cy='315' r='180' fill='none' stroke='%23d9480f' stroke-width='16'/%3E%3Cpath d='M420 315h360M600 135v360' stroke='%23d9480f' stroke-width='16'/%3E%3Ctext x='600' y='560' fill='%23ffffff' font-family='sans-serif' font-size='48' font-weight='bold' text-anchor='middle'%3ETrackID3x3 Build Roadmap%3C/text%3E%3C/svg%3E">
 
   <!-- Twitter Meta Tags -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="TrackID3x3 Build Roadmap · 14-Day Zero to Submission">
-  <meta name="twitter:description" content="Interactive 14-day guide for the TrackID3x3 Challenge with automated progress saving and full checkbox history.">
+  <meta name="twitter:title" content="TrackID3x3 Build Roadmap · 10-Day Sprint to Submission">
+  <meta name="twitter:description" content="Interactive 10-day guide for the TrackID3x3 Challenge with automated progress saving and full checkbox history.">
 
   <!-- Theme Color -->
   <meta name="theme-color" content="#1f4e8c" media="(prefers-color-scheme: light)">
@@ -156,6 +156,13 @@
   pre{margin:6px 0 0;background:var(--code);border:1px solid var(--line);border-radius:5px;padding:10px 12px;overflow-x:auto;font:.8rem/1.5 var(--mono);color:var(--fg)}
   code{font-family:var(--mono);font-size:.84em;background:var(--code);padding:1px 4px;border-radius:3px;overflow-wrap:anywhere}
   pre code{background:none;padding:0;overflow-wrap:normal;white-space:pre}
+  .warnbox{font-size:.88rem;border-left:3px solid var(--warn);background:var(--warn-soft);padding:8px 12px;border-radius:0 6px 6px 0}
+  .warnbox ul{margin:4px 0 0;padding-left:18px;display:grid;gap:3px}
+  .warnbox b,.links b{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--warn)}
+  .links{font-size:.86rem;display:flex;flex-wrap:wrap;gap:4px 14px;align-items:baseline}
+  .links b{color:var(--court)}
+  .links a{overflow-wrap:anywhere}
+  .sugg-list{margin:6px 0 0;padding-left:18px;display:grid;gap:4px;font-size:.88rem;color:var(--muted)}
   .out{font-size:.88rem;border-top:1px dashed var(--line);padding-top:8px;display:flex;gap:8px;flex-wrap:wrap}
   .out b{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ok);padding-top:2px}
 
@@ -255,7 +262,7 @@
 <div class="wrap">
 <header>
   <div class="top-bar">
-    <div class="eyebrow">ABC 2027 · TrackID3x3 Challenge · 10-Day Sprint Edition</div>
+    <div class="eyebrow">ABC 2027 · TrackID3x3 Challenge · 10-Day Sprint · Revised Oct 19</div>
     <div class="top-actions" role="toolbar" aria-label="Roadmap Tools">
       <div class="top-btn top-status" id="btnSync" title="Supabase Cloud Sync Status" role="status" aria-label="Supabase Cloud Sync Status">
         <span id="syncDot" class="sync-dot offline"></span> <span id="syncStatus">Cloud Sync</span>
@@ -279,7 +286,7 @@
 
   
   <div class="board" aria-label="Status">
-    <div class="cell hot"><b id="daysLeft">–</b><span>days to 10-day sprint deadline (Oct 26)</span></div>
+    <div class="cell hot"><b id="daysLeft">–</b><span>days to sprint deadline (Oct 26; official Nov 3)</span></div>
     <div class="cell"><b id="doneCount">0/0</b><span>sub-steps done</span></div>
     <div class="cell"><b id="taskCount">0/0</b><span>tasks done</span></div>
     <div class="cell"><b>0.635</b><span>baseline TI-HOTA to beat (tutorial clip)</span></div>
@@ -304,6 +311,17 @@
       <li>Output rows: <code>frame_id,court_x,court_y,team_id,jersey_number</code>, no header, frames start at 1, every frame kept, centimetres, team A (offense at the start) or B (defense at the start).</li>
     </ul>
   </div>
+  <div class="rules" style="border-left-color:var(--warn)">
+    <strong>What changed on Oct 19 (Days 4–10 rewritten, sprint ends Oct 26)</strong>
+    <ul>
+      <li>The training videos already show the oblique challenge view, so all eight are validation material. The top-view domain-gap work is gone.</li>
+      <li>TI-HOTA rewards precise positions: credit is about 0.94 at 14 cm, 0.76 at 30 cm, 0.47 at 50 cm, and 0.05 at 100 cm. The strictest threshold (α 0.95) only accepts 13 cm.</li>
+      <li>A wrong team or jersey scores zero even with a perfect position, so identity errors cost the most.</li>
+      <li>GT has all six players in every frame; the tutorial misses ~28%. Outputting six identities per frame is the cheapest big gain (Day 6).</li>
+      <li>Challenge videos are <code>.MP4</code>, Colab is case-sensitive, and the tutorial ran Python 3.13; fixed on Day 4. Run the oracles (Day 5) before spending effort.</li>
+      <li>Two people: <b>(A)</b> detection, positions, output policy · <b>(B)</b> crops, jersey, teams, identity.</li>
+    </ul>
+  </div>
 </section>
 
 <section class="block" id="schedule" aria-label="Schedule">
@@ -324,6 +342,37 @@
   <h2>Toolbox: what to download and where</h2>
   <p class="lede">Only download from these official pages. Packages marked <code>pip</code> install inside your Python environment with the command shown; you never download them by hand.</p>
   <div class="tablewrap"><table id="tools"><thead><tr><th>Tool</th><th>What it does here</th><th>Where to get it</th><th>How to install</th></tr></thead><tbody></tbody></table></div>
+</section>
+
+<section class="block" id="suggestions" aria-label="Suggestion box">
+  <h2>Suggestion box</h2>
+  <p class="lede">Alternatives to try once the baseline pipeline works. None of these gains is proven on this data: measure each one on the cached training videos with the 4-fold split, and keep it only if mean TI-HOTA rises and most videos don't get worse. <b>Cost</b> = effort and runtime; <b>Rules</b> = how it fits the challenge rules.</p>
+  <div class="tablewrap"><table id="sugg"><thead><tr><th>Stage</th><th>Option</th><th>Why it may help</th><th>Cost / risk</th><th>Rules</th><th>Link</th></tr></thead><tbody></tbody></table></div>
+  <div class="how" style="margin-top:6px">
+    <div><strong>Extra steps worth trying</strong><ul class="sugg-list">
+      <li>Tune every threshold (conf, margin, stitching, vote share, row-emission confidence) with a small search on cached data, e.g. Optuna, scored by fold TI-HOTA.</li>
+      <li>Vote across two recognisers (EasyOCR + PARSeq or your fine-tuned model) per tracklet; disagreements become "unknown".</li>
+      <li>Read jerseys only on the 40–60 best crops per tracklet: faster and less noise.</li>
+      <li>Run the detector at 1920 px only if far-side recall is low; keep 1280 elsewhere.</li>
+      <li>Smooth identity labels over time (HMM/Viterbi) so a label can't flicker between frames.</li>
+      <li>Sanity checks before writing: 3 players per team, speed under ~10 m/s, no duplicate identities.</li>
+      <li>Watch one overlay video per change; numbers hide systematic errors such as a flipped axis.</li>
+    </ul></div>
+    <div><strong>Training &amp; fine-tuning allowed by the rules</strong><ul class="sugg-list">
+      <li>Detector fine-tune on Training-set boxes (real, or derived by matching detections to Training GT).</li>
+      <li>Jersey recogniser (PARSeq or a digit classifier) on auto-labelled Training crops.</li>
+      <li>Legibility classifier: label a crop "legible" when the recogniser reads it correctly, then train a small CNN.</li>
+      <li>ReID fine-tune on Training crops grouped by identity (helps stitching).</li>
+      <li>Position-correction regression on matched Training pairs.</li>
+      <li>Final retrain on all eight videos, only if the validation gain was clear; log it.</li>
+    </ul></div>
+    <div><strong>Not allowed</strong><ul class="sugg-list">
+      <li>Training, fine-tuning or pseudo-labelling on IMG_0114 / IMG_0115.</li>
+      <li>Hand-correcting boxes, tracks, teams, jerseys or positions on challenge videos (court clicks only).</li>
+      <li>Other TrackID3x3 annotations, including the public top-view GT of the challenge games.</li>
+      <li>Weights trained on the challenge sequences.</li>
+    </ul></div>
+  </div>
 </section>
 
 <section class="block" id="glossary" aria-label="Glossary">
@@ -855,106 +904,221 @@ const DAYS=[
     "k": "D4",
     "label": "Day 4",
     "date": "2026-10-20",
-    "title": "Court calibration",
-    "goal": "An accurate pixel→centimetre mapping for each challenge video.",
+    "title": "Data audit, repo fixes & experiment log",
+    "goal": "Know exactly what the eight Training videos contain, fix the file-name and environment mistakes from Days 1–3, calibrate the training videos, and log every run from now on.",
     "tasks": [
       {
-        "t": "Understand the homography",
-        "time": "20 min",
-        "why": "Position error comes straight from this mapping. A small mistake here moves every player.",
+        "t": "Fix .MP4 names, case-sensitive .gitignore and the Python version",
+        "time": "40 min",
+        "why": "The challenge videos are <code>.MP4</code>, not <code>.MOV</code>, and Colab's Linux file system is case-sensitive. Days 1–3 got both wrong.",
         "steps": [
-          "A homography is a 3×3 matrix that maps points on one flat plane (the image of the court floor) to another (the court map in cm).",
-          "You need at least 4 matching points; more points make it more accurate.",
-          "It works only for points on the floor, which is why we use the player's foot point, not the box centre.",
-          "In the tutorial, 4 court corners in <code>Outdoor.ndjson</code> map to (0,0), (0,1105), (1505,0), (1505,1105) cm."
+          "List the real names:<pre><code>!ls -la $DRIVE/data/training $DRIVE/data/challenge</code></pre> From now on use the exact names (e.g. <code>IMG_0114.MP4</code>) in every command and config.",
+          "Append to <code>.gitignore</code>:<pre><code>*.MP4\n*.MOV\n*.parquet\n*.jpg\ncache/\nderived/\nweights/\nexperiments.jsonl.bak</code></pre>",
+          "Check nothing big is tracked: <code>git ls-files | grep -iE \"\\.(mp4|mov|pt|parquet)$\"</code> must print nothing. If it does: <code>git rm --cached FILE</code> and commit.",
+          "In Colab run <code>!python --version</code> (the tutorial ran on Python 3.13). Recreate your laptop <code>.venv</code> with the same minor version (Windows: <code>py -3.13 -m venv .venv</code>).",
+          "Replace the laptop <code>pip freeze</code> in <code>requirements.txt</code> with hand-pinned versions of what you install: <code>ultralytics==8.4.*</code> (exact version from Colab), <code>boxmot</code>, <code>easyocr</code>, <code>ortools</code>, <code>scikit-learn</code>, <code>pandas</code>, <code>pyarrow</code>. Do <b>not</b> pin <code>torch</code>; use Colab's build and log its version.",
+          "Commit: <code>fix: MP4 names, case-sensitive gitignore, Python version</code>."
         ],
-        "out": "You can explain why foot points are used",
+        "warn": [
+          "Windows and macOS ignore case by default; Linux and Colab don't. <code>*.mp4</code> does not match <code>IMG_0114.MP4</code> there, and a 1 GB video committed once stays in Git history forever.",
+          "A laptop <code>pip freeze</code> pins Windows-only or CPU-only wheels that can break <code>pip install</code> on Colab."
+        ],
+        "links": [
+          [
+            "gitignore pattern rules",
+            "https://git-scm.com/docs/gitignore"
+          ],
+          [
+            "git config core.ignoreCase",
+            "https://git-scm.com/docs/git-config#Documentation/git-config.txt-coreignoreCase"
+          ],
+          [
+            "Colab FAQ (runtimes)",
+            "https://research.google.com/colaboratory/faq.html"
+          ]
+        ],
+        "out": "<code>git ls-files</code> lists no media; local and Colab Python versions match",
         "id": "D4.1"
       },
       {
-        "t": "Save a clean frame from each challenge video",
-        "time": "20 min",
-        "why": "You click court points on a still image.",
+        "t": "Make src/ an installable package",
+        "time": "45 min",
+        "why": "<code>pip install -e .</code> gives the same imports on your laptop and on Colab, so no script needs path hacks.",
         "steps": [
-          "On your laptop, download IMG_0114 and IMG_0115 from Drive into <code>data/challenge/</code>.",
-          "Create <code>scripts/grab_frame.py</code>:<pre><code>import cv2, sys\ncap = cv2.VideoCapture(sys.argv[1])\ncap.set(cv2.CAP_PROP_POS_FRAMES, int(sys.argv[3]))\nok, f = cap.read()\ncv2.imwrite(sys.argv[2], f)\nprint('frames', cap.get(cv2.CAP_PROP_FRAME_COUNT), 'fps', cap.get(cv2.CAP_PROP_FPS), 'size', f.shape)</code></pre>",
-          "Run it for a frame where few players block the lines:<pre><code>python scripts/grab_frame.py data/challenge/IMG_0114.MOV calib/IMG_0114_frame.png 0</code></pre>",
-          "Open the PNG. If it's rotated compared with the video, note it; your detection code must read frames the same way.",
-          "Cross-check the frame count: <code>ffprobe -v error -count_frames -select_streams v:0 -show_entries stream=nb_read_frames data/challenge/IMG_0114.MOV</code>. If it differs from OpenCV, tell the team; frame IDs must match the original video."
+          "Move modules into <code>src/trackid3x3/</code> (keep <code>__init__.py</code>). Target layout: <code>io.py, calib.py, detect.py, pose.py, track.py, stitch.py, team.py, jersey.py, identity.py, postprocess.py, tihota.py, viz.py</code>; create files only when you need them.",
+          "Create <code>pyproject.toml</code>:<pre><code>[project]\nname = \"trackid3x3\"\nversion = \"0.1.0\"\nrequires-python = \"&gt;=3.11\"\n[build-system]\nrequires = [\"setuptools&gt;=61\"]\nbuild-backend = \"setuptools.build_meta\"\n[tool.setuptools.packages.find]\nwhere = [\"src\"]</code></pre>",
+          "Install: <code>pip install -e .</code>, then change imports to <code>from trackid3x3.calib import to_court</code>.",
+          "Move every path into <code>configs/base.yaml</code> (<code>data_root</code>, <code>cache_root</code>, <code>out_root</code>). Only the Colab runner notebook knows it is on Colab.",
+          "Add <code>!pip install -q -e .</code> to the runner notebook after <code>requirements.txt</code>.",
+          "<code>pytest -q</code> passes; commit."
         ],
-        "out": "Two PNG frames in <code>calib/</code>",
+        "warn": [
+          "Don't edit <code>src/</code> inside Colab. If you must, commit and push from Colab immediately; a disconnect deletes the edits."
+        ],
+        "links": [
+          [
+            "Writing pyproject.toml",
+            "https://packaging.python.org/en/latest/guides/writing-pyproject-toml/"
+          ],
+          [
+            "pip editable installs",
+            "https://pip.pypa.io/en/stable/topics/local-project-installs/"
+          ]
+        ],
+        "out": "<code>python -c \"import trackid3x3\"</code> works locally and on Colab",
         "id": "D4.2"
       },
       {
-        "t": "Build the court landmark list in centimetres",
-        "time": "60 min",
+        "t": "Audit all eight Training videos",
+        "time": "90 min",
+        "gpu": true,
         "ask": true,
-        "why": "Each point you click needs its true court position, in the same coordinate frame as the Training ground truth.",
+        "why": "Frame indexing, missing rows or a missing label type silently ruin every later number. Check once, in writing.",
         "steps": [
-          "Open <code>Outdoor.ndjson</code> in VS Code and list every keypoint name (<code>rku_0</code> … <code>rku_11</code>). The tutorial uses only four of them.",
-          "Open <code>Outdoor.png</code> to see where each keypoint sits on the court.",
-          "Find the cm coordinates of the other keypoints from the organizers' court definition or the reference code at <a href=\"https://github.com/open-starlab/TrackID3x3\" target=\"_blank\" rel=\"noopener\">github.com/open-starlab/TrackID3x3</a> (read code only; don't download its annotations).",
-          "Check whether IMG_0114/0115 are filmed on the same court as the tutorial. If not, ask the organizers for that court's template.",
-          "Write <code>calib/court_template.json</code>, mapping names to cm:<pre><code>{\n  \"rku_0\": [0, 0],\n  \"rku_1\": [0, 1105],\n  \"rku_10\": [1505, 0],\n  \"rku_11\": [1505, 1105]\n}</code></pre>",
-          "Check one thing with the Training GT: player x and y values should fall inside this court's range."
+          "Create <code>scripts/audit_data.py</code>. For each video <code>IMG_0104 … IMG_0111</code> print: annotation files and columns, row count, <code>frame_id</code> min/max, rows-per-frame counts, unique (team, jersey) pairs, x/y min/max.",
+          "Core of it:<pre><code>df = pd.read_csv(ann)\nper = df.groupby('frame_id').size()\nprint(df.columns.tolist(), len(df), df.frame_id.min(), df.frame_id.max())\nprint(per.value_counts().to_dict())          # expect {6: N}\nprint(sorted(set(zip(df.team_id, df.jersey_number))))\nprint(df.duplicated(['frame_id','team_id','jersey_number']).sum())  # expect 0</code></pre>",
+          "Count decoded frames two ways and compare with the max <code>frame_id</code>:<pre><code>ffprobe -v error -count_frames -select_streams v:0 \\\n  -show_entries stream=nb_read_frames,r_frame_rate,avg_frame_rate,width,height \\\n  -of csv=p=0 IMG_0104.MP4</code></pre> and <code>cv2.CAP_PROP_FRAME_COUNT</code>.",
+          "If <code>r_frame_rate</code> ≠ <code>avg_frame_rate</code> the file is variable-frame-rate: always number frames by decoding sequentially (counter from 1), never by seeking or by timestamp × fps.",
+          "Answer in <code>DATA.md</code>: Do boxes exist? Poses? Visibility flags? Is it 6 rows per frame, 3 per team? Does <code>frame_id</code> start at 1?",
+          "Note any frame with fewer than 6 GT rows: keep it for evaluation, exclude it from crop matching later."
         ],
-        "out": "<code>court_template.json</code> with 6+ points",
+        "warn": [
+          "<code>CAP_PROP_FRAME_COUNT</code> is an estimate from the container header; it can be wrong on phone videos. Trust the decoded count.",
+          "Off-by-one (0- vs 1-based) frame ids misplace every row and can look like a \"bad detector\"."
+        ],
+        "links": [
+          [
+            "ffprobe documentation",
+            "https://ffmpeg.org/ffprobe.html"
+          ],
+          [
+            "OpenCV VideoCapture",
+            "https://docs.opencv.org/4.x/d8/dfe/classcv_1_1VideoCapture.html"
+          ],
+          [
+            "TrackID3x3 official repo (format reference)",
+            "https://github.com/open-starlab/TrackID3x3"
+          ]
+        ],
+        "out": "Audit table for 8 videos in <code>DATA.md</code>",
         "id": "D4.3"
       },
       {
-        "t": "Click the landmarks (allowed manual step)",
-        "time": "45 min",
-        "why": "Manual selection of fixed court landmarks is permitted, and must be described in your paper.",
+        "t": "Build the court template and the click tool",
+        "time": "75 min",
+        "ask": true,
+        "why": "Every video (training and challenge) needs its own homography, and each clicked point needs its true position in the Training-GT coordinate frame.",
         "steps": [
-          "Create <code>scripts/click_points.py</code> (runs on your laptop; OpenCV windows don't work in Colab):<pre><code>import cv2, json, sys\nimg = cv2.imread(sys.argv[1]); pts = []\ndef on_click(e, x, y, flags, p):\n    if e == cv2.EVENT_LBUTTONDOWN:\n        name = input(f'name for ({x},{y}): ')\n        pts.append({'name': name, 'x': x, 'y': y})\n        cv2.circle(img, (x, y), 5, (0, 0, 255), -1)\n        cv2.imshow('frame', img)\ncv2.namedWindow('frame', cv2.WINDOW_NORMAL)\ncv2.setMouseCallback('frame', on_click)\ncv2.imshow('frame', img)\ncv2.waitKey(0)\njson.dump(pts, open(sys.argv[2], 'w'), indent=2)</code></pre>",
-          "Run:<pre><code>python scripts/click_points.py calib/IMG_0114_frame.png calib/IMG_0114_clicks.json</code></pre>",
-          "Click exactly where line edges meet (zoom with the window size). After each click, type the keypoint name in the terminal and press Enter.",
-          "Click at least 6 points spread over the whole court, not all on one side.",
-          "Press any key in the image window to save and quit. Repeat for IMG_0115.",
-          "In <code>COMPLIANCE.md</code> write: who clicked, date, frame number, which points."
+          "Open <code>Outdoor.ndjson</code> and <code>Outdoor.png</code>; list every keypoint (<code>rku_0 … rku_11</code>) and where it sits.",
+          "Get the cm coordinates of each from the organizers' court definition or the official repo's code (read code only; never download its annotations).",
+          "Write <code>calib/court_template.json</code> with 8–12 well-spread points:<pre><code>{\n  \"rku_0\": [0, 0],\n  \"rku_1\": [0, 1105],\n  \"rku_10\": [1505, 0],\n  \"rku_11\": [1505, 1105]\n}</code></pre>",
+          "Sanity check: every GT <code>court_x</code>, <code>court_y</code> from the audit lies inside this court range.",
+          "Create <code>scripts/grab_frame.py</code> and <code>scripts/click_points.py</code> (laptop only; OpenCV windows don't open in Colab):<pre><code>import cv2, json, sys\nimg = cv2.imread(sys.argv[1]); pts = []\ndef on_click(e, x, y, flags, p):\n    if e == cv2.EVENT_LBUTTONDOWN:\n        pts.append({'name': input(f'name for ({x},{y}): '), 'x': x, 'y': y})\n        cv2.circle(img, (x, y), 5, (0, 0, 255), -1); cv2.imshow('f', img)\ncv2.namedWindow('f', cv2.WINDOW_NORMAL); cv2.setMouseCallback('f', on_click)\ncv2.imshow('f', img); cv2.waitKey(0)\njson.dump(pts, open(sys.argv[2], 'w'), indent=2)</code></pre>",
+          "Create <code>scripts/fit_homography.py</code> that fits with <code>cv2.findHomography(img, cm, cv2.RANSAC, 15.0)</code>, prints per-point error in cm and saves <code>calib/VIDEO.json</code>."
         ],
-        "out": "Two <code>*_clicks.json</code> files",
+        "warn": [
+          "A wrong origin or flipped axis silently zeroes the score. Confirm the axis directions against the Training GT, not by eye."
+        ],
+        "links": [
+          [
+            "OpenCV: homography explained with code",
+            "https://docs.opencv.org/4.x/d9/dab/tutorial_homography.html"
+          ],
+          [
+            "cv2.findHomography reference",
+            "https://docs.opencv.org/4.x/d9/d0c/group__calib3d.html"
+          ]
+        ],
+        "out": "<code>court_template.json</code> and three working scripts",
         "id": "D4.4"
       },
       {
-        "t": "Fit the homography and check the error",
-        "time": "45 min",
-        "why": "Shows how many centimetres off your mapping is before any player is detected.",
+        "t": "Calibrate the training videos and overlay the ground truth",
+        "time": "2 h",
+        "why": "The tutorial clip (from IMG_0104) is already an oblique 4K view, so all eight training videos are likely the same kind of footage as the challenge. An overlay proves it and proves your frame indexing.",
         "steps": [
-          "Create <code>scripts/fit_homography.py</code>:<pre><code>import cv2, json, numpy as np, sys\nclicks = json.load(open(sys.argv[1]))\ncourt = json.load(open('calib/court_template.json'))\nimg = np.float32([[p['x'], p['y']] for p in clicks])\ncm = np.float32([court[p['name']] for p in clicks])\nH, inl = cv2.findHomography(img, cm, cv2.RANSAC, 15.0)\nproj = cv2.perspectiveTransform(img[None], H)[0]\nprint('error cm:', np.linalg.norm(proj - cm, axis=1).round(1))\njson.dump({'H': H.tolist()}, open(sys.argv[2], 'w'))</code></pre>",
-          "Run it for both videos. Aim for every point under ~10 cm.",
-          "If one point has a large error, re-click it; it was probably misnamed or misplaced.",
-          "Visual check: warp the frame to a top view and look at the lines:<pre><code>H = np.array(json.load(open('calib/IMG_0114.json'))['H'])\ntop = cv2.warpPerspective(cv2.imread('calib/IMG_0114_frame.png'), H, (1505, 1105))\ncv2.imwrite('calib/IMG_0114_top.png', top)</code></pre>",
-          "Court lines in the top view should be straight and at right angles. Curved far lines mean lens distortion (next task)."
+          "Grab one clean frame per training video and confirm visually it is the oblique camera view (record in <code>DATA.md</code>).",
+          "Click 8–12 landmarks per video; fit and save <code>calib/IMG_0104.json … IMG_0111.json</code>. Aim for every point under ~10 cm.",
+          "Project GT points back into the image with the inverse homography and draw them:<pre><code>Hinv = np.linalg.inv(H)\npx = cv2.perspectiveTransform(gt[['court_x','court_y']].to_numpy(np.float32)[None], Hinv)[0]</code></pre>",
+          "Look at about 5 frames spread across each video. Dots must sit at the players' feet. A constant lag means a frame-index offset.",
+          "If the camera never moves within a video, one homography per video is enough; note it."
         ],
-        "out": "<code>calib/IMG_0114.json</code> and <code>IMG_0115.json</code>",
+        "warn": [
+          "If dots drift over time, the camera moved or the frame index is off: stop and fix before anything else."
+        ],
+        "links": [
+          [
+            "cv2.perspectiveTransform",
+            "https://docs.opencv.org/4.x/d2/de8/group__core__array.html"
+          ]
+        ],
+        "out": "8 calibration files; overlay screenshots in <code>DATA.md</code>",
         "id": "D4.5"
       },
       {
-        "t": "Check for lens distortion",
-        "time": "30 min",
-        "why": "Phone wide lenses bend lines near the image edge, which a homography can't fix.",
+        "t": "Start the experiment log",
+        "time": "45 min",
+        "why": "From today you'll run 30–60 experiments. Without a log you can't tell which commit and config produced which score.",
         "steps": [
-          "Look at <code>*_top.png</code>. If sidelines are clearly curved, distortion matters.",
-          "Quick test: refit using only points near the image centre, and compare the error on edge points.",
-          "If edge errors are above ~30 cm, consider undistorting with <code>cv2.undistortPoints</code> and a guessed radial coefficient tuned to straighten the lines.",
-          "Keep this only if position error on the tutorial clip goes down. Otherwise note \"not needed\" in <code>RESULTS.md</code>."
+          "In the shared entry point (<code>run.py</code>, or <code>scripts/evaluate.py</code> until <code>run.py</code> exists), append one JSON line per run to <code>experiments.jsonl</code> on Drive:<pre><code>row = dict(id=run_id, date=now, commit=git('rev-parse','HEAD'),\n           branch=git('rev-parse','--abbrev-ref','HEAD'),\n           config_hash=sha256(cfg_text)[:12], weights={p: sha256_file(p)[:12] for p in weights},\n           videos=videos, metrics=metrics, runtime_s=t, note=args.note)\nopen(log, 'a').write(json.dumps(row) + '\\n')</code></pre>",
+          "Refuse to run with uncommitted changes: if <code>git status --porcelain</code> prints anything, exit unless <code>--allow-dirty</code> is passed.",
+          "Print the commit hash at the top of every Colab run (<code>!git rev-parse HEAD</code>).",
+          "Metrics to log: TI-HOTA, DetA, AssA, TP, FP, FN, recall@100 cm, median and p90 cm error, team acc, jersey acc, number of tracklets, duplicate identities per frame, runtime.",
+          "Once a day, summarise the best rows into <code>RESULTS.md</code>."
         ],
-        "out": "Decision written down",
+        "links": [
+          [
+            "JSON Lines format",
+            "https://jsonlines.org/"
+          ]
+        ],
+        "out": "Every evaluation writes a line to <code>experiments.jsonl</code>",
         "id": "D4.6"
       },
       {
-        "t": "Make the playing-area mask",
-        "time": "30 min",
-        "why": "Removes spectators, benches and passers-by before tracking.",
+        "t": "Cross-check the evaluator with the official notebook",
+        "time": "45 min",
+        "gpu": true,
+        "why": "Your evaluator copies the tutorial; the official repo's <code>script/compute_TI-HOTA.ipynb</code> is a second reference. They must agree.",
         "steps": [
-          "In <code>src/court_filter.py</code> add <code>inside_court(x_cm, y_cm, margin_cm)</code> that returns True if the point is within the court rectangle plus a margin.",
-          "Start with a 50 cm margin. Players step slightly outside lines.",
-          "Later (Day 7) you'll tune 0, 50, 100 cm on the tutorial clip.",
-          "Commit everything from today."
+          "Run both on the same baseline prediction for <code>IMG_0104_1</code>; numbers must match to 4 decimals.",
+          "Add tests: perfect prediction → 1.0; empty → 0; correct position but wrong jersey → that row counts as FP + FN; offset 30 cm → per-α result matches <code>exp(ln(0.05)·0.3²)</code> ≈ 0.76.",
+          "Confirm your score is still 0.635 ± 0.005 with Ultralytics pinned to 8.4.x."
         ],
-        "out": "Mask function committed",
+        "warn": [
+          "Small differences (±0.005) from EasyOCR and GPU nondeterminism are normal; bigger ones mean a bug."
+        ],
+        "links": [
+          [
+            "Official repo (script/compute_TI-HOTA.ipynb)",
+            "https://github.com/open-starlab/TrackID3x3"
+          ],
+          [
+            "HOTA paper (Luiten et al.)",
+            "https://arxiv.org/abs/2009.07736"
+          ],
+          [
+            "TrackEval reference code",
+            "https://github.com/JonathonLuiten/TrackEval"
+          ]
+        ],
+        "out": "Both evaluators agree; new tests pass",
         "id": "D4.7"
+      },
+      {
+        "t": "Send the organizers the follow-up questions",
+        "time": "20 min",
+        "ask": true,
+        "why": "A few answers change the training plan. Ask today so replies arrive before Day 7.",
+        "steps": [
+          "Does the official Training set include player bounding boxes and poses, or only <code>frame_id,court_x,court_y,team_id,jersey_number</code>?",
+          "Are PARSeq/legibility weights trained on public hockey data (from the jersey-number-pipeline) acceptable as \"general-purpose\" pretrained weights?",
+          "Which court template and coordinate frame (origin, axes) apply to IMG_0114 and IMG_0115? Are rosters provided?",
+          "Is it fine to use the tutorial-clip GT for tuning (it is part of IMG_0104)?",
+          "Save replies in <code>admin/organizer_answers.md</code>."
+        ],
+        "out": "Email sent",
+        "id": "D4.8"
       }
     ]
   },
@@ -962,143 +1126,239 @@ const DAYS=[
     "k": "D5",
     "label": "Day 5",
     "date": "2026-10-21",
-    "title": "Detection: dataset preparation & training",
-    "goal": "Know how good the pretrained detector is, build training data from the Training set, and train/evaluate the detector.",
+    "title": "Caches, 8-video baseline, oracles & challenge calibration",
+    "goal": "Detections and poses cached for all 10 videos, a baseline TI-HOTA per training video, a fixed split, the oracle table, and calibration files for both challenge videos.",
     "tasks": [
       {
-        "t": "Learn the YOLO basics",
-        "time": "30 min",
+        "t": "Write the detection + pose cache script",
+        "time": "90 min",
         "gpu": true,
-        "why": "YOLO is the detector. You'll run it, measure it and fine-tune it.",
+        "why": "Detection is the slowest stage. With a cache, every downstream experiment takes minutes instead of hours.",
         "steps": [
-          "Read the quickstart: <a href=\"https://docs.ultralytics.com/quickstart/\" target=\"_blank\" rel=\"noopener\">docs.ultralytics.com/quickstart</a>.",
-          "Model sizes: n, s, m, l, x. Bigger is more accurate but slower. <code>yolo11x.pt</code> is the largest.",
-          "Weights download automatically the first time you use a model name (from Ultralytics' GitHub releases). That's a public general-purpose checkpoint, which is allowed.",
-          "Try it in Colab on one frame:<pre><code>!yolo predict model=yolo11x.pt source=$DRIVE/calib_frame.png classes=0 imgsz=1280 conf=0.25 save=True</code></pre>",
-          "<code>classes=0</code> means person in the COCO dataset. Open the saved image in <code>runs/detect/predict</code>."
+          "Create <code>scripts/cache_detections.py</code>: one pass of <code>yolo11x-pose.pt</code> gives person boxes and 17 keypoints together. Also cache <code>yolo11x.pt</code> boxes if you want to compare detectors.",
+          "Copy the video to local <code>/content</code> first (Drive reads are slow), then decode sequentially with a counter starting at 1:<pre><code>model = YOLO('yolo11x-pose.pt')\nfor fid, batch in batched_frames(path, 8):          # fid starts at 1\n    for r in model(batch, imgsz=1280, conf=0.1, classes=[0], half=True, verbose=False):\n        ...rows.append([fid, *xyxy, conf, *kp.flatten()])</code></pre>",
+          "Write one Parquet per video to <code>$DRIVE/cache/VIDEO/detections.parquet</code> (not thousands of per-frame files).",
+          "Make it resumable: process in chunks of 2,000 frames, write <code>part_XXX.parquet</code>, and skip parts that already exist.",
+          "Keep <code>conf=0.1</code> in the cache so you can raise the threshold later without re-running."
         ],
-        "out": "You've seen boxes drawn on a frame",
+        "warn": [
+          "Never resize, rotate or skip frames differently from the decoder: frame ids must equal the original video's frame numbers.",
+          "For the challenge videos the cache is inference only, which is allowed. Don't fit anything on it."
+        ],
+        "links": [
+          [
+            "Ultralytics predict mode & arguments",
+            "https://docs.ultralytics.com/modes/predict/"
+          ],
+          [
+            "Ultralytics pose task",
+            "https://docs.ultralytics.com/tasks/pose/"
+          ],
+          [
+            "pandas.DataFrame.to_parquet",
+            "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_parquet.html"
+          ]
+        ],
+        "out": "Cache script works on 300 frames",
         "id": "D5.1"
       },
       {
-        "t": "Write a detection-recall checker",
-        "time": "60 min",
+        "t": "Measure runtime and GPU memory",
+        "time": "30 min",
         "gpu": true,
-        "why": "Tells you what share of real players the detector finds, before tracking changes anything.",
+        "why": "You need to know how long a full run takes before you plan 30–60 experiments.",
         "steps": [
-          "Create <code>scripts/det_recall.py</code>: for each tutorial frame, run YOLO, take each box's bottom centre, convert to cm with the homography.",
-          "Match detections to GT positions of the same frame with the Hungarian method:<pre><code>from scipy.optimize import linear_sum_assignment\nD = np.linalg.norm(gt[:, None, :] - det[None, :, :], axis=2)\nr, c = linear_sum_assignment(D)\nhits = (D[r, c] &lt;= 100).sum()</code></pre>",
-          "Recall = hits / number of GT players. Precision = hits / number of detections inside the court.",
-          "Run on every 5th frame to save time."
+          "Time 300 frames per stage with <code>time.perf_counter()</code>; extrapolate by frame count.",
+          "Peak memory: <code>torch.cuda.max_memory_allocated() / 1e9</code> and <code>!nvidia-smi</code>.",
+          "Compare imgsz 1280 vs 1920 for speed (recall comes later today).",
+          "Write a runtime table in <code>RESULTS.md</code>: stage, fps, GB."
         ],
-        "out": "Recall and precision printed",
+        "warn": [
+          "Free Colab disconnects after idle time and has a daily GPU limit. Start long jobs early and keep the tab active."
+        ],
+        "out": "Runtime table",
         "id": "D5.2"
       },
       {
-        "t": "Try detector settings",
-        "time": "60 min",
+        "t": "Cache all 10 videos",
+        "time": "30 min + 3–6 h waiting",
         "gpu": true,
-        "why": "Image size and confidence threshold change recall a lot for small, far players.",
+        "why": "Every later day reads these files.",
         "steps": [
-          "Run the checker with <code>imgsz</code> 960, 1280 and 1920.",
-          "For each, try <code>conf</code> 0.1, 0.25 and 0.4.",
-          "Write a small table in <code>RESULTS.md</code>: settings, recall, precision, seconds per frame.",
-          "Note which players are missed: far side, blocked by others, near the hoop."
+          "Run the cache for <code>IMG_0104 … IMG_0111</code>, <code>IMG_0114</code>, <code>IMG_0115</code>, one video per cell.",
+          "After each video: assert number of distinct frame ids = decoded frame count from the audit.",
+          "Record SHA-256 of each Parquet in <code>DATA.md</code>.",
+          "While it runs, do the split task below on your laptop."
         ],
-        "out": "Settings table",
+        "out": "10 Parquet caches in Drive",
         "id": "D5.3"
       },
       {
-        "t": "Convert the Training set to YOLO format",
-        "time": "2–3 h",
-        "gpu": true,
-        "ask": true,
-        "why": "Fine-tuning needs images plus one label file per image.",
+        "t": "Fix the validation split",
+        "time": "30 min",
+        "why": "Splitting by video stops frames of one game leaking into both training and validation.",
         "steps": [
-          "YOLO label format: one text file per image, one line per player: <code>class x_center y_center width height</code>, all divided by image width or height, e.g. <code>0 0.512 0.433 0.041 0.120</code>.",
-          "<b>If Training has boxes:</b> write <code>scripts/make_yolo_dataset.py</code> that reads each annotation row and writes these lines.",
-          "<b>If Training has only court positions:</b> auto-label. Run YOLO11x on Training frames, map each box foot to court cm with that video's homography, keep boxes within 100 cm of a GT player as class 0. This uses only Training data, so it's allowed.",
-          "Save every 5th frame only; neighbouring frames are nearly identical.",
-          "Split by game, not by frame: about 85% of games for train, 15% for val.",
-          "Folder layout:<pre><code>yolo_players/\n  images/train/*.jpg   labels/train/*.txt\n  images/val/*.jpg     labels/val/*.txt</code></pre>",
-          "Spot-check 10 images with boxes drawn to make sure labels line up."
+          "Create <code>configs/splits.yaml</code> with one fixed split for trained models: 6 train / 2 val, with <code>IMG_0104</code> in val so the tutorial number stays comparable.",
+          "Add four folds for tuning rules and thresholds (leave two videos out each), e.g. with <code>GroupKFold(n_splits=4)</code> grouped by video.",
+          "Rule: nothing (including position correction) is ever fitted on a validation video of that fold.",
+          "Commit and never change the split after today."
         ],
-        "out": "<code>yolo_players/</code> in Drive",
+        "links": [
+          [
+            "scikit-learn GroupKFold",
+            "https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GroupKFold.html"
+          ]
+        ],
+        "out": "<code>splits.yaml</code> committed",
         "id": "D5.4"
       },
       {
-        "t": "Write the dataset config file",
-        "time": "10 min",
-        "why": "Tells YOLO where the images are and what the class is called.",
+        "t": "Baseline TI-HOTA on every training video",
+        "time": "2 h",
+        "gpu": true,
+        "why": "0.635 is one clip with a hard-coded roster. You need a per-video baseline to judge every change.",
         "steps": [
-          "Create <code>configs/players.yaml</code>:<pre><code>path: /content/drive/MyDrive/trackid3x3/data/yolo_players\ntrain: images/train\nval: images/val\nnames:\n  0: player</code></pre>",
-          "Commit it."
+          "Run the tutorial logic (ByteTrack, k-means teams, EasyOCR, linear interpolation) on each training video with its own calibration file.",
+          "For this first baseline only, take the roster from that video's GT and label the row \"roster from GT (optimistic)\".",
+          "Record per-video TI-HOTA, DetA, AssA, TP, FP, FN and the mean in <code>RESULTS.md</code> and the log.",
+          "Check TP + FN = 6 × frames for each video (all six players in every GT frame)."
         ],
-        "out": "<code>players.yaml</code> committed",
+        "warn": [
+          "Using GT rosters is a diagnostic on training data only. The challenge pipeline must infer the roster."
+        ],
+        "out": "Baseline table for 8 videos",
         "id": "D5.5"
       },
       {
-        "t": "Start a fine-tuning run on Colab",
-        "time": "30 min + 2–4 h waiting",
-        "gpu": true,
-        "why": "Fine-tuning teaches the detector what a player looks like in this setting.",
+        "t": "Measure detection recall at 100 cm",
+        "time": "60 min",
+        "why": "Decides whether detector fine-tuning is worth any time at all.",
         "steps": [
-          "Open your runner notebook, check the GPU with <code>!nvidia-smi</code>.",
-          "Start training, saving to Drive so nothing is lost:<pre><code>!yolo detect train data=configs/players.yaml model=yolo11m.pt imgsz=1280 \\\n  epochs=60 batch=8 patience=15 \\\n  degrees=10 perspective=0.0005 scale=0.5 mosaic=1.0 hsv_v=0.4 \\\n  project=$DRIVE/runs name=det_v1</code></pre>",
-          "What the options mean: <code>model</code> = starting weights; <code>epochs</code> = passes over the data; <code>batch</code> = images per step (lower it to 4 if you get \"CUDA out of memory\"); <code>patience</code> = stop early if no improvement; <code>degrees/perspective/scale</code> = random tilts and zoom so a top-view-trained model handles oblique views.",
-          "Keep the tab open. Free Colab may disconnect after a few idle hours; click in the page now and then."
+          "Adapt <code>det_recall.py</code> to read caches: per frame, project foot points to cm and Hungarian-match to GT.",
+          "Report recall and precision at 100 cm and at 50 cm for conf 0.1 / 0.25 / 0.4, and imgsz 1280 vs 1920 on a 300-frame sample.",
+          "Note who is missed: far side, occluded, near the hoop.",
+          "Decision rule: fine-tune the detector only if recall at 100 cm is clearly below ~95% on the validation videos."
         ],
-        "out": "Training is running",
+        "links": [
+          [
+            "scipy linear_sum_assignment",
+            "https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.linear_sum_assignment.html"
+          ]
+        ],
+        "out": "Recall table + fine-tune yes/no",
         "id": "D5.6"
       },
       {
-        "t": "Resume if Colab disconnects",
-        "time": "10 min",
-        "gpu": true,
-        "why": "Disconnections are normal on free Colab.",
+        "t": "Test the tutorial's roster and A/B rule on all 8 videos",
+        "time": "60 min",
+        "ask": true,
+        "why": "A swapped A/B or a wrong roster number zeroes every affected identity.",
         "steps": [
-          "Re-run the setup cells (mount, clone, install).",
-          "Resume from the last checkpoint:<pre><code>!yolo train resume model=$DRIVE/runs/det_v1/weights/last.pt</code></pre>"
+          "Port the tutorial's Team A rule unchanged: first frame, predicted tracks only, initial offensive player found from positions relative to the middle of the far court line.",
+          "Run it on each training video and compare with GT team labels. Count correct videos (target 8/8).",
+          "Write down every failure with a screenshot of the first frame.",
+          "Do the same for an automatic roster (top three jersey votes per team cluster) and count wrong numbers."
         ],
-        "out": "Training finishes",
+        "warn": [
+          "The rule must use only predictions, never GT. A GT-based rule cannot run on the challenge videos."
+        ],
+        "out": "A/B rule and roster accuracy per video",
         "id": "D5.7"
       },
       {
-        "t": "Read the training results",
-        "time": "30 min",
-        "why": "Check that the model learned and didn't overfit.",
+        "t": "Run the oracle experiments",
+        "time": "2–3 h",
+        "why": "Each oracle swaps one stage for the truth and shows how many points that stage costs. Spend effort where the gap is largest.",
         "steps": [
-          "Open <code>runs/det_v1/results.png</code>. Loss curves should go down; <code>mAP50</code> should rise and level off.",
-          "Open <code>val_batch0_pred.jpg</code> to see predictions on validation images.",
-          "Best weights are at <code>runs/det_v1/weights/best.pt</code>."
+          "Create <code>scripts/oracles.py</code> that takes a prediction file and the GT and rewrites predictions:",
+          "(a) Identity oracle: give each prediction the identity of the nearest GT player in that frame.",
+          "(b) Position oracle: snap matched predictions to their GT position.",
+          "(c) Coverage oracle: add the GT rows that have no prediction.",
+          "(d) Team-only and jersey-only oracles: fix one field at a time.",
+          "Score each on the 8 training videos; write a table: baseline, each oracle, gain."
         ],
-        "out": "mAP50 written in RESULTS.md",
+        "warn": [
+          "Oracles read GT, so they only ever run on training videos. Never on IMG_0114/0115."
+        ],
+        "out": "Oracle table in <code>RESULTS.md</code>",
         "id": "D5.8"
       },
       {
-        "t": "Compare against the COCO model on the oblique clip",
-        "time": "45 min",
-        "gpu": true,
-        "why": "Training data is top view; only the tutorial clip shows whether it helps on oblique video.",
+        "t": "Add per-stage diagnostics to evaluate.py",
+        "time": "60 min",
+        "why": "TI-HOTA alone doesn't tell you which stage broke.",
         "steps": [
-          "Run <code>det_recall.py</code> with <code>best.pt</code> and with <code>yolo11x.pt</code> using the best settings from Day 5.",
-          "Keep whichever has higher recall at similar precision.",
-          "If fine-tuning hurt, try <code>model=yolo11x.pt</code> and fewer epochs (20), or train with stronger <code>perspective</code>.",
-          "Copy the winner to <code>$DRIVE/weights/player_det.pt</code>."
+          "Add: recall@100 cm, median and p90 cm error of matched pairs, tracklet purity (share of a tracklet's frames that belong to its main GT player), team accuracy, jersey accuracy, duplicate (frame, team, jersey) count, number of tracklets.",
+          "Print them under the main score and write them to <code>experiments.jsonl</code>."
         ],
-        "out": "Chosen detector saved",
+        "out": "<code>evaluate.py</code> prints the diagnostics",
         "id": "D5.9"
       },
       {
-        "t": "Log the detector",
-        "time": "10 min",
-        "why": "Required disclosure for the code check and paper.",
+        "t": "Grab challenge frames and check frame counts",
+        "time": "30 min",
+        "why": "You click court points on a still frame, and the output must cover every frame.",
         "steps": [
-          "In <code>COMPLIANCE.md</code>: base checkpoint, source, fine-tuning data (\"official Training set only\"), the exact training command, and the SHA-256 of <code>player_det.pt</code>.",
-          "Commit."
+          "<code>python scripts/grab_frame.py data/challenge/IMG_0114.MP4 calib/IMG_0114_frame.png 0</code>, same for IMG_0115. Pick a frame where few players cover the lines.",
+          "Run the audit's ffprobe command on both; write decoded frame count and fps in <code>DATA.md</code>.",
+          "If the frame looks rotated compared with the video player, note it; detection must read frames the same way."
         ],
-        "out": "Log updated",
+        "out": "Two frames and two frame counts",
         "id": "D5.10"
+      },
+      {
+        "t": "Check the coordinate frame on the challenge videos",
+        "time": "45 min",
+        "ask": true,
+        "why": "A wrong origin or axis direction silently zeroes the score.",
+        "steps": [
+          "Draw the court lines of a training video's homography onto a challenge frame. If they line up, the camera position is the same as in training.",
+          "Confirm the court template (dimensions, origin, axes) with the organizers' answer from Day 4.",
+          "If the challenge court differs, build its template before clicking."
+        ],
+        "out": "Coordinate frame confirmed in <code>DATA.md</code>",
+        "id": "D5.11"
+      },
+      {
+        "t": "Click and fit the challenge calibration (allowed manual step)",
+        "time": "75 min",
+        "why": "Manual selection of court landmarks is permitted for the challenge videos and must be described in the paper.",
+        "steps": [
+          "Click 8–12 well-spread line intersections per video with <code>click_points.py</code>.",
+          "Hold out 2–3 points: fit on the rest, report held-out error. Target under ~10 cm.",
+          "Overlay all court lines on the frame and on a top-view warp (<code>cv2.warpPerspective</code>); lines must be straight and at right angles.",
+          "Save <code>calib/IMG_0114.json</code> and <code>calib/IMG_0115.json</code>.",
+          "In <code>COMPLIANCE.md</code> write who clicked, the date, frame number and point names."
+        ],
+        "warn": [
+          "Only court landmarks may be marked by hand. No manual boxes, tracks, teams, jerseys or position corrections on challenge videos."
+        ],
+        "out": "Two calibration files with held-out error",
+        "id": "D5.12"
+      },
+      {
+        "t": "Lens distortion: only if the overlay shows curvature",
+        "time": "0–45 min",
+        "why": "Undistortion costs time; most of the time a homography is enough.",
+        "steps": [
+          "If sidelines in the top view are visibly curved, refit using only centre points and compare edge-point error.",
+          "Only if edge errors exceed ~30 cm, try <code>cv2.undistortPoints</code> with a tuned radial coefficient.",
+          "Keep it only if median position error on training videos drops; otherwise write \"not needed\"."
+        ],
+        "out": "Decision in <code>RESULTS.md</code>",
+        "id": "D5.13"
+      },
+      {
+        "t": "Pick priorities from the oracle table",
+        "time": "20 min",
+        "why": "The schedule after today assumes identity and coverage are the biggest gaps. Confirm or reorder.",
+        "steps": [
+          "Rank the oracle gains. Write the top three in <code>RESULTS.md</code>.",
+          "If detection coverage is the largest gap, move detector fine-tuning (Day 7) earlier.",
+          "Split work: A = detection, positions, output policy; B = crops, jersey, teams, identity."
+        ],
+        "out": "Priority list agreed by both people",
+        "id": "D5.14"
       }
     ]
   },
@@ -1106,61 +1366,205 @@ const DAYS=[
     "k": "D6",
     "label": "Day 6",
     "date": "2026-10-22",
-    "title": "Foot points and filtering",
-    "goal": "Players' court positions within a few centimetres, and no spectators in the data.",
+    "title": "Output policy & positions (A) · crops, legibility & OCR voting (B)",
+    "goal": "All six identities in every frame, lower median position error, a labelled crop dataset, and a jersey baseline that reads only legible crops and votes per track.",
     "tasks": [
       {
-        "t": "Run a pose model to find ankles",
-        "time": "60 min",
-        "gpu": true,
-        "why": "The bottom of a box is not where the feet are when legs are spread or a player jumps.",
+        "t": "(A) Output all six identities in every frame",
+        "time": "2 h",
+        "why": "The GT has six players in every frame and the tutorial misses about 28% of them (1906 FN). Each missing row is a false negative.",
         "steps": [
-          "The pose model downloads automatically like the detector: <code>yolo11x-pose.pt</code> (COCO-pretrained, allowed; log it).",
-          "Get keypoints:<pre><code>from ultralytics import YOLO\npose = YOLO('yolo11x-pose.pt')\nr = pose(frame, imgsz=1280, classes=[0], verbose=False)[0]\nkp = r.keypoints.data.cpu().numpy()   # (N, 17, 3): x, y, confidence\nleft_ankle, right_ankle = kp[:, 15], kp[:, 16]</code></pre>",
-          "Keypoints 5/6 are shoulders and 11/12 are hips; you'll use them for jersey crops later."
+          "In <code>postprocess.py</code>, per identity: sort its rows by frame, interpolate x and y across gaps in court space, and hold the first/last position to the video start and end.",
+          "<pre><code>full = pd.RangeIndex(1, n_frames + 1, name='frame_id')\ns = rows.set_index('frame_id')[['court_x','court_y']].reindex(full)\ns = s.interpolate(limit_area='inside').ffill().bfill()</code></pre>",
+          "Output exactly one row per (frame, identity): six rows per frame.",
+          "Score on all 8 training videos and record the TI-HOTA delta per video."
         ],
-        "out": "Ankles found on a test frame",
+        "warn": [
+          "A filled row with the wrong identity is a false positive. If an identity is unreliable, test emitting it only where there is evidence."
+        ],
+        "links": [
+          [
+            "pandas Series.interpolate",
+            "https://pandas.pydata.org/docs/reference/api/pandas.Series.interpolate.html"
+          ]
+        ],
+        "out": "TI-HOTA delta per video in <code>RESULTS.md</code>",
         "id": "D6.1"
       },
       {
-        "t": "Choose the foot point rule",
+        "t": "(A) Enforce per-frame uniqueness",
         "time": "45 min",
-        "gpu": true,
-        "why": "Better foot points directly lower position error.",
+        "why": "Two rows with the same identity in one frame: one is always a false positive.",
         "steps": [
-          "Rule: if both ankles have confidence above 0.5, use their midpoint; if one does, use it; otherwise use the box bottom centre.",
-          "Match pose boxes to your detector boxes by overlap (IoU above 0.5).",
-          "Compute median court error on the tutorial clip for: box bottom centre vs ankle rule.",
-          "Keep the better one. The tutorial got 14 cm median."
+          "Assert no duplicated (frame, team, jersey) in the writer.",
+          "De-duplicate detections that are under ~40 cm apart in court space before tracking.",
+          "Test: run on a training video and print the duplicate count (must be 0)."
         ],
-        "out": "Median error in RESULTS.md",
+        "out": "0 duplicates on all 8 videos",
         "id": "D6.2"
       },
       {
-        "t": "Tune the court margin",
-        "time": "30 min",
-        "gpu": true,
-        "why": "Too small drops real players at the lines; too big keeps spectators.",
+        "t": "(A) Test a confidence threshold for emitting rows",
+        "time": "45 min",
+        "why": "Never emit a wrong identity where emitting nothing would score better.",
         "steps": [
-          "Run the pipeline with margins 0, 50 and 100 cm.",
-          "Compare TI-HOTA and count of false positives.",
-          "Pick the best and put it in <code>configs/final.yaml</code> (create the file now with a <code>court_margin_cm</code> entry)."
+          "Give each identity-track a confidence (jersey vote share × team agreement).",
+          "Try thresholds 0, 0.3, 0.5: below it, drop that track's rows instead of labelling them.",
+          "Keep the best by mean TI-HOTA across the 4 folds."
         ],
-        "out": "Margin chosen",
+        "out": "Threshold in <code>configs/base.yaml</code>",
         "id": "D6.3"
       },
       {
-        "t": "Cache detections to files",
-        "time": "45 min",
+        "t": "(B) Match detections to GT and save labelled crops",
+        "time": "2 h",
         "gpu": true,
-        "why": "Detection is the slowest stage. Saving results lets you test tracking ideas in minutes.",
+        "why": "GT positions + cached detections give you thousands of crops with known team and jersey, without hand-labelling anything.",
         "steps": [
-          "Create <code>scripts/cache_detections.py</code> that writes, per video, a CSV with columns: <code>frame_id, x1, y1, x2, y2, conf, foot_px_x, foot_px_y, court_x, court_y</code> and the 17 keypoints.",
-          "Run it for the tutorial clip, IMG_0114 and IMG_0115. Save to <code>$DRIVE/outputs/cache/</code>.",
-          "From now on, tracking code reads these files instead of running YOLO again."
+          "Per training frame: project foot points to cm, Hungarian-match to GT within 50 cm.",
+          "For each match, crop the torso from the <b>full-resolution</b> frame and save to <code>derived/crops/VIDEO/TEAMJERSEY/FRAME.jpg</code>.",
+          "Write <code>crops.csv</code>: video, frame, box, gt_team, gt_jersey, blur score, crop height.",
+          "Cap about 50 crops per identity per video, spread over time, so a few players don't dominate.",
+          "Skip frames with fewer than 6 GT rows."
         ],
-        "out": "Three cache files in Drive",
+        "warn": [
+          "Keep crops tagged by video. Crops from validation videos go only to validation.",
+          "This uses only Training-set labels, which the rules allow. Describe the procedure in the paper."
+        ],
+        "out": "<code>crops.csv</code> + per-identity count table",
         "id": "D6.4"
+      },
+      {
+        "t": "(B) Spot-check the crop dataset",
+        "time": "30 min",
+        "why": "A matching bug would teach the recogniser wrong numbers.",
+        "steps": [
+          "Make a contact sheet of 50 random crops with their labels; all labels must match the visible number when it is visible.",
+          "Count crops per jersey number; note numbers with fewer than 20 crops."
+        ],
+        "out": "Contact sheet looks correct",
+        "id": "D6.5"
+      },
+      {
+        "t": "(B) Derive YOLO box labels (only if Training has no boxes)",
+        "time": "60 min",
+        "ask": true,
+        "why": "Needed only if Day 5 recall says fine-tune the detector.",
+        "steps": [
+          "Keep matched boxes from every 5th–10th frame as class 0; convert to YOLO txt (<code>cls xc yc w h</code>, normalised).",
+          "Layout: <code>derived/det_yolo/images/{train,val}</code> and <code>labels/{train,val}</code>, split by video using <code>splits.yaml</code>.",
+          "Write <code>configs/players.yaml</code> (path, train, val, <code>names: {0: player}</code>).",
+          "Spot-check 10 images with boxes drawn."
+        ],
+        "links": [
+          [
+            "Ultralytics detection dataset format",
+            "https://docs.ultralytics.com/datasets/detect/"
+          ]
+        ],
+        "out": "YOLO dataset in Drive (or skipped with reason)",
+        "id": "D6.6"
+      },
+      {
+        "t": "(A) Ankle foot point vs box bottom",
+        "time": "75 min",
+        "why": "At α = 0.95 a match must be within ~13 cm. Every centimetre of foot-point error costs score.",
+        "steps": [
+          "Rule: both ankles (kp 15, 16) above 0.5 confidence → midpoint; one → that ankle; none → box bottom centre.",
+          "Compute median and p90 cm error of matched pairs on the 8 videos for both methods.",
+          "Keep the better one in the config."
+        ],
+        "links": [
+          [
+            "COCO keypoint order (Ultralytics pose)",
+            "https://docs.ultralytics.com/tasks/pose/"
+          ]
+        ],
+        "out": "Median/p90 error table",
+        "id": "D6.7"
+      },
+      {
+        "t": "(A) Fit a position-correction model",
+        "time": "2 h",
+        "why": "A systematic offset (e.g. feet appear slightly forward on the far side) can be learned from training GT.",
+        "steps": [
+          "Training pairs: matched (detection, GT) from <b>train-fold videos only</b>.",
+          "Features: projected x, y, box height, ankle confidence. Target: GT minus projected (dx, dy).",
+          "<pre><code>from sklearn.linear_model import Ridge\nm = Ridge(alpha=1.0).fit(X_train, Y_train)\ncorr = proj + m.predict(X_val)</code></pre>",
+          "Also try <code>HistGradientBoostingRegressor</code> (one per axis).",
+          "Keep it only if median error drops on validation videos and TI-HOTA rises on most folds."
+        ],
+        "warn": [
+          "Fitting on validation videos would inflate every later number. Use the folds from <code>splits.yaml</code>."
+        ],
+        "links": [
+          [
+            "scikit-learn Ridge",
+            "https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Ridge.html"
+          ],
+          [
+            "HistGradientBoostingRegressor",
+            "https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.HistGradientBoostingRegressor.html"
+          ]
+        ],
+        "out": "Median cm error before/after",
+        "id": "D6.8"
+      },
+      {
+        "t": "(A) Tune the court margin",
+        "time": "30 min",
+        "why": "Too small drops players at the lines; too big keeps spectators.",
+        "steps": [
+          "Try 0, 50, 100 cm on cached data; compare TI-HOTA and FP.",
+          "Put the winner in <code>configs/base.yaml</code> as <code>court_margin_cm</code>."
+        ],
+        "out": "Margin chosen",
+        "id": "D6.9"
+      },
+      {
+        "t": "(B) Build a legibility filter",
+        "time": "90 min",
+        "why": "Most OCR errors come from blurry, tiny or front-facing crops. Reading fewer, better crops beats reading every frame.",
+        "steps": [
+          "Torso crop from pose: shoulders (kp 5, 6) to hips (kp 11, 12); skip if their confidence is under 0.4.",
+          "Blur score: <code>cv2.Laplacian(gray, cv2.CV_64F).var()</code>; pick the threshold by looking at examples.",
+          "Size: drop crops shorter than ~40 px before upscaling.",
+          "Back-facing hint: low nose/eye confidence (kp 0–2) while shoulders are confident.",
+          "Keep up to 40–60 best crops per tracklet."
+        ],
+        "out": "Share of legible crops per video",
+        "id": "D6.10"
+      },
+      {
+        "t": "(B) EasyOCR baseline on legible crops",
+        "time": "60 min",
+        "gpu": true,
+        "why": "Your reference number for any new recogniser.",
+        "steps": [
+          "<pre><code>reader = easyocr.Reader(['en'], gpu=True)\nres = reader.readtext(crop, allowlist='0123456789')</code></pre>",
+          "Compute per-crop accuracy against <code>crops.csv</code> labels on the validation videos.",
+          "Record accuracy with and without the legibility filter."
+        ],
+        "links": [
+          [
+            "EasyOCR",
+            "https://github.com/JaidedAI/EasyOCR"
+          ]
+        ],
+        "out": "Per-crop accuracy in <code>RESULTS.md</code>",
+        "id": "D6.11"
+      },
+      {
+        "t": "(B) Vote one number per tracklet",
+        "time": "60 min",
+        "why": "Many noisy reads add up to one reliable answer.",
+        "steps": [
+          "Sum confidence per number over the tracklet; give full two-digit reads extra weight so a half-hidden \"11\" doesn't become \"1\".",
+          "Leave the tracklet unlabelled if the top share is under ~50%; Day 8's assignment decides.",
+          "Report per-tracklet jersey accuracy (tutorial baseline: 92.3%)."
+        ],
+        "out": "Per-tracklet accuracy",
+        "id": "D6.12"
       }
     ]
   },
@@ -1168,87 +1572,208 @@ const DAYS=[
     "k": "D7",
     "label": "Day 7",
     "date": "2026-10-23",
-    "title": "Tracking, stitching and smoothing",
-    "goal": "Pick the tracker with most stable IDs, split impossible jumps, stitch broken tracklets, and smooth trajectories.",
+    "title": "Tracker & stitching (A) · jersey fine-tune & teams (B)",
+    "goal": "Pure, joined tracklets from a conservatively tuned tracker; a jersey recogniser trained on your crops; a team split and A/B rule right on all eight videos.",
     "tasks": [
       {
-        "t": "Install BoxMOT and try its trackers",
-        "time": "60 min",
+        "t": "(A) Compare trackers on the caches",
+        "time": "2 h",
         "gpu": true,
-        "why": "BoxMOT packages several modern trackers (ByteTrack, BoT-SORT, DeepOCSORT) behind one interface.",
+        "why": "Final identity comes from per-tracklet labels, so tracklet purity matters more than tracklet length.",
         "steps": [
-          "Read the README: <a href=\"https://github.com/mikel-brostrom/boxmot\" target=\"_blank\" rel=\"noopener\">github.com/mikel-brostrom/boxmot</a>.",
-          "Install in Colab: <code>!pip install boxmot</code>, then add it to <code>requirements.txt</code> with its version.",
-          "Typical use (check the README for exact class and argument names in your version):<pre><code>from boxmot import BotSort\nfrom pathlib import Path\ntracker = BotSort(reid_weights=Path('osnet_x0_25_msmt17.pt'), device='cuda:0', half=True)\nfor frame_id, frame, dets in frames:      # dets: N x 6 array [x1,y1,x2,y2,conf,cls]\n    tracks = tracker.update(dets, frame)  # rows: x1,y1,x2,y2,track_id,conf,cls,idx</code></pre>",
-          "The ReID weights download automatically. They're a public person-ReID model (trained on MSMT17); log them in <code>COMPLIANCE.md</code>."
+          "Install BoxMOT (pin its version) and run ByteTrack, OC-SORT and BoT-SORT on cached detections.",
+          "BoT-SORT: turn camera-motion compensation off (fixed camera) and test ReID on vs off.",
+          "Record TI-HOTA, AssA, tracklet purity and number of tracklets per video.",
+          "Keep the best in the config; ByteTrack is the fallback."
         ],
-        "out": "A tracker runs on the tutorial clip",
+        "warn": [
+          "BoxMOT class names and arguments change between versions; check the README of the version you pinned.",
+          "ReID weights download automatically; log their name and training data (e.g. OSNet on MSMT17) in <code>COMPLIANCE.md</code>."
+        ],
+        "links": [
+          [
+            "BoxMOT",
+            "https://github.com/mikel-brostrom/boxmot"
+          ],
+          [
+            "OC-SORT",
+            "https://github.com/noahcao/OC_SORT"
+          ],
+          [
+            "ByteTrack",
+            "https://github.com/ifzhang/ByteTrack"
+          ],
+          [
+            "BoT-SORT",
+            "https://github.com/NirAharon/BoT-SORT"
+          ],
+          [
+            "OSNet / torchreid",
+            "https://github.com/KaiyangZhou/deep-person-reid"
+          ]
+        ],
+        "out": "Tracker table in <code>RESULTS.md</code>",
         "id": "D7.1"
       },
       {
-        "t": "Compare trackers fairly",
-        "time": "90 min",
-        "gpu": true,
-        "why": "Use the score, not intuition, to choose.",
+        "t": "(A) Tune the tracker conservatively",
+        "time": "60 min",
+        "why": "A tracklet that mixes two players poisons its jersey vote.",
         "steps": [
-          "Write <code>scripts/run_tracker.py --tracker bytetrack|botsort|deepocsort</code> that reads the detection cache and the video, and writes MOT format.",
-          "Feed each MOT file through the rest of the baseline pipeline (filter → identify → postprocess → evaluate).",
-          "Record TI-HOTA, AssA, and number of track IDs created (fewer is usually better: ideally close to 6).",
-          "Keep the best one in <code>configs/final.yaml</code>."
+          "Stricter matching threshold and a short track buffer (e.g. 15–30 frames).",
+          "Pick by tracklet purity first, then TI-HOTA, across the 4 folds."
         ],
-        "out": "Tracker table in RESULTS.md",
+        "out": "Tracker settings committed",
         "id": "D7.2"
       },
       {
-        "t": "Split tracks that jump impossibly",
-        "time": "45 min",
-        "why": "A track that moves 3 m in one frame has swapped players.",
+        "t": "(A) Fine-tune the detector, only if recall is short",
+        "time": "30 min + 2–4 h waiting",
+        "gpu": true,
+        "why": "Skip this task if Day 5 recall at 100 cm was ≥ ~95%.",
         "steps": [
-          "A sprinting player moves under ~10 m/s, i.e. about 35 cm per frame at 30 fps. Check your video's fps.",
-          "In <code>src/track_clean.py</code>, walk each track in time order and cut it into two where the court distance between consecutive frames exceeds a threshold (start with 150 cm).",
-          "Re-evaluate. Splitting looks worse alone but helps once stitching (Day 9) rejoins correct pieces."
+          "<pre><code>!yolo detect train data=configs/players.yaml model=yolo11m.pt imgsz=1280 \\\n  epochs=40 batch=8 patience=12 hsv_v=0.4 scale=0.5 fliplr=0.5 \\\n  project=$DRIVE/runs name=det_v1</code></pre>",
+          "Out of memory → <code>batch=4</code>. Disconnected → <code>!yolo train resume model=$DRIVE/runs/det_v1/weights/last.pt</code>.",
+          "Compare recall@100 cm of <code>best.pt</code> vs COCO <code>yolo11x.pt</code> on validation videos; keep the winner as <code>weights/det_DATE_COMMIT.pt</code>.",
+          "Log base checkpoint, data (\"official Training set only\"), command and SHA-256 in <code>COMPLIANCE.md</code>."
         ],
-        "out": "Function committed",
+        "links": [
+          [
+            "Ultralytics train mode",
+            "https://docs.ultralytics.com/modes/train/"
+          ],
+          [
+            "Resuming interrupted training",
+            "https://docs.ultralytics.com/modes/train/#resuming-interrupted-trainings"
+          ]
+        ],
+        "out": "Detector decision with numbers",
         "id": "D7.3"
       },
       {
-        "t": "Build a tracklet table",
+        "t": "(B) Pick the recogniser to fine-tune",
         "time": "45 min",
-        "why": "Stitching works on summaries of each track piece.",
+        "ask": true,
+        "why": "Challenge players may wear numbers never seen in training, so a 0–99 class classifier is risky.",
         "steps": [
-          "For each track ID record: start frame, end frame, start (x,y), end (x,y), mean appearance feature, mean torso colour.",
-          "Save as <code>outputs/tracklets_VIDEO.csv</code>.",
-          "Mean appearance feature: average the ReID vector over the track (BoxMOT can return it, or run the OSNet model on crops)."
+          "Option 1: PARSeq (general scene-text weights) fine-tuned on your crops, digits only.",
+          "Option 2: ResNet18 with two heads (tens incl. \"none\", units), cross-entropy per head.",
+          "Use hockey-trained jersey weights only if the organizers confirmed they count as general-purpose."
         ],
-        "out": "Tracklet table",
+        "warn": [
+          "The jersey-number-pipeline code and weights are licensed CC BY-NC; check before using.",
+          "No horizontal flip on jersey crops: it mirrors digits."
+        ],
+        "links": [
+          [
+            "PARSeq",
+            "https://github.com/baudm/parseq"
+          ],
+          [
+            "jersey-number-pipeline (hockey)",
+            "https://github.com/mkoshkina/jersey-number-pipeline"
+          ],
+          [
+            "PaddleOCR (alternative)",
+            "https://github.com/PaddlePaddle/PaddleOCR"
+          ],
+          [
+            "CC BY-NC 3.0 licence",
+            "https://creativecommons.org/licenses/by-nc/3.0/"
+          ]
+        ],
+        "out": "Recogniser chosen",
         "id": "D7.4"
       },
       {
-        "t": "Link tracklets with the Hungarian method",
-        "time": "2 h",
-        "why": "Joining pieces is the biggest boost to association accuracy (AssA).",
+        "t": "(B) Fine-tune run 1",
+        "time": "30 min + 1–2 h waiting",
+        "gpu": true,
+        "why": "Trained on your own data, a recogniser usually beats general OCR on jerseys. Measure it.",
         "steps": [
-          "Candidate link A→B when B starts after A ends, the gap is ≤ 60 frames, and the distance ≤ 35 cm × gap + 100 cm.",
-          "Cost = distance/(gap+1) normalised + (1 − cosine similarity of appearance) + colour difference.",
-          "Solve with <code>scipy.optimize.linear_sum_assignment</code> on the cost matrix; reject matches above a threshold.",
-          "Merge linked pairs into one ID and repeat until no new links.",
-          "Never merge two tracklets that exist in the same frame.",
-          "Evaluate and record the change in AssA."
+          "Train on train-fold crops only; validate on the two validation videos.",
+          "Augment: rotation ±10°, blur, brightness/contrast, small perspective. No flips.",
+          "PARSeq: AdamW, lr 1e-4 to 3e-4. ResNet18: AdamW lr 3e-4, batch 64, ~15 epochs. Early-stop on validation crop accuracy.",
+          "Save as <code>weights/jersey_DATE_COMMIT.pt</code>; record SHA-256 and the command."
         ],
-        "out": "AssA improved over Day 8",
+        "out": "Validation per-crop accuracy",
         "id": "D7.5"
       },
       {
-        "t": "Smooth positions and fill short gaps",
+        "t": "(B) Compare with EasyOCR end to end",
         "time": "45 min",
-        "why": "Removes jitter so positions stay within 100 cm more often.",
+        "why": "Only TI-HOTA decides.",
         "steps": [
-          "Smooth x and y over time:<pre><code>from scipy.signal import savgol_filter\nx_s = savgol_filter(x, window_length=9, polyorder=2)</code></pre>",
-          "Fill gaps up to 30 frames with linear interpolation (<code>pandas.Series.interpolate</code>).",
-          "Test window lengths 5, 9, 15 and keep the best."
+          "Per-crop accuracy and per-tracklet accuracy: EasyOCR vs fine-tuned.",
+          "Plug the winner into the pipeline and record TI-HOTA on validation videos.",
+          "If it doesn't help: keep EasyOCR with stricter legibility filtering."
         ],
-        "out": "Lower median error",
+        "out": "Recogniser decision in <code>RESULTS.md</code>",
         "id": "D7.6"
+      },
+      {
+        "t": "(A) Split impossible jumps",
+        "time": "45 min",
+        "why": "A track that moves 3 m in one frame has swapped players.",
+        "steps": [
+          "Use each video's fps from the audit: 10 m/s ≈ 35 cm per frame at 30 fps.",
+          "Cut a track where consecutive court distance exceeds a threshold (start 150 cm).",
+          "Splitting alone may lower the score; judge it together with stitching."
+        ],
+        "out": "Split function committed",
+        "id": "D7.7"
+      },
+      {
+        "t": "(A) Build the tracklet table and stitch",
+        "time": "2.5 h",
+        "why": "Joining correct pieces raises AssA; the tracker's own IDs don't need to persist.",
+        "steps": [
+          "Per tracklet: start/end frame and position, mean appearance vector, mean torso colour, jersey votes.",
+          "Candidate link A→B when B starts after A ends, gap ≤ 60 frames and distance ≤ 35 cm × gap + 100 cm.",
+          "Cost = normalised distance + (1 − cosine similarity) + colour difference; solve with <code>linear_sum_assignment</code>; reject costs over a threshold.",
+          "Never merge tracklets that overlap in time.",
+          "Record purity and AssA before/after."
+        ],
+        "out": "AssA and purity before/after",
+        "id": "D7.8"
+      },
+      {
+        "t": "(B) Compare team features",
+        "time": "2 h",
+        "why": "An HSV histogram of fixed box fractions catches floor, arms and skin.",
+        "steps": [
+          "Pose-based torso crop; mask out low-saturation and skin-coloured pixels.",
+          "Compare HSV histogram, Lab histogram and a pretrained CNN embedding (e.g. the ReID vector).",
+          "Average per tracklet; cluster with <code>KMeans(n_clusters=2, n_init=10, random_state=0)</code> per video.",
+          "Report team accuracy on all 8 videos (tutorial: 92.4%)."
+        ],
+        "warn": [
+          "Don't train a supervised A/B classifier: A/B is defined per video by who attacks first, and jersey colours differ between games."
+        ],
+        "links": [
+          [
+            "scikit-learn KMeans",
+            "https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html"
+          ],
+          [
+            "OpenCV colour conversions",
+            "https://docs.opencv.org/4.x/de/d25/imgproc_color_conversions.html"
+          ]
+        ],
+        "out": "Team accuracy per feature",
+        "id": "D7.9"
+      },
+      {
+        "t": "(B) Finalise the A/B rule",
+        "time": "60 min",
+        "why": "Getting A/B backwards makes every identity in that video wrong.",
+        "steps": [
+          "Re-run the Day 5 rule with the new clusters; target 8/8 videos correct.",
+          "For failures, try an extra cue (who is farther from the basket at the start, movement direction) and re-test on all 8.",
+          "Write the final rule in <code>README.md</code> for the paper."
+        ],
+        "out": "A/B rule correct on 8/8 (or failures explained)",
+        "id": "D7.10"
       }
     ]
   },
@@ -1256,138 +1781,118 @@ const DAYS=[
     "k": "D8",
     "label": "Day 8",
     "date": "2026-10-24",
-    "title": "Team identification & jersey numbers",
-    "goal": "Label every track as Team A/B and recognize jersey numbers to infer the 6-player video roster.",
+    "title": "Roster, smoothing, identity assignment & run.py",
+    "goal": "Six identities found automatically, smooth gap-free trajectories, a constrained global identity assignment, one run command and 4-fold results.",
     "tasks": [
       {
-        "t": "Crop torsos with pose keypoints",
-        "time": "45 min",
-        "why": "Jersey colour sits between shoulders and hips. Fixed box fractions catch floor and arms.",
-        "steps": [
-          "Use keypoints 5, 6 (shoulders) and 11, 12 (hips) to define a rectangle.",
-          "Skip crops where those keypoints have confidence under 0.4.",
-          "Sample up to 40 frames per track, spread over its life."
-        ],
-        "out": "Torso crops per track",
-        "id": "D8.1"
-      },
-      {
-        "t": "Make colour features",
-        "time": "45 min",
-        "why": "Teams differ mainly by jersey colour.",
-        "steps": [
-          "Convert crops to HSV and build a 16×8 hue/saturation histogram with <code>cv2.calcHist</code>, as in the tutorial.",
-          "Ignore very dark and very bright pixels (low V or low S) so shadows and skin matter less.",
-          "Normalise each histogram and average per track."
-        ],
-        "out": "One feature vector per track",
-        "id": "D8.2"
-      },
-      {
-        "t": "Cluster into two teams",
-        "time": "45 min",
-        "why": "Clustering on the challenge video during inference is not training, so it's allowed.",
-        "steps": [
-          "Cluster:<pre><code>from sklearn.cluster import KMeans\nlabels = KMeans(n_clusters=2, n_init=10, random_state=0).fit_predict(F)</code></pre>",
-          "If referees appear, try 3 clusters and drop the smallest one.",
-          "Check: each cluster should end up with about three players at any moment."
-        ],
-        "out": "Cluster label per track",
-        "id": "D8.3"
-      },
-      {
-        "t": "Decide which cluster is Team A",
+        "t": "(B) Infer the roster automatically",
         "time": "90 min",
-        "ask": true,
-        "why": "A means the team on offense at the start. Getting this backwards makes every identity wrong.",
-        "steps": [
-          "Look at how the tutorial labels the first frame: the offensive team at the start is A.",
-          "Write a rule you can compute automatically, for example: at the start the offense stands farther from the basket than the defense.",
-          "Test the rule on every Training game. Count how often it picks the right team.",
-          "If it's below ~100%, try other cues (who holds positions near the top of the arc, movement direction).",
-          "Write the final rule in <code>README.md</code>; the paper must describe it."
-        ],
-        "out": "Rule correct on Training games",
-        "id": "D8.4"
-      },
-      {
-        "t": "Measure team accuracy",
-        "time": "15 min",
-        "why": "Tutorial baseline: 92.4%.",
-        "steps": [
-          "Run <code>evaluate.py</code> and read team accuracy.",
-          "Record it in <code>RESULTS.md</code>.",
-          "Commit."
-        ],
-        "out": "Team accuracy above 92%",
-        "id": "D8.5"
-      },
-      {
-        "t": "Make good jersey crops",
-        "time": "60 min",
-        "why": "OCR quality depends mostly on how clear the crop is.",
-        "steps": [
-          "Use the torso rectangle from Day 10.",
-          "Upscale ×3 with <code>cv2.resize(..., interpolation=cv2.INTER_CUBIC)</code>.",
-          "Skip blurry crops: compute <code>cv2.Laplacian(gray, cv2.CV_64F).var()</code> and drop crops below a threshold you pick by looking at examples.",
-          "Skip crops shorter than 40 pixels before upscaling.",
-          "Save 50 sample crops to Drive and look at them."
-        ],
-        "out": "Crop samples look readable",
-        "id": "D8.6"
-      },
-      {
-        "t": "Run EasyOCR with digits only",
-        "time": "45 min",
-        "gpu": true,
-        "why": "Your baseline OCR, already in the tutorial.",
-        "steps": [
-          "Docs: <a href=\"https://github.com/JaidedAI/EasyOCR\" target=\"_blank\" rel=\"noopener\">github.com/JaidedAI/EasyOCR</a>.",
-          "Code:<pre><code>import easyocr\nreader = easyocr.Reader(['en'], gpu=True)\nfor box, text, conf in reader.readtext(crop, allowlist='0123456789'):\n    print(text, conf)</code></pre>",
-          "Keep reads with confidence ≥ 0.1 and values 0–99."
-        ],
-        "out": "Reads saved per crop",
-        "id": "D8.7"
-      },
-      {
-        "t": "Try a stronger text recogniser (PARSeq)",
-        "time": "90 min",
-        "gpu": true,
-        "why": "Modern scene-text models often read jersey digits better.",
-        "steps": [
-          "Repo: <a href=\"https://github.com/baudm/parseq\" target=\"_blank\" rel=\"noopener\">github.com/baudm/parseq</a>. It's a public general-purpose model; log it.",
-          "Load and run (follow the README for preprocessing):<pre><code>import torch\nparseq = torch.hub.load('baudm/parseq', 'parseq', pretrained=True).eval()\n# image: resize to 32x128, normalise as in the README\nprobs = parseq(img_tensor).softmax(-1)\nlabels, confs = parseq.tokenizer.decode(probs)</code></pre>",
-          "Keep only results made of digits.",
-          "Hand-label 100 crops from Training or the tutorial clip (not the challenge videos) and compare per-crop accuracy of EasyOCR vs PARSeq."
-        ],
-        "out": "Accuracy comparison in RESULTS.md",
-        "id": "D8.8"
-      },
-      {
-        "t": "Vote one number per track",
-        "time": "45 min",
-        "why": "Many noisy reads add up to one reliable answer.",
-        "steps": [
-          "For each track, add up confidence per number read.",
-          "Give two-digit reads extra weight so \"1\" from a half-hidden \"11\" doesn't win.",
-          "If the top number's share is below ~50%, leave the track unlabelled; Day 12 will decide."
-        ],
-        "out": "Number per track",
-        "id": "D8.9"
-      },
-      {
-        "t": "Infer each video's roster automatically",
-        "time": "45 min",
         "ask": true,
         "why": "Manual identity labelling of challenge videos is forbidden, so code must find the six numbers unless the organizers provide them.",
         "steps": [
-          "If the organizers give rosters, store them in <code>configs/rosters.yaml</code> and cite their source.",
-          "Otherwise: for each team cluster, sum vote weights per number across all tracks and keep the top three.",
-          "Check on the tutorial clip that this recovers A: 4, 10, 12 and B: 6, 9, 11.",
-          "Measure jersey accuracy with <code>evaluate.py</code>. Tutorial baseline: 92.3%."
+          "If rosters are provided, put them in <code>configs/rosters.yaml</code> with the source.",
+          "Otherwise: per team cluster, sum vote weights per number across tracklets; keep the top three.",
+          "Check it recovers the GT roster on all 8 training videos (tutorial clip: A 4, 10, 12; B 6, 9, 11).",
+          "Log every wrong number and why (similar digits, few legible crops)."
         ],
-        "out": "Roster found automatically",
-        "id": "D8.10"
+        "out": "Roster correct on N/8 videos",
+        "id": "D8.1"
+      },
+      {
+        "t": "(A) Smooth trajectories",
+        "time": "75 min",
+        "why": "Jitter pushes positions past the tight high-α thresholds (31 cm at α 0.75, 19 cm at α 0.9).",
+        "steps": [
+          "Savitzky–Golay on x and y per identity: windows 5, 9, 15; polyorder 2.",
+          "Optional: an RTS (Kalman) smoother.",
+          "Choose by mean TI-HOTA over the 4 folds."
+        ],
+        "links": [
+          [
+            "scipy.signal.savgol_filter",
+            "https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.savgol_filter.html"
+          ]
+        ],
+        "out": "Smoother chosen",
+        "id": "D8.2"
+      },
+      {
+        "t": "(A) Tune interpolation and holding",
+        "time": "60 min",
+        "why": "Long gaps filled with straight lines can be far from the player.",
+        "steps": [
+          "Try maximum interpolated gap: 30, 90, unlimited; beyond it, hold or drop.",
+          "Try holding vs dropping at the video start and end.",
+          "Pick by TI-HOTA across folds."
+        ],
+        "out": "Interpolation policy in config",
+        "id": "D8.3"
+      },
+      {
+        "t": "Build the tracklet-to-identity cost table",
+        "time": "60 min",
+        "why": "Combines every signal so conflicts are solved once, globally.",
+        "steps": [
+          "Rows: tracklets. Columns: the six (team, jersey) identities.",
+          "Score = jersey vote share + team-cluster agreement + appearance similarity to that identity's other tracklets + motion continuity.",
+          "List every pair of tracklets that overlap in time."
+        ],
+        "out": "Score table",
+        "id": "D8.4"
+      },
+      {
+        "t": "Solve with OR-Tools CP-SAT",
+        "time": "90 min",
+        "why": "Guarantees no identity appears twice in one frame.",
+        "steps": [
+          "<pre><code>from ortools.sat.python import cp_model\nm = cp_model.CpModel()\nx = {(t, i): m.NewBoolVar(f'x{t}_{i}') for t in T for i in IDS}\nfor t in T: m.Add(sum(x[t, i] for i in IDS) &lt;= 1)\nfor a, b in overlapping_pairs:\n    for i in IDS: m.Add(x[a, i] + x[b, i] &lt;= 1)\nm.Maximize(sum(int(1000 * score[t, i]) * x[t, i] for t in T for i in IDS))\ns = cp_model.CpSolver(); s.parameters.max_time_in_seconds = 60; s.Solve(m)</code></pre>",
+          "Tracklets with no identity are dropped.",
+          "Compare TI-HOTA against per-tracklet voting."
+        ],
+        "links": [
+          [
+            "OR-Tools CP-SAT solver",
+            "https://developers.google.com/optimization/cp/cp_solver"
+          ]
+        ],
+        "out": "AssA before/after",
+        "id": "D8.5"
+      },
+      {
+        "t": "Write the submission writer and validator",
+        "time": "60 min",
+        "why": "A format mistake can zero your score.",
+        "steps": [
+          "One writer function: <code>IMG_0114.txt</code>, <code>IMG_0115.txt</code>, rows <code>frame_id,court_x,court_y,team_id,jersey_number</code>, no header.",
+          "<code>scripts/validate_submission.py</code> checks: 5 columns; no header; frame ids 1…N with no gaps; N = decoded frame count; no NaN; team only A/B; no duplicate (frame, team, jersey); six identities, three per team; each jersey's team constant; x/y inside court + margin.",
+          "Run it on every training-video output."
+        ],
+        "out": "Validator passes on 8 videos",
+        "id": "D8.6"
+      },
+      {
+        "t": "Integrate run.py with one config",
+        "time": "90 min",
+        "why": "Organizers must reproduce your predictions with one command.",
+        "steps": [
+          "<code>configs/final.yaml</code> holds every setting: detector, imgsz, conf, foot rule, correction model, margin, tracker, stitching, team feature, recogniser, thresholds, output policy, smoothing.",
+          "Usage:<pre><code>python run.py --video $DRIVE/data/challenge/IMG_0114.MP4 --calib calib/IMG_0114.json \\\n  --config configs/final.yaml --out $DRIVE/outputs/EXP_ID</code></pre>",
+          "Fix seeds (numpy, torch, KMeans <code>random_state</code>); reuse caches when present."
+        ],
+        "out": "One command produces a valid file",
+        "id": "D8.7"
+      },
+      {
+        "t": "Run 4-fold cross-validation",
+        "time": "60 min",
+        "gpu": true,
+        "why": "The real estimate of how the pipeline will do on unseen videos.",
+        "steps": [
+          "Run <code>run.py</code> per fold with only that fold's train videos used for fitting.",
+          "Table: per-video and mean TI-HOTA, DetA, AssA vs the Day 5 baseline."
+        ],
+        "out": "Fold table in <code>RESULTS.md</code>",
+        "id": "D8.8"
       }
     ]
   },
@@ -1395,111 +1900,136 @@ const DAYS=[
     "k": "D9",
     "label": "Day 9",
     "date": "2026-10-25",
-    "title": "Identity assignment, pipeline & first challenge run",
-    "goal": "Solve global identity assignment with OR-Tools, build single run command, run ablation table, and first challenge run.",
+    "title": "Ablation, challenge run, reproduction & tag",
+    "goal": "Only parts that help remain; valid predictions for both challenge videos; a fresh clone reproduces them; weights released and <code>submission-v1</code> tagged.",
     "tasks": [
-      {
-        "t": "Build the track-to-identity score table",
-        "time": "45 min",
-        "why": "Combines team, jersey and timing evidence into one decision.",
-        "steps": [
-          "Rows: tracks. Columns: the six (team, jersey) identities.",
-          "Score = jersey vote share for that number × team match (0 if team cluster differs) + small bonus for long tracks.",
-          "Find every pair of tracks that overlap in time; they can't be the same person."
-        ],
-        "out": "Score table",
-        "id": "D9.1"
-      },
-      {
-        "t": "Solve the assignment with OR-Tools",
-        "time": "90 min",
-        "why": "Guarantees no identity appears twice in one frame.",
-        "steps": [
-          "Docs: <a href=\"https://developers.google.com/optimization\" target=\"_blank\" rel=\"noopener\">developers.google.com/optimization</a>.",
-          "Code:<pre><code>from ortools.sat.python import cp_model\nm = cp_model.CpModel()\nx = {(t, i): m.NewBoolVar(f'x{t}_{i}') for t in T for i in IDS}\nfor t in T:\n    m.Add(sum(x[t, i] for i in IDS) &lt;= 1)\nfor a, b in overlapping_pairs:\n    for i in IDS:\n        m.Add(x[a, i] + x[b, i] &lt;= 1)\nm.Maximize(sum(int(1000 * score[t, i]) * x[t, i] for t in T for i in IDS))\nsolver = cp_model.CpSolver()\nsolver.parameters.max_time_in_seconds = 60\nsolver.Solve(m)</code></pre>",
-          "Tracks that get no identity are dropped.",
-          "Evaluate. AssA should rise compared with per-track voting alone."
-        ],
-        "out": "AssA improved",
-        "id": "D9.2"
-      },
-      {
-        "t": "Choose what to output in uncertain frames",
-        "time": "60 min",
-        "why": "Every frame is scored, including before the game starts. Extra rows can be false positives; missing rows are false negatives.",
-        "steps": [
-          "Option 1: output each identity only where its tracks exist.",
-          "Option 2: also fill gaps between that identity's tracks.",
-          "Option 3: also extend to the start and end of the video by holding the first/last position.",
-          "Score all three on the tutorial clip; keep the best in <code>configs/final.yaml</code>."
-        ],
-        "out": "Policy chosen",
-        "id": "D9.3"
-      },
-      {
-        "t": "Write the submission writer and validator",
-        "time": "60 min",
-        "why": "A format mistake can zero your score.",
-        "steps": [
-          "Writer: one file per video named <code>IMG_0114.txt</code>, <code>IMG_0115.txt</code>, rows <code>frame_id,court_x,court_y,team_id,jersey_number</code>, no header, comma-separated.",
-          "Validator <code>scripts/validate_submission.py</code> checks: exactly 5 columns; no header line; frame_id integer from 1 to the video's frame count; team_id only A or B; jersey integer; x and y inside the court range; no duplicate (frame, team, jersey).",
-          "Run the validator on the tutorial output and fix anything it reports."
-        ],
-        "out": "Validator passes",
-        "id": "D9.4"
-      },
-      {
-        "t": "Build run.py with a config file",
-        "time": "90 min",
-        "why": "Organizers must reproduce your predictions exactly.",
-        "steps": [
-          "<code>configs/final.yaml</code> holds every setting: detector path, imgsz, conf, margin, tracker, stitching thresholds, smoothing window, OCR model, output policy.",
-          "<code>run.py</code> loads it with <code>yaml.safe_load</code> and runs every stage, reusing caches if present.",
-          "Usage:<pre><code>python run.py --video IMG_0114.MOV --calib calib/IMG_0114.json \\\n  --config configs/final.yaml --out outputs/final</code></pre>",
-          "Set fixed random seeds (numpy, torch, KMeans random_state)."
-        ],
-        "out": "One command produces a prediction file",
-        "id": "D9.5"
-      },
-      {
-        "t": "Test from a fresh clone",
-        "time": "45 min",
-        "gpu": true,
-        "why": "Catches missing files and hard-coded paths.",
-        "steps": [
-          "Open a brand-new Colab notebook, clone, install requirements, run <code>run.py</code> on the tutorial clip.",
-          "Score must match your best result.",
-          "Fix any errors and push."
-        ],
-        "out": "Fresh clone reproduces the score",
-        "id": "D9.6"
-      },
       {
         "t": "Run the ablation table",
         "time": "2 h",
         "gpu": true,
-        "why": "Shows which parts help. This becomes the main table of your paper.",
+        "why": "Shows which parts help. It becomes the main table of your paper.",
         "steps": [
-          "Start from the baseline and switch on one improvement at a time: detector, foot points, margin, tracker, jump split, stitching, smoothing, team features, OCR model, voting, assignment, output policy.",
-          "For each row record TI-HOTA, DetA, AssA in <code>RESULTS.md</code>.",
-          "Remove anything that doesn't help."
+          "Switch one part off at a time: output policy, foot point, position correction, tracker, stitching, team feature, recogniser, voting, assignment, smoothing.",
+          "Record TI-HOTA, DetA, AssA per row.",
+          "A change counts only if the mean improves by more than ~0.005 and most videos don't get worse."
         ],
-        "out": "Ablation table filled",
+        "out": "Ablation table",
+        "id": "D9.1"
+      },
+      {
+        "t": "Remove what doesn't help",
+        "time": "45 min",
+        "why": "Fewer parts = fewer ways to break on the challenge videos.",
+        "steps": [
+          "Fallbacks: detector → COCO; tracker → ByteTrack; recogniser → EasyOCR + strict filter; position correction → plain ankle point.",
+          "Delete unused code paths from <code>final.yaml</code>."
+        ],
+        "out": "Lean <code>final.yaml</code>",
+        "id": "D9.2"
+      },
+      {
+        "t": "Second round on the largest remaining gap",
+        "time": "3 h",
+        "why": "Re-running the oracles on the integrated pipeline shows what is still costing points.",
+        "steps": [
+          "Re-run the Day 5 oracles on validation outputs.",
+          "Pick the single largest gap; make one focused change; re-validate on folds.",
+          "Optional: retrain the recogniser/detector on all 8 videos only if the validation gain was clear; log it."
+        ],
+        "out": "Second-round result logged",
+        "id": "D9.3"
+      },
+      {
+        "t": "Run on the challenge videos",
+        "time": "90 min",
+        "gpu": true,
+        "why": "First real run; use exactly the validated pipeline.",
+        "steps": [
+          "Tag a candidate commit (<code>candidate-1</code>); clone that tag on Colab.",
+          "Run <code>run.py</code> on <code>IMG_0114.MP4</code> and <code>IMG_0115.MP4</code> with their calibration files.",
+          "Run the validator on both outputs."
+        ],
+        "warn": [
+          "All frames are scored, including before the game starts. Don't trim or renumber."
+        ],
+        "out": "Two valid files",
+        "id": "D9.4"
+      },
+      {
+        "t": "Review overlays",
+        "time": "60 min",
+        "why": "Look for obvious failures without touching outputs by hand.",
+        "steps": [
+          "Make minimap overlay videos (tutorial stages 10–12) and watch them.",
+          "Check: six players, two team colours, stable jersey labels, sensible A/B.",
+          "If something is wrong, fix the method, re-check on training folds, and rerun. Never edit output files."
+        ],
+        "out": "Overlay notes in <code>RESULTS.md</code>",
+        "id": "D9.5"
+      },
+      {
+        "t": "Compliance check",
+        "time": "30 min",
+        "why": "The code check compares your method with the rules.",
+        "steps": [
+          "<code>COMPLIANCE.md</code> lists every pretrained model (source, training data, licence), every trained weight (data, command, SHA-256), and the manual calibration.",
+          "Confirm nothing challenge-derived exists in <code>derived/</code>; only calibration and caches."
+        ],
+        "out": "Compliance log complete",
+        "id": "D9.6"
+      },
+      {
+        "t": "Reproduce from a fresh clone",
+        "time": "90 min",
+        "gpu": true,
+        "why": "Catches missing files and hard-coded paths.",
+        "steps": [
+          "New Colab notebook: clone the tag, install requirements, download weights from the release.",
+          "Validation numbers must match exactly; challenge outputs must have identical SHA-256."
+        ],
+        "out": "Identical results",
         "id": "D9.7"
       },
       {
-        "t": "First run on the challenge videos",
-        "time": "60 min",
-        "gpu": true,
-        "why": "Look for obvious problems without touching outputs by hand.",
+        "t": "Upload weights to a GitHub Release",
+        "time": "30 min",
+        "why": "Weights are too big for the ZIP; links must stay valid during review.",
         "steps": [
-          "Run <code>run.py</code> on IMG_0114 and IMG_0115.",
-          "Make minimap overlay videos with the notebook's stage 10–12 code and watch them.",
-          "Check: about six players most of the time; two team colours; jersey labels stable.",
-          "If something is wrong, fix the method, re-check on the tutorial clip, and rerun. Never edit the output files."
+          "Releases → Draft a new release, tag <code>submission-v1</code>; attach every weight file (under 2 GB each).",
+          "Copy each download link and SHA-256 into <code>README.md</code>."
         ],
-        "out": "Candidate predictions for both videos",
+        "links": [
+          [
+            "Managing GitHub releases",
+            "https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository"
+          ]
+        ],
+        "out": "Release published",
         "id": "D9.8"
+      },
+      {
+        "t": "Write the reproduction README",
+        "time": "60 min",
+        "why": "Organizers will follow it exactly.",
+        "steps": [
+          "Sections: install; where to put videos; calibration procedure; how to run; expected outputs and runtime; hardware.",
+          "List every pretrained model with source and training data; describe roster and Team A rules.",
+          "Record Colab's Python, torch and CUDA versions."
+        ],
+        "out": "README complete",
+        "id": "D9.9"
+      },
+      {
+        "t": "Tag and zip the code",
+        "time": "20 min",
+        "why": "The submitted code must be the exact version that made the predictions.",
+        "steps": [
+          "<pre><code>git tag submission-v1\ngit push --tags\ngit archive --format=zip -o trackid3x3_code.zip submission-v1</code></pre>",
+          "Unzip in a new folder and check README and configs are inside.",
+          "Any later fix gets a new tag and new predictions."
+        ],
+        "out": "<code>trackid3x3_code.zip</code>",
+        "id": "D9.10"
       }
     ]
   },
@@ -1507,85 +2037,49 @@ const DAYS=[
     "k": "D10",
     "label": "Day 10",
     "date": "2026-10-26",
-    "title": "Freeze, package, submit & paper prep",
-    "goal": "Final files validated, code & weights preserved, predictions submitted before deadline, and paper draft outlined.",
+    "title": "Freeze, submit, paper & talk",
+    "goal": "Method frozen and predictions submitted on the sprint deadline; the official Nov 3 deadline is spare buffer. Paper and talk prepared afterwards.",
     "tasks": [
-      {
-        "t": "Make the final predictions",
-        "time": "60 min",
-        "gpu": true,
-        "why": "These are the files you'll submit.",
-        "steps": [
-          "Rerun <code>run.py</code> on both challenge videos from a clean clone.",
-          "Run the validator on both files.",
-          "Save SHA-256 hashes of both prediction files in <code>RESULTS.md</code>."
-        ],
-        "out": "Two validated .txt files",
-        "id": "D10.1"
-      },
-      {
-        "t": "Upload weights to fixed-version links",
-        "time": "30 min",
-        "why": "Weight files are too big for the ZIP; links must stay valid during the review.",
-        "steps": [
-          "On GitHub: your repo → Releases → Draft a new release, tag <code>submission-v1</code>.",
-          "Attach <code>player_det.pt</code> and any other weights you trained or downloaded (each file must be under 2 GB).",
-          "Publish the release and copy each file's download link into <code>README.md</code> with its SHA-256."
-        ],
-        "out": "Release with weights",
-        "id": "D10.2"
-      },
-      {
-        "t": "Write the README for reproduction",
-        "time": "60 min",
-        "why": "Organizers will follow it exactly.",
-        "steps": [
-          "Sections: requirements and install; where to put videos; calibration procedure (manual clicks, with the files in <code>calib/</code>); how to run; expected outputs and run time; hardware used.",
-          "List every pretrained model with source and training data (copy from <code>COMPLIANCE.md</code>).",
-          "Describe the roster and Team A rules.",
-          "Update <code>requirements.txt</code> with <code>pip freeze</code> from Colab."
-        ],
-        "out": "README complete",
-        "id": "D10.3"
-      },
-      {
-        "t": "Tag and zip the code",
-        "time": "20 min",
-        "why": "The submitted code must be the exact version that made the predictions.",
-        "steps": [
-          "Tag the commit:<pre><code>git tag submission-v1\ngit push --tags</code></pre>",
-          "Make the ZIP from that tag:<pre><code>git archive --format=zip -o trackid3x3_code.zip submission-v1</code></pre>",
-          "Unzip it in a new folder and check the README and configs are inside.",
-          "From now on, don't change this tag. Any later fix gets a new tag and needs new predictions before Nov 3."
-        ],
-        "out": "<code>trackid3x3_code.zip</code>",
-        "id": "D10.4"
-      },
       {
         "t": "Fix, rerun, re-tag if needed",
         "time": "as needed",
         "why": "Leaves room for disconnections and bugs.",
         "steps": [
           "Finish any unticked tasks above.",
-          "If you improve the method, rerun everything, re-validate, and create <code>submission-v2</code> with new predictions.",
-          "Stop changing the method by the evening of Nov 2."
+          "If you fix something, rerun everything, re-validate, and tag <code>submission-v2</code> with new predictions and release.",
+          "Freeze the method by the evening of Oct 26; use Oct 27–Nov 2 only for bug fixes."
+        ],
+        "warn": [
+          "Code, weights and predictions must match at the Nov 3 deadline."
         ],
         "out": "Final tag chosen",
-        "id": "D10.5"
+        "id": "D10.1"
+      },
+      {
+        "t": "Dry-run the submission",
+        "time": "20 min",
+        "why": "Rejection risks are trivial mistakes: header row, wrong file names, wrong team labels, renumbered frames.",
+        "steps": [
+          "Re-run the validator on the final files.",
+          "Check file names <code>IMG_0114.txt</code> and <code>IMG_0115.txt</code>, and the exact registered team name."
+        ],
+        "out": "Checklist ticked",
+        "id": "D10.2"
       },
       {
         "t": "Submit predictions",
         "time": "30 min",
-        "why": "There is one submission and no test-set ranking stage.",
+        "why": "There is one submission.",
         "steps": [
-          "Open the prediction Google Form from the organizers' announcement.",
-          "Enter the exact team name from registration.",
+          "Open the organizers' prediction Google Form; enter the exact registered team name.",
           "Upload <code>IMG_0114.txt</code> and <code>IMG_0115.txt</code>.",
-          "Save the confirmation in <code>admin/</code>.",
-          "Keep the tag, release and Drive files unchanged until the checks are complete."
+          "Save the confirmation in <code>admin/</code>; keep tag, release and Drive files unchanged."
+        ],
+        "warn": [
+          "Late submissions are not accepted. The official deadline is Nov 3; submitting on Oct 26 leaves a week for problems."
         ],
         "out": "Confirmation saved",
-        "id": "D10.6"
+        "id": "D10.3"
       },
       {
         "t": "Send the code package when asked",
@@ -1593,10 +2087,10 @@ const DAYS=[
         "why": "Needed for integrity and reproducibility checks; public release isn't required.",
         "steps": [
           "Upload <code>trackid3x3_code.zip</code> as the organizers instruct.",
-          "Make sure the weight links in the README still work in a private browser window."
+          "Check the weight links work in a private browser window."
         ],
         "out": "Code package sent",
-        "id": "D10.7"
+        "id": "D10.4"
       },
       {
         "t": "Write the paper",
@@ -1604,17 +2098,14 @@ const DAYS=[
         "ask": true,
         "why": "Accepted papers are published in IJABC by default.",
         "steps": [
-          "Get the paper template from the ABC 2027 main website; write it in Overleaf (<a href=\"https://www.overleaf.com\" target=\"_blank\" rel=\"noopener\">overleaf.com</a>) if it's LaTeX.",
-          "Abstract: method in 3 sentences and your scores.",
-          "Methodology: dataset, preprocessing, calibration (including the manual clicks), each pipeline stage, pretrained models and training data, metric.",
-          "Results and Discussion: the ablation table, overlay screenshots, failure cases.",
-          "Conclusion and future work.",
-          "References: the three main dataset papers, including <a href=\"https://arxiv.org/abs/2503.18282v2\" target=\"_blank\" rel=\"noopener\">arXiv 2503.18282</a>, plus YOLO, BoxMOT/trackers, EasyOCR/PARSeq.",
-          "Describe only the version you submitted on Nov 3, not later improvements.",
-          "Submit through the CMT link once the organizers announce it."
+          "Use the ABC 2027 template; Overleaf (<a href=\"https://www.overleaf.com\" target=\"_blank\" rel=\"noopener\">overleaf.com</a>) if LaTeX.",
+          "Methods: data, auto-labelling of crops from Training GT, calibration (manual clicks), each stage, pretrained models, metric.",
+          "Results: fold table, ablation table, oracle gaps, overlay screenshots, failure cases.",
+          "References: dataset papers incl. <a href=\"https://arxiv.org/abs/2503.18282v2\" target=\"_blank\" rel=\"noopener\">arXiv 2503.18282</a>, YOLO, trackers, OCR/PARSeq, HOTA.",
+          "Describe only the version you submitted (by Nov 3); submit through CMT when announced."
         ],
         "out": "Paper submitted",
-        "id": "D10.8"
+        "id": "D10.5"
       },
       {
         "t": "Prepare the workshop talk",
@@ -1622,18 +2113,17 @@ const DAYS=[
         "why": "At least one team member must present.",
         "steps": [
           "Slides: problem, pipeline diagram, ablation table, a short overlay clip, lessons learned.",
-          "Register for ABC 2027 through the main website.",
-          "Rehearse once with a timer."
+          "Register for ABC 2027; rehearse once with a timer."
         ],
         "out": "Presenter registered and ready",
-        "id": "D10.9"
+        "id": "D10.6"
       }
     ]
   }
 ];
 
 const TOOLS=[
- ["Python 3.11","Runs all code","<a href=\"https://www.python.org/downloads/\" target=\"_blank\" rel=\"noopener\">python.org/downloads</a>","Installer; tick \"Add to PATH\" on Windows"],
+ ["Python (same minor version as Colab)","Runs all code","<a href=\"https://www.python.org/downloads/\" target=\"_blank\" rel=\"noopener\">python.org/downloads</a>","Installer; tick \"Add to PATH\" on Windows"],
  ["Git","Tracks code changes","<a href=\"https://git-scm.com/downloads\" target=\"_blank\" rel=\"noopener\">git-scm.com/downloads</a>","Installer, defaults"],
  ["VS Code","Code editor and terminal","<a href=\"https://code.visualstudio.com/\" target=\"_blank\" rel=\"noopener\">code.visualstudio.com</a>","Installer + Python and Jupyter extensions"],
  ["GitHub","Private code storage, releases for weights","<a href=\"https://github.com\" target=\"_blank\" rel=\"noopener\">github.com</a>","Free account"],
@@ -1653,7 +2143,44 @@ const TOOLS=[
  ["Tutorial files","Clip with ground truth, court keypoints","<a href=\"https://drive.google.com/drive/folders/1_yDMy8YVpxyqcKg2_eXN1xz_vg2FeCGu\" target=\"_blank\" rel=\"noopener\">Tutorial Drive folder</a>","Download and upload to your Drive"],
  ["Official Training set and Challenge videos","Training data; videos to predict","Organizers' challenge page or emails","Download only from there"],
  ["TrackID3x3 paper and code","Background; court definitions","<a href=\"https://arxiv.org/abs/2503.18282v2\" target=\"_blank\" rel=\"noopener\">arXiv</a> · <a href=\"https://github.com/open-starlab/TrackID3x3\" target=\"_blank\" rel=\"noopener\">GitHub</a>","Read only; don't use its other annotations"],
- ["Overleaf","Writing the paper","<a href=\"https://www.overleaf.com\" target=\"_blank\" rel=\"noopener\">overleaf.com</a>","Free account"]
+ ["Overleaf","Writing the paper","<a href=\"https://www.overleaf.com\" target=\"_blank\" rel=\"noopener\">overleaf.com</a>","Free account"],
+ ["TI-HOTA reference notebook","Cross-check your evaluator (<code>script/compute_TI-HOTA.ipynb</code>)","<a href=\"https://github.com/open-starlab/TrackID3x3\" target=\"_blank\" rel=\"noopener\">open-starlab/TrackID3x3</a>","Read only"],
+ ["HOTA paper & TrackEval","Background on DetA/AssA","<a href=\"https://arxiv.org/abs/2009.07736\" target=\"_blank\" rel=\"noopener\">arXiv 2009.07736</a> · <a href=\"https://github.com/JonathonLuiten/TrackEval\" target=\"_blank\" rel=\"noopener\">TrackEval</a>","Read only"],
+ ["OC-SORT / ByteTrack / BoT-SORT","Tracker papers and reference code","<a href=\"https://github.com/noahcao/OC_SORT\" target=\"_blank\" rel=\"noopener\">OC-SORT</a> · <a href=\"https://github.com/ifzhang/ByteTrack\" target=\"_blank\" rel=\"noopener\">ByteTrack</a> · <a href=\"https://github.com/NirAharon/BoT-SORT\" target=\"_blank\" rel=\"noopener\">BoT-SORT</a>","Use through <code>pip install boxmot</code>"],
+ ["jersey-number-pipeline","Legibility + PARSeq on hockey (ask organizers first; CC BY-NC)","<a href=\"https://github.com/mkoshkina/jersey-number-pipeline\" target=\"_blank\" rel=\"noopener\">github.com/mkoshkina/jersey-number-pipeline</a>","Only after organizer approval"],
+ ["PaddleOCR","Alternative OCR (heavier install)","<a href=\"https://github.com/PaddlePaddle/PaddleOCR\" target=\"_blank\" rel=\"noopener\">github.com/PaddlePaddle/PaddleOCR</a>","Check Colab Python compatibility first"],
+ ["pyarrow","Parquet caches for pandas","<a href=\"https://arrow.apache.org/docs/python/\" target=\"_blank\" rel=\"noopener\">arrow.apache.org/docs/python</a>","<code>pip install pyarrow</code>"]
+];
+
+const SUGG=[
+ ["Detection", "YOLO11x-pose, one pass", "Boxes and ankles together; no second model", "Low", "Allowed (public pretrained)", "<a href=\"https://docs.ultralytics.com/tasks/pose/\" target=\"_blank\" rel=\"noopener\">Ultralytics pose</a>"],
+ ["Detection", "YOLO11 m/l fine-tuned", "Better recall on far or occluded players", "1 day on Colab; overfitting", "Allowed (train on Training set only)", "<a href=\"https://docs.ultralytics.com/modes/train/\" target=\"_blank\" rel=\"noopener\">Train mode</a>"],
+ ["Detection", "RT-DETR (Ultralytics)", "Transformer detector with different failure cases from YOLO", "Slower", "Allowed (public pretrained)", "<a href=\"https://docs.ultralytics.com/models/rtdetr/\" target=\"_blank\" rel=\"noopener\">RT-DETR docs</a>"],
+ ["Detection", "YOLOX (official TrackID3x3 baseline)", "Used by the dataset authors", "Separate install; MOT17 weights", "Ask organizers first", "<a href=\"https://github.com/Megvii-BaseDetection/YOLOX\" target=\"_blank\" rel=\"noopener\">YOLOX</a>"],
+ ["Detection", "Test-time augmentation (<code>augment=True</code>)", "Small recall gain without training", "2–3× slower inference", "Allowed (public pretrained)", "<a href=\"https://docs.ultralytics.com/modes/predict/\" target=\"_blank\" rel=\"noopener\">Predict arguments</a>"],
+ ["Detection", "Weighted Boxes Fusion of two detectors", "An ensemble fills each model's misses", "Two detector passes", "Allowed (public pretrained)", "<a href=\"https://github.com/ZFTurbo/Weighted-Boxes-Fusion\" target=\"_blank\" rel=\"noopener\">ensemble-boxes</a>"],
+ ["Detection", "SAHI sliced inference", "Finds small far-side players", "Only if far recall is low; slow", "Allowed (public pretrained)", "<a href=\"https://github.com/obss/sahi\" target=\"_blank\" rel=\"noopener\">SAHI</a>"],
+ ["Foot point", "RTMPose / ViTPose", "More accurate ankles than YOLO-pose", "Heavy install (MMPose)", "Allowed (public pretrained)", "<a href=\"https://github.com/open-mmlab/mmpose\" target=\"_blank\" rel=\"noopener\">MMPose</a> · <a href=\"https://github.com/ViTAE-Transformer/ViTPose\" target=\"_blank\" rel=\"noopener\">ViTPose</a>"],
+ ["Foot point", "Learned position correction", "Removes systematic cm offsets", "Cheap", "Allowed (train on Training set only)", "<a href=\"https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Ridge.html\" target=\"_blank\" rel=\"noopener\">scikit-learn Ridge</a>"],
+ ["Tracking", "ByteTrack", "Fast motion-only baseline", "Lowest", "Allowed (public pretrained)", "<a href=\"https://github.com/ifzhang/ByteTrack\" target=\"_blank\" rel=\"noopener\">ByteTrack</a>"],
+ ["Tracking", "OC-SORT", "Built for non-linear motion and occlusion", "Low (via BoxMOT)", "Allowed (public pretrained)", "<a href=\"https://github.com/noahcao/OC_SORT\" target=\"_blank\" rel=\"noopener\">OC-SORT</a>"],
+ ["Tracking", "BoT-SORT / Deep OC-SORT + ReID", "Appearance helps when players of different teams cross", "ReID pass per box; turn CMC off", "Allowed (public pretrained)", "<a href=\"https://github.com/mikel-brostrom/boxmot\" target=\"_blank\" rel=\"noopener\">BoxMOT</a>"],
+ ["Tracking", "StrongSORT", "Strong ReID-based tracker", "Slower; tuning", "Allowed (public pretrained)", "<a href=\"https://github.com/dyhBUPT/StrongSORT\" target=\"_blank\" rel=\"noopener\">StrongSORT</a>"],
+ ["ReID", "OSNet (torchreid), fine-tuned on Training crops", "Better stitching within one team", "Half a day", "Allowed (train on Training set only)", "<a href=\"https://github.com/KaiyangZhou/deep-person-reid\" target=\"_blank\" rel=\"noopener\">torchreid</a>"],
+ ["ReID", "CLIP-ReID", "Stronger appearance features", "Heavy", "Allowed (public pretrained)", "<a href=\"https://github.com/Syliz517/CLIP-ReID\" target=\"_blank\" rel=\"noopener\">CLIP-ReID</a>"],
+ ["Jersey", "PARSeq fine-tuned", "Strong scene-text model adapted to your crops", "1–1.5 days", "Allowed (train on Training set only)", "<a href=\"https://github.com/baudm/parseq\" target=\"_blank\" rel=\"noopener\">PARSeq</a>"],
+ ["Jersey", "Two-head digit classifier (ResNet18 / EfficientNet via timm)", "Simple and fast; reads unseen numbers digit by digit", "Half a day", "Allowed (train on Training set only)", "<a href=\"https://github.com/huggingface/pytorch-image-models\" target=\"_blank\" rel=\"noopener\">timm</a>"],
+ ["Jersey", "PaddleOCR (PP-OCR)", "Strong general OCR to compare with EasyOCR", "Heavier install", "Allowed (public pretrained)", "<a href=\"https://github.com/PaddlePaddle/PaddleOCR\" target=\"_blank\" rel=\"noopener\">PaddleOCR</a>"],
+ ["Jersey", "TrOCR / MMOCR", "More recogniser baselines", "Medium", "Allowed (public pretrained)", "<a href=\"https://huggingface.co/docs/transformers/model_doc/trocr\" target=\"_blank\" rel=\"noopener\">TrOCR</a> · <a href=\"https://github.com/open-mmlab/mmocr\" target=\"_blank\" rel=\"noopener\">MMOCR</a>"],
+ ["Jersey", "Florence-2 (vision-language OCR)", "Reads hard crops zero-shot", "Slow; check the licence", "Allowed (public pretrained)", "<a href=\"https://huggingface.co/microsoft/Florence-2-large\" target=\"_blank\" rel=\"noopener\">Florence-2</a>"],
+ ["Jersey", "jersey-number-pipeline (hockey weights)", "Legibility filter + PARSeq built for jerseys", "CC BY-NC; may not count as general-purpose", "Ask organizers first", "<a href=\"https://github.com/mkoshkina/jersey-number-pipeline\" target=\"_blank\" rel=\"noopener\">jersey-number-pipeline</a>"],
+ ["Jersey augmentation", "Albumentations", "Blur, rotation, brightness and perspective for crops", "Low; never flip digits", "Allowed (train on Training set only)", "<a href=\"https://albumentations.ai/docs/\" target=\"_blank\" rel=\"noopener\">Albumentations</a>"],
+ ["Team", "CLIP / OpenCLIP embeddings + k-means", "More robust to lighting than colour histograms", "GPU pass per crop", "Allowed (public pretrained)", "<a href=\"https://github.com/mlfoundations/open_clip\" target=\"_blank\" rel=\"noopener\">OpenCLIP</a>"],
+ ["Team", "Gaussian mixture instead of k-means", "Soft scores feed the assignment cost", "Low", "Allowed (public pretrained)", "<a href=\"https://scikit-learn.org/stable/modules/generated/sklearn.mixture.GaussianMixture.html\" target=\"_blank\" rel=\"noopener\">GaussianMixture</a>"],
+ ["Calibration", "RANSAC / LMEDS homography with held-out points", "Measured error; robust to one bad click", "Low", "Allowed (manual court clicks)", "<a href=\"https://docs.opencv.org/4.x/d9/d0c/group__calib3d.html\" target=\"_blank\" rel=\"noopener\">cv2.findHomography</a>"],
+ ["Post-processing", "RTS / Kalman smoother", "Handles gaps better than Savitzky–Golay", "Low", "Allowed (public pretrained)", "<a href=\"https://github.com/rlabbe/filterpy\" target=\"_blank\" rel=\"noopener\">filterpy</a>"],
+ ["Post-processing", "OR-Tools CP-SAT assignment", "No duplicate identities per frame", "Half a day", "Allowed (public pretrained)", "<a href=\"https://developers.google.com/optimization/cp/cp_solver\" target=\"_blank\" rel=\"noopener\">CP-SAT</a>"],
+ ["Tuning", "Optuna search on cached data", "Finds threshold combinations faster than by hand", "Overfitting: always score on folds", "Allowed (train on Training set only)", "<a href=\"https://optuna.org/\" target=\"_blank\" rel=\"noopener\">Optuna</a>"]
 ];
 
 const GLOSS=[
@@ -1682,7 +2209,50 @@ const GLOSS=[
  ["TI-HOTA","The challenge score. Combines detection accuracy (DetA) and identity association accuracy (AssA). Matches must be within 100 cm and have the right team and jersey."],
  ["Ablation","Testing a method with one part switched on or off to see what that part adds."],
  ["Virtual environment","A private folder of Python libraries for one project (.venv)."],
- ["Colab runtime","The cloud computer behind a Colab notebook. It resets when disconnected, so save to Drive."]
+ ["Colab runtime","The cloud computer behind a Colab notebook. It resets when disconnected, so save to Drive."],
+ ["Oracle experiment","Replacing one stage's output with the ground truth (training videos only) to measure how many points that stage costs."],
+ ["Leave-videos-out validation","Tuning on some videos and scoring on others, so frames of one game never appear on both sides."],
+ ["Output policy","Which rows you write: here, one row per identity in every frame, with gaps interpolated and the ends held."],
+ ["Legibility filter","Rules (blur, size, facing direction) that keep only crops where the number can actually be read."],
+ ["Position correction","A small model, fitted on training GT, that removes systematic offsets between projected foot points and true positions."],
+ ["Tracklet purity","Share of a tracklet's frames that belong to one real player. Mixed tracklets get wrong jersey votes."],
+ ["TP / FP / FN", "True positive (a correct match), false positive (a row that matches no player) and false negative (a player with no matching row)."],
+ ["DetA", "Detection accuracy: TP / (TP + FN + FP). In TI-HOTA a wrong identity also lowers it."],
+ ["AssA", "Association accuracy: how consistently each real player keeps the right identity over time, averaged over players."],
+ ["α threshold", "TI-HOTA scores 19 similarity thresholds from 0.05 to 0.95 and averages them. At 0.95 a match must be within about 13 cm."],
+ ["Location similarity", "exp(ln 0.05 · d² / 100²): 1 at 0 cm, 0.76 at 30 cm, 0.05 at 100 cm."],
+ ["Precision / Recall", "Precision: share of your detections that are real players. Recall: share of real players you found."],
+ ["IoU", "Intersection over union: how much two boxes overlap, from 0 to 1."],
+ ["NMS", "Non-maximum suppression: removes duplicate boxes on the same person."],
+ ["imgsz", "Image size the detector resizes frames to. Larger finds small players but is slower."],
+ ["Half precision (FP16)", "Running a model with 16-bit numbers: about twice as fast on a T4, usually with the same accuracy."],
+ ["Augmentation", "Random changes (blur, brightness, rotation) to training images so the model generalises."],
+ ["Learning rate", "How big each training update is. Too high diverges; too low learns slowly."],
+ ["Early stopping / patience", "Stop training when the validation score hasn't improved for N epochs."],
+ ["Overfitting", "A model that memorises its training videos and does worse on new ones."],
+ ["Data leakage", "Validation data influencing training or tuning, which makes scores look better than they are."],
+ ["Fold / cross-validation", "Splitting videos into groups and scoring each group with settings tuned on the others."],
+ ["Pseudo-label", "A model's own prediction used as a training label. Forbidden on the challenge videos."],
+ ["Auto-labelling", "Here: matching detections to Training GT positions to get labelled boxes and jersey crops without manual work."],
+ ["Laplacian variance", "A sharpness score for an image. Low values mean blur."],
+ ["Camera-motion compensation (CMC)", "Tracker feature that corrects for a moving camera. Not needed here: the camera is fixed."],
+ ["ByteTrack / OC-SORT / BoT-SORT", "Popular trackers: motion only; motion tuned for occlusion; motion plus appearance (ReID)."],
+ ["PARSeq", "A modern scene-text recogniser that can be fine-tuned to read jersey numbers."],
+ ["Tracklet stitching", "Joining broken pieces of the same player's track after tracking."],
+ ["Savitzky–Golay filter", "Smooths a trajectory by fitting short polynomials in a sliding window."],
+ ["RTS smoother", "A Kalman filter run forwards then backwards, so it smooths using past and future frames."],
+ ["CP-SAT", "Google OR-Tools' constraint solver, used to assign identities under rules like \"no duplicates per frame\"."],
+ ["Inverse homography", "Maps court centimetres back to image pixels; used to draw GT points on frames."],
+ ["Reprojection / held-out error", "How far a clicked landmark lands from its true court position after mapping. Held-out points weren't used for the fit."],
+ ["Lens distortion", "Wide phone lenses bend straight lines near the image edge."],
+ ["Court margin", "How far outside the court lines a detection may be and still count as a player."],
+ ["Variable frame rate (VFR)", "Phone videos whose frames aren't evenly spaced. Number frames by decoding order, not by timestamp."],
+ ["Parquet", "A compact, fast table file format, used for caches."],
+ ["Editable install", "<code>pip install -e .</code>: your package imports from the source folder, so edits take effect immediately."],
+ ["Git tag / Release", "A tag names an exact commit; a GitHub Release attaches files (weights) to that tag."],
+ ["SHA-256", "A fingerprint of a file. Identical hashes prove identical files."],
+ ["Test-time augmentation (TTA)", "Running a model on flipped or rescaled copies of an image and merging the results."],
+ ["Ensemble / WBF", "Combining several models' outputs; Weighted Boxes Fusion merges boxes from different detectors."]
 ];
 
 /* --- Storage & History Core --- */
@@ -1807,7 +2377,7 @@ function getTimeTagHtml(sId) {
 function render() {
   const jump = document.getElementById("jump");
   jump.innerHTML = DAYS.map(d => `<a href="#${d.k}" class="${inDay(d) ? "today" : ""}">${d.label}</a>`).join("") +
-                   `<a href="#toolbox">Toolbox</a><a href="#glossary">Glossary</a>`;
+                   `<a href="#toolbox">Toolbox</a><a href="#suggestions">Suggestions</a><a href="#glossary">Glossary</a>`;
   
   const root = document.getElementById("days");
   root.innerHTML = "";
@@ -1823,7 +2393,7 @@ function render() {
       el.className = "task" + (taskDone(t) ? " done" : "");
       el.dataset.ask = t.ask ? "1" : "0";
       el.dataset.gpu = t.gpu ? "1" : "0";
-      el.dataset.text = (t.t + " " + t.why + " " + t.steps.join(" ")).replace(/<[^>]+>/g, " ").toLowerCase();
+      el.dataset.text = (t.t + " " + t.why + " " + t.steps.join(" ") + " " + (t.warn || []).join(" ")).replace(/<[^>]+>/g, " ").toLowerCase();
       const n = t.steps.filter((_, j) => isStepDone(sid(t, j))).length;
       
       el.innerHTML = `
@@ -1850,6 +2420,8 @@ function render() {
               </li>`;
             }).join("")}
           </ol>
+          ${t.warn ? `<div class="warnbox"><b>Watch out</b><ul>${t.warn.map(w => `<li>${w}</li>`).join("")}</ul></div>` : ""}
+          ${t.links ? `<div class="links"><b>Resources</b>${t.links.map(([l, u]) => `<a href="${u}" target="_blank" rel="noopener">${l}</a>`).join("")}</div>` : ""}
           <div class="out"><b>Done when</b><span>${t.out}</span></div>
         </div>`;
 
@@ -1864,6 +2436,7 @@ function render() {
   });
 
   document.querySelector("#tools tbody").innerHTML = TOOLS.map(r => `<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td></tr>`).join("");
+  document.querySelector("#sugg tbody").innerHTML = SUGG.map(r => `<tr>${r.map((c, i) => `<td>${i === 1 ? "<b>" + c + "</b>" : c}</td>`).join("")}</tr>`).join("");
   document.getElementById("gl").innerHTML = GLOSS.map(g => `<div><dt>${g[0]}</dt><dd>${g[1]}</dd></div>`).join("");
   
   stats();
