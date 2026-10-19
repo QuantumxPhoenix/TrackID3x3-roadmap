@@ -1,0 +1,842 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>TrackID3x3 Field Guide</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: textbook column (~68ch) with a sticky lesson rail on wide screens; figures break wider. Court-blue accent, ball-orange for key ideas. */
+:root {
+  --bg: #f4f6fb;
+  --surface: #ffffff;
+  --fg: #151b30;
+  --muted: #5a6382;
+  --rule: #d6dbea;
+  --court: #2f4fcf;
+  --court-soft: #dfe5fb;
+  --paint: #c9ccd6;
+  --line: #ffffff;
+  --ball: #d9661f;
+  --ball-soft: #fbe8dc;
+  --good: #1e8a5a;
+  --bad: #c2384b;
+  --team-a: #7b3fd1;
+  --team-b: #3d9c3a;
+  --font-display: "Barlow Condensed", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Literata", Georgia, "Times New Roman", serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d1222; --surface: #151c32; --fg: #e5e9f6; --muted: #9aa3c2; --rule: #2a3352;
+    --court: #7f98ff; --court-soft: #1e2a55; --paint: #4a5068; --line: #e5e9f6;
+    --ball: #f2955a; --ball-soft: #3a2518; --good: #4cc48c; --bad: #ef6f80;
+    --team-a: #b38cff; --team-b: #79d175; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0d1222; --surface: #151c32; --fg: #e5e9f6; --muted: #9aa3c2; --rule: #2a3352;
+  --court: #7f98ff; --court-soft: #1e2a55; --paint: #4a5068; --line: #e5e9f6;
+  --ball: #f2955a; --ball-soft: #3a2518; --good: #4cc48c; --bad: #ef6f80;
+  --team-a: #b38cff; --team-b: #79d175; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: var(--font-body); font-size: 17px; line-height: 1.65;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.shell { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 210px minmax(0, 1fr); gap: 48px; padding-block: 40px 80px; }
+@media (max-width: 900px) { .shell { grid-template-columns: minmax(0, 1fr); gap: 0; } .rail { display: none; } }
+
+.rail { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 24px); align-self: start; font-family: var(--font-display); }
+.rail p { margin: 0 0 10px; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.rail ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; counter-reset: l; }
+.rail li { counter-increment: l; }
+.rail a { color: var(--fg); text-decoration: none; font-size: 17px; display: flex; gap: 8px; padding: 2px 0; }
+.rail a::before { content: counter(l, decimal-leading-zero); color: var(--court); font-weight: 600; min-width: 22px; }
+.rail a:hover, .rail a:focus-visible { color: var(--court); }
+
+main { min-width: 0; }
+.prose { max-width: 68ch; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; line-height: 1.05; margin: 0; }
+h1 { font-size: clamp(44px, 7vw, 76px); font-weight: 700; letter-spacing: -.01em; }
+h2 { font-size: clamp(32px, 4.5vw, 44px); font-weight: 700; margin-bottom: 6px; }
+h3 { font-size: 24px; font-weight: 600; margin: 28px 0 6px; }
+p { margin: 0 0 14px; }
+a { color: var(--court); }
+a:focus-visible, input:focus-visible { outline: 3px solid var(--ball); outline-offset: 2px; }
+code, .mono { font-family: var(--font-mono); font-size: .86em; }
+code { background: var(--court-soft); padding: 1px 5px; border-radius: 4px; }
+strong { font-weight: 600; }
+
+.hero { padding-block: 8px 36px; border-bottom: 2px solid var(--fg); margin-bottom: 40px; }
+.kicker { font-family: var(--font-display); text-transform: uppercase; letter-spacing: .14em; font-size: 15px; color: var(--court); font-weight: 600; margin: 0 0 12px; }
+.lede { font-size: 20px; max-width: 60ch; color: var(--fg); margin-top: 18px; }
+.stat-row { display: flex; flex-wrap: wrap; gap: 28px 44px; margin-top: 28px; }
+.stat b { display: block; font-family: var(--font-display); font-size: 40px; font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; }
+.stat span { font-size: 14px; color: var(--muted); }
+
+section.lesson { padding-block: 44px; border-bottom: 1px solid var(--rule); scroll-margin-top: 20px; }
+.lesson-no { font-family: var(--font-display); font-size: 15px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 0 0 6px; }
+.lesson-no b { color: var(--court); }
+.sub { color: var(--muted); font-style: italic; margin-bottom: 22px; }
+
+.key { border-left: 4px solid var(--ball); background: var(--ball-soft); padding: 14px 18px; margin: 22px 0; max-width: 68ch; }
+.key p:last-child { margin: 0; }
+.key .tag { font-family: var(--font-display); text-transform: uppercase; letter-spacing: .12em; font-size: 14px; color: var(--ball); font-weight: 700; display: block; margin-bottom: 2px; }
+.note { font-size: 15px; color: var(--muted); }
+
+figure { margin: 26px 0; max-width: 900px; }
+figure .frame { background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: 18px; overflow-x: auto; }
+figure svg { display: block; width: 100%; height: auto; }
+figcaption { font-size: 14.5px; color: var(--muted); margin-top: 8px; max-width: 68ch; }
+figcaption b { color: var(--fg); }
+
+.flow { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; counter-reset: f; }
+.flow li { counter-increment: f; background: var(--surface); border: 1px solid var(--rule); border-top: 4px solid var(--court); padding: 12px 12px 14px; min-width: 0; }
+.flow li::before { content: "Stage " counter(f); display: block; font-family: var(--font-display); font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.flow b { font-family: var(--font-display); font-size: 21px; display: block; line-height: 1.1; margin: 2px 0 4px; }
+.flow span { font-size: 14px; line-height: 1.45; display: block; }
+.flow code { font-size: 12px; }
+
+.table-wrap { overflow-x: auto; margin: 18px 0 22px; max-width: 900px; }
+table { border-collapse: collapse; width: 100%; font-size: 15px; }
+th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { font-family: var(--font-display); font-size: 15px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; font-family: var(--font-mono); font-size: 14px; }
+tr.hl td { background: var(--court-soft); }
+
+pre.rows { font-family: var(--font-mono); font-size: 14px; background: var(--surface); border: 1px solid var(--rule); padding: 14px 16px; overflow-x: auto; margin: 16px 0; line-height: 1.6; max-width: 68ch; }
+pre.rows .c { color: var(--muted); }
+
+.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; max-width: 900px; margin: 18px 0; }
+.two > div { min-width: 0; }
+.two h4 { font-family: var(--font-display); font-size: 19px; margin: 0 0 6px; }
+.two ul { margin: 0; padding-left: 20px; font-size: 15.5px; }
+
+.check { list-style: none; padding: 0; margin: 12px 0; max-width: 68ch; display: grid; gap: 8px; }
+.check li { padding-left: 28px; position: relative; }
+.check li::before { position: absolute; left: 0; top: 0; font-family: var(--font-display); font-weight: 700; }
+.check li.y::before { content: "✓"; color: var(--good); }
+.check li.n::before { content: "✗"; color: var(--bad); }
+
+/* SVG theming */
+.s-court { fill: var(--court); }
+.s-paint { fill: var(--paint); }
+.s-line { stroke: var(--line); fill: none; }
+.s-text { fill: var(--fg); font-family: var(--font-display); }
+.s-muted { fill: var(--muted); font-family: var(--font-display); }
+.s-grid { stroke: var(--rule); }
+.s-axis { stroke: var(--muted); }
+.s-acc { stroke: var(--court); fill: none; }
+.s-ball { fill: var(--ball); }
+.s-ballstroke { stroke: var(--ball); fill: none; }
+.s-good { fill: var(--good); } .s-bad { fill: var(--bad); }
+.s-a { fill: var(--team-a); } .s-b { fill: var(--team-b); }
+.s-astroke { stroke: var(--team-a); fill: none; } .s-bstroke { stroke: var(--team-b); fill: none; }
+.s-zone { fill: var(--ball); opacity: .22; }
+.s-keep { fill: none; stroke: var(--muted); stroke-dasharray: 18 14; }
+.s-surface { fill: var(--surface); }
+.s-fg { fill: var(--fg); } .s-fgstroke { stroke: var(--fg); fill: none; }
+
+/* Glossary */
+.gl-tools { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 14px 0 18px; }
+.gl-tools input { font: inherit; font-size: 16px; padding: 10px 14px; border: 1px solid var(--rule); border-radius: 6px; background: var(--surface); color: var(--fg); width: min(100%, 360px); }
+.gl-tools span { font-size: 14px; color: var(--muted); }
+dl.gl { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0 32px; margin: 0; max-width: 980px; }
+dl.gl > div { padding: 12px 0; border-bottom: 1px solid var(--rule); min-width: 0; }
+dl.gl dt { font-family: var(--font-display); font-size: 20px; font-weight: 600; }
+dl.gl dt small { font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--court); margin-left: 8px; font-weight: 600; }
+dl.gl dd { margin: 2px 0 0; font-size: 15.5px; line-height: 1.55; }
+
+footer { padding-top: 32px; font-size: 14px; color: var(--muted); }
+
+/* Learn more */
+.more { margin-top: 26px; max-width: 68ch; border-top: 1px dashed var(--rule); padding-top: 14px; }
+.more h4 { font-family: var(--font-display); font-size: 15px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0 0 8px; font-weight: 600; }
+.more ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.more li { display: grid; grid-template-columns: 62px minmax(0, 1fr); gap: 10px; align-items: baseline; font-size: 15.5px; line-height: 1.45; }
+.more .kind { font-family: var(--font-display); font-size: 12.5px; letter-spacing: .1em; text-transform: uppercase; font-weight: 600; padding: 1px 0; text-align: center; border-radius: 3px; }
+.more .kind.v { background: var(--ball-soft); color: var(--ball); }
+.more .kind.r { background: var(--court-soft); color: var(--court); }
+.more li span.by { color: var(--muted); font-size: 14px; }
+
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+</style>
+
+<div class="shell">
+<nav class="rail" aria-label="Lessons">
+  <p>Lessons</p>
+  <ol>
+    <li><a href="#task">The challenge</a></li>
+    <li><a href="#video">Video as numbers</a></li>
+    <li><a href="#detect">Finding people</a></li>
+    <li><a href="#track">Following people</a></li>
+    <li><a href="#homography">Pixels to centimetres</a></li>
+    <li><a href="#filter">Who is a player?</a></li>
+    <li><a href="#identity">Who is who?</a></li>
+    <li><a href="#post">Filling the gaps</a></li>
+    <li><a href="#score">Keeping score</a></li>
+    <li><a href="#engineering">Building it properly</a></li>
+    <li><a href="#data">Data and rules</a></li>
+    <li><a href="#journey">What we did</a></li>
+    <li><a href="#glossary">Glossary</a></li>
+  </ol>
+</nav>
+
+<main>
+<header class="hero">
+  <p class="kicker">A course in sports video AI, from zero</p>
+  <h1>TrackID3x3 Field Guide</h1>
+  <p class="lede">How a computer watches a 3-on-3 basketball game, works out where each of the six players stands on the court, and knows who each one is. Every idea here is explained from the beginning, and every number comes from our own project.</p>
+  <div class="stat-row">
+    <div class="stat"><b>6</b><span>players to follow</span></div>
+    <div class="stat"><b>15.05 × 11.05 m</b><span>court size</span></div>
+    <div class="stat"><b>30</b><span>frames every second</span></div>
+    <div class="stat"><b>0.635 → 0.741</b><span>our score so far (TI-HOTA)</span></div>
+  </div>
+</header>
+
+<!-- 1 -->
+<section class="lesson" id="task">
+  <p class="lesson-no">Lesson <b>01</b></p>
+  <h2>The challenge in one picture</h2>
+  <p class="sub">What goes in, what must come out, and how it is judged.</p>
+  <div class="prose">
+    <p>A phone camera on a stand films a 3x3 basketball game from one fixed spot. Two teams of three wear coloured bibs with numbers. The organisers give us that video and ask a simple question for <strong>every single frame</strong>: where is each player standing, and who is it?</p>
+    <p>"Where" means a position on the court in <strong>centimetres</strong>, like a map coordinate. "Who" means the <strong>team</strong> (A or B) plus the <strong>jersey number</strong>. Team A is the team attacking at the very start of the video.</p>
+  </div>
+  <p class="prose">The answer is a plain text file with one line per player per frame:</p>
+  <pre class="rows"><span class="c">frame_id,court_x,court_y,team_id,jersey_number</span>
+1,143.39,572.49,A,4
+1,747.61,1049.83,A,10
+1,938.18,494.67,A,12
+<span class="c">… one line for each player, for every frame of the video</span></pre>
+  <div class="key">
+    <span class="tag">Key idea</span>
+    <p>A video is just a very long list of still pictures. The whole task is to turn each picture into six short lines of text.</p>
+  </div>
+  <figure>
+    <ol class="flow">
+      <li><b>Detect</b><span>Find every person in each frame.</span><code>detect_track.py</code></li>
+      <li><b>Track</b><span>Link the same person across frames.</span><code>detect_track.py</code></li>
+      <li><b>Map</b><span>Convert image pixels to court centimetres.</span><code>calib.py</code></li>
+      <li><b>Filter</b><span>Remove referees and spectators.</span><code>court_filter.py</code></li>
+      <li><b>Identify</b><span>Read jersey numbers, split teams.</span><code>identify.py</code></li>
+      <li><b>Finish</b><span>Fill gaps, write the answer file.</span><code>postprocess.py</code></li>
+      <li><b>Score</b><span>Compare with the true answer.</span><code>tihota.py</code></li>
+    </ol>
+    <figcaption><b>The pipeline.</b> Each stage hands its output to the next, like stations on an assembly line. The file names are where each stage lives in our code.</figcaption>
+  </figure>
+<div class="more"><h4>Learn more</h4><ul><li><span class="kind v">Video</span><span><a href="https://www.youtube.com/watch?v=z989J2gPc-E" target="_blank" rel="noopener">TrackID3x3 Challenge Tutorial</a> <span class="by">· OpenSTARLab, the organisers</span></span></li><li><span class="kind r">Paper</span><span><a href="https://arxiv.org/abs/2503.18282" target="_blank" rel="noopener">TrackID3x3: dataset and baseline algorithm</a> <span class="by">· the paper the challenge is built on</span></span></li><li><span class="kind r">Site</span><span><a href="https://sites.google.com/view/abc2027-trackid3x3-challenge/the-challenge" target="_blank" rel="noopener">Official challenge website</a> <span class="by">· rules, dates, data</span></span></li></ul></div>
+</section>
+
+<!-- 2 -->
+<section class="lesson" id="video">
+  <p class="lesson-no">Lesson <b>02</b></p>
+  <h2>A video is a stack of number grids</h2>
+  <p class="sub">Pixels, frames, frame rate, and why counting frames is harder than it sounds.</p>
+  <div class="prose">
+    <p>A digital picture is a grid of tiny coloured squares called <strong>pixels</strong>. Each pixel is three numbers: how much red, green and blue light it has. Our training videos are <strong>3840 × 2160</strong> pixels ("4K"), about 8.3 million pixels per picture.</p>
+    <p>A video shows about <strong>30 pictures every second</strong>. Each picture is a <strong>frame</strong>. A 6½-minute game is therefore around 11,000 frames, and each needs its own answer.</p>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Video set</th><th class="num">Size (pixels)</th><th class="num">Frames per video</th><th>Use</th></tr></thead>
+      <tbody>
+        <tr><td>Tutorial clip IMG_0104_1</td><td class="num">3840 × 2160</td><td class="num">1,118</td><td>Quick tests (37 seconds)</td></tr>
+        <tr><td>Training IMG_0104–0111</td><td class="num">3840 × 2160</td><td class="num">10,706–13,228</td><td>Learning and validation</td></tr>
+        <tr class="hl"><td>Challenge IMG_0114, 0115</td><td class="num">1280 × 720</td><td class="num">11,536 / 11,823</td><td>The final exam</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="prose">
+    <p>Notice the last row: the challenge videos have <strong>9 times fewer pixels</strong>. A jersey number that is 30 pixels tall in training is about 10 pixels tall in the challenge. That gap between practice and exam is called <strong>domain shift</strong>, and it matters a lot later.</p>
+    <h3>Counting frames is a trap</h3>
+    <p>A video file has a small header that says how many frames it contains. You would expect it to be correct. For IMG_0104 the header says <strong>11,400</strong>, but when we actually decode every frame there are only <strong>11,376</strong>, exactly where the official answers end. Phones also record with a slightly uneven frame rate (<strong>variable frame rate</strong>), so you cannot compute "frame number = time × 30".</p>
+  </div>
+  <div class="key">
+    <span class="tag">Key idea</span>
+    <p>Always number frames by reading them one by one from the start: 1, 2, 3, … If our frame 500 is not the same moment as the answer key's frame 500, every comparison is wrong and the score collapses for no visible reason.</p>
+  </div>
+<div class="more"><h4>Learn more</h4><ul><li><span class="kind v">Video</span><span><a href="https://www.youtube.com/watch?v=Z39Ohkzat70" target="_blank" rel="noopener">How computers store images: pixels, resolution and colour depth</a> <span class="by">· Prototype Education</span></span></li><li><span class="kind v">Video</span><span><a href="https://www.youtube.com/watch?v=aircAruvnKk" target="_blank" rel="noopener">But what is a neural network?</a> <span class="by">· 3Blue1Brown, the best visual start for deep learning</span></span></li><li><span class="kind r">Read</span><span><a href="https://3blue1brown.com/lessons/neural-networks" target="_blank" rel="noopener">Neural networks lesson series</a> <span class="by">· 3Blue1Brown</span></span></li><li><span class="kind r">Docs</span><span><a href="https://ffmpeg.org/ffprobe.html" target="_blank" rel="noopener">ffprobe documentation</a> <span class="by">· the tool we used to count frames</span></span></li></ul></div>
+</section>
+
+<!-- 3 -->
+<section class="lesson" id="detect">
+  <p class="lesson-no">Lesson <b>03</b></p>
+  <h2>Finding people: detection</h2>
+  <p class="sub">A neural network draws boxes around everything that looks like a person.</p>
+  <div class="prose">
+    <p><strong>Object detection</strong> means: given a picture, draw a rectangle around each object of interest and say what it is. The rectangle is a <strong>bounding box</strong>, stored as four numbers: the top-left corner (x, y), the width and the height, all in pixels.</p>
+    <p>We use <strong>YOLO11x</strong> ("You Only Look Once"), a neural network that has already learned from a huge public photo collection called <strong>COCO</strong>. It knows 80 kinds of object; we only ask for class 0, <em>person</em>. Each box comes with a <strong>confidence</strong> from 0 to 1: how sure the network is.</p>
+  </div>
+  <figure>
+    <div class="frame">
+      <svg viewBox="0 0 640 300" role="img" aria-label="A frame with bounding boxes around players and a spectator">
+        <rect x="0" y="0" width="640" height="300" class="s-surface"/>
+        <polygon points="70,250 590,250 520,120 140,120" class="s-court"/>
+        <polygon points="250,120 390,120 400,170 240,170" class="s-paint"/>
+        <!-- players as simple figures -->
+        <g>
+          <circle cx="200" cy="150" r="8" class="s-a"/><rect x="192" y="158" width="16" height="34" rx="4" class="s-a"/>
+          <rect x="182" y="138" width="36" height="66" class="s-ballstroke" stroke-width="2.5"/>
+          <text x="182" y="132" class="s-text" font-size="14">person 0.93</text>
+        </g>
+        <g>
+          <circle cx="330" cy="140" r="7" class="s-b"/><rect x="323" y="147" width="14" height="30" rx="4" class="s-b"/>
+          <rect x="314" y="129" width="32" height="58" class="s-ballstroke" stroke-width="2.5"/>
+          <text x="314" y="123" class="s-text" font-size="14">person 0.88</text>
+        </g>
+        <g>
+          <circle cx="470" cy="175" r="9" class="s-a"/><rect x="461" y="184" width="18" height="40" rx="4" class="s-a"/>
+          <rect x="450" y="162" width="40" height="72" class="s-ballstroke" stroke-width="2.5"/>
+          <text x="450" y="156" class="s-text" font-size="14">person 0.95</text>
+        </g>
+        <g>
+          <circle cx="610" cy="120" r="7" class="s-fg"/><rect x="603" y="127" width="14" height="30" rx="4" class="s-fg"/>
+          <rect x="594" y="108" width="32" height="58" class="s-fgstroke" stroke-width="1.5" stroke-dasharray="4 3"/>
+          <text x="560" y="100" class="s-muted" font-size="13">spectator 0.81</text>
+        </g>
+        <g class="s-muted" font-size="13">
+          <line x1="182" y1="210" x2="218" y2="210" class="s-axis"/><text x="182" y="226">width</text>
+          <line x1="226" y1="138" x2="226" y2="204" class="s-axis"/><text x="230" y="176">height</text>
+          <circle cx="182" cy="138" r="3" class="s-ball"/><text x="120" y="142">(x, y)</text>
+        </g>
+      </svg>
+    </div>
+    <figcaption><b>What detection produces.</b> One box per person, with a confidence score. The detector cannot tell a player from a spectator; it only knows "person". Sorting that out comes later (lesson 6).</figcaption>
+  </figure>
+  <div class="key">
+    <span class="tag">Key idea</span>
+    <p>We did not train YOLO ourselves. Using a <strong>pretrained</strong> public model is allowed by the rules, as long as we write down which one we used.</p>
+  </div>
+<div class="more"><h4>Learn more</h4><ul><li><span class="kind v">Video</span><span><a href="https://www.youtube.com/watch?v=ag3DLKsl2vk" target="_blank" rel="noopener">What is the YOLO algorithm?</a> <span class="by">· codebasics, beginner-friendly</span></span></li><li><span class="kind v">Video</span><span><a href="https://www.youtube.com/watch?v=svn9-xV7wjk" target="_blank" rel="noopener">How YOLO object detection works</a> <span class="by">· DeepBean, more detail</span></span></li><li><span class="kind r">Docs</span><span><a href="https://docs.ultralytics.com/tasks/detect/" target="_blank" rel="noopener">Ultralytics YOLO: object detection</a> <span class="by">· the library we use</span></span></li><li><span class="kind r">Site</span><span><a href="https://cocodataset.org/" target="_blank" rel="noopener">COCO dataset</a> <span class="by">· where YOLO's knowledge comes from</span></span></li></ul></div>
+</section>
+
+<!-- 4 -->
+<section class="lesson" id="track">
+  <p class="lesson-no">Lesson <b>04</b></p>
+  <h2>Following people: tracking</h2>
+  <p class="sub">Linking boxes across frames, and the mistakes that cost the most.</p>
+  <div class="prose">
+    <p>Detection works on one frame at a time. It has no idea that the box in frame 10 is the same person as a box in frame 11. <strong>Tracking</strong> links them: each person gets a <strong>track ID</strong>, a number that should stay with them.</p>
+    <p>We use <strong>ByteTrack</strong>. It predicts where each person will be next (they move smoothly) and pairs new boxes with existing tracks by how much they overlap. A continuous stretch of one ID is a <strong>tracklet</strong>.</p>
+  </div>
+  <figure>
+    <div class="frame">
+      <svg viewBox="0 0 640 230" role="img" aria-label="Two tracks crossing, with an ID exchange after the crossing">
+        <g class="s-muted" font-size="13">
+          <text x="10" y="215">frame 1</text><text x="290" y="215">crossing</text><text x="560" y="215">frame 60</text>
+        </g>
+        <line x1="10" y1="195" x2="630" y2="195" class="s-axis"/>
+        <!-- true paths -->
+        <path d="M20,50 C200,50 260,150 320,110 C380,70 440,160 620,160" class="s-astroke" stroke-width="10" opacity=".25"/>
+        <path d="M20,160 C200,160 260,70 320,110 C380,150 440,50 620,50" class="s-bstroke" stroke-width="10" opacity=".25"/>
+        <!-- tracker IDs: correct until crossing, swapped after -->
+        <path d="M20,50 C200,50 260,150 320,110" class="s-astroke" stroke-width="3"/>
+        <path d="M20,160 C200,160 260,70 320,110" class="s-bstroke" stroke-width="3"/>
+        <path d="M320,110 C380,70 440,50 620,50" class="s-astroke" stroke-width="3" stroke-dasharray="7 5"/>
+        <path d="M320,110 C380,150 440,160 620,160" class="s-bstroke" stroke-width="3" stroke-dasharray="7 5"/>
+        <text x="24" y="38" class="s-text" font-size="15">track 7 = A10</text>
+        <text x="24" y="185" class="s-text" font-size="15">track 9 = B6</text>
+        <text x="470" y="36" class="s-text" font-size="15">track 7, now on B6 ✗</text>
+        <text x="470" y="182" class="s-text" font-size="15">track 9, now on A10 ✗</text>
+        <circle cx="320" cy="110" r="14" class="s-ballstroke" stroke-width="2.5"/>
+      </svg>
+    </div>
+    <figcaption><b>An ID exchange.</b> Faint wide lines are where the two players really go. Solid lines are the tracker's IDs. When the players cross and block each other (an <b>occlusion</b>), the tracker swaps them. From then on both players carry the wrong name in every frame.</figcaption>
+  </figure>
+  <div class="key">
+    <span class="tag">Key idea</span>
+    <p>A swap is worse than losing someone for a moment. A gap costs a few frames; a swap makes every later frame of two players wrong. The dataset's authors call this the biggest single problem.</p>
+  </div>
+  <p class="prose">Tracks also break: a player is hidden for a second, comes back, and gets a <em>new</em> ID. On the 37-second tutorial clip the tracker made <strong>38 tracks</strong> for 6 players plus bystanders. Joining the pieces back together is solved later by reading the jersey numbers.</p>
+<div class="more"><h4>Learn more</h4><ul><li><span class="kind v">Video</span><span><a href="https://www.youtube.com/watch?v=ay_QLAHcZLY" target="_blank" rel="noopener">Introduction to multiple object tracking (MOT)</a> <span class="by">· Multiple Object Tracking</span></span></li><li><span class="kind v">Video</span><span><a href="https://www.youtube.com/watch?v=IFeCIbljreY" target="_blank" rel="noopener">Visually explained: Kalman filters</a> <span class="by">· how trackers predict the next position</span></span></li><li><span class="kind r">Docs</span><span><a href="https://docs.ultralytics.com/modes/track/" target="_blank" rel="noopener">Ultralytics tracking mode</a> <span class="by">· ByteTrack as we run it</span></span></li><li><span class="kind r">Paper</span><span><a href="https://arxiv.org/abs/2110.06864" target="_blank" rel="noopener">ByteTrack paper</a> <span class="by">· the tracker's original description</span></span></li></ul></div>
+</section>
+
+<!-- 5 -->
+<section class="lesson" id="homography">
+  <p class="lesson-no">Lesson <b>05</b></p>
+  <h2>From pixels to centimetres: the homography</h2>
+  <p class="sub">How four corner points let us turn a slanted photo into a flat map.</p>
+  <div class="prose">
+    <p>The camera looks at the court at an angle, so the rectangular court appears as a slanted shape (a trapezoid). The answer must be in <strong>court centimetres</strong>, as if looking straight down. The mathematical tool that converts one to the other is a <strong>homography</strong>: a 3 × 3 table of numbers that maps any point on the flat floor in the image to the same point on the map.</p>
+    <p>To compute it you need just <strong>four points</strong> whose position you know in both worlds. We use the four court corners. The organisers provide them in <code>court_registration.csv</code>:</p>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Corner</th><th class="num">Image x (px)</th><th class="num">Image y (px)</th><th class="num">Court x (cm)</th><th class="num">Court y (cm)</th></tr></thead>
+      <tbody>
+        <tr><td>RKU0</td><td class="num">2698.8</td><td class="num">1172.4</td><td class="num">0</td><td class="num">0</td></tr>
+        <tr><td>RKU1</td><td class="num">3749.9</td><td class="num">1726.6</td><td class="num">0</td><td class="num">1105</td></tr>
+        <tr><td>RKU10</td><td class="num">875.7</td><td class="num">1237.9</td><td class="num">1505</td><td class="num">0</td></tr>
+        <tr><td>RKU11</td><td class="num">108.4</td><td class="num">1970.3</td><td class="num">1505</td><td class="num">1105</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <figure>
+    <div class="frame">
+      <svg viewBox="0 0 760 260" role="img" aria-label="Court corners in the camera image mapped to the flat court map">
+        <!-- image panel: real pixel coords scaled by 0.1 -->
+        <rect x="10" y="10" width="384" height="216" class="s-surface" stroke="var(--rule)"/>
+        <polygon points="97.6,133.8 279.9,127.2 385,182.7 20.8,207" class="s-court"/>
+        <g font-size="13" class="s-text">
+          <circle cx="279.9" cy="127.2" r="5" class="s-ball"/><text x="255" y="118">RKU0</text>
+          <circle cx="385" cy="182.7" r="5" class="s-ball"/><text x="340" y="176">RKU1</text>
+          <circle cx="97.6" cy="133.8" r="5" class="s-ball"/><text x="80" y="124">RKU10</text>
+          <circle cx="20.8" cy="207" r="5" class="s-ball"/><text x="28" y="222">RKU11</text>
+        </g>
+        <text x="14" y="246" class="s-muted" font-size="14">Camera image (4K, scaled down)</text>
+        <!-- arrow -->
+        <path d="M410,120 L470,120" class="s-fgstroke" stroke-width="2"/><path d="M462,113 L472,120 L462,127" class="s-fgstroke" stroke-width="2"/>
+        <text x="412" y="108" class="s-text" font-size="15">H</text>
+        <!-- map panel: 1505x1105 scaled by 0.17 -->
+        <g transform="translate(490,22)">
+          <rect x="0" y="0" width="255.9" height="187.9" class="s-court"/>
+          <rect x="86.6" y="0" width="82.3" height="98.3" class="s-paint"/>
+          <g font-size="13" class="s-text">
+            <circle cx="0" cy="0" r="5" class="s-ball"/><text x="-8" y="-6">RKU0 (0,0)</text>
+            <circle cx="255.9" cy="0" r="5" class="s-ball"/><text x="190" y="-6">RKU10</text>
+            <circle cx="0" cy="187.9" r="5" class="s-ball"/><text x="-8" y="204">RKU1</text>
+            <circle cx="255.9" cy="187.9" r="5" class="s-ball"/><text x="196" y="204">RKU11</text>
+          </g>
+        </g>
+        <text x="490" y="246" class="s-muted" font-size="14">Court map, centimetres (basket at top)</text>
+      </svg>
+    </div>
+    <figcaption><b>Same four corners, two worlds.</b> The left shape uses the real pixel positions from the table. Look carefully: court x = 0 (RKU0) appears on the <b>right</b> of the camera image. Mirrors like this are a classic way to get a score of zero, so we always check axis directions against the answer key.</figcaption>
+  </figure>
+  <div class="prose">
+    <h3>Which point of a player do we map?</h3>
+    <p>The homography is only correct for points <strong>on the floor</strong>. A player's head is not on the floor. So we take the <strong>foot point</strong>: the middle of the bottom edge of their box. When a player jumps, their feet leave the floor and the position briefly jumps too.</p>
+    <h3>More landmarks for checking</h3>
+    <p>Four corners define the homography exactly but give no way to check it. We built a <strong>court template</strong> with 11 known points (corners, paint corners, free-throw corners, the three-point line ends and the top of the arc), measured from the organisers' own court drawing at 1 pixel = 1 cm. Projecting them into a frame and seeing them land on the painted lines proves the calibration is right.</p>
+  </div>
+<div class="more"><h4>Learn more</h4><ul><li><span class="kind v">Video</span><span><a href="https://www.youtube.com/watch?v=l_qjO4cM74o" target="_blank" rel="noopener">Computing homography</a> <span class="by">· First Principles of Computer Vision, Columbia University</span></span></li><li><span class="kind r">Read</span><span><a href="https://docs.opencv.org/4.x/d9/dab/tutorial_homography.html" target="_blank" rel="noopener">Basic concepts of the homography explained with code</a> <span class="by">· OpenCV</span></span></li><li><span class="kind r">Course</span><span><a href="https://fpcv.cs.columbia.edu/" target="_blank" rel="noopener">First Principles of Computer Vision</a> <span class="by">· free lecture series by Shree Nayar</span></span></li></ul></div>
+</section>
+
+<!-- 6 -->
+<section class="lesson" id="filter">
+  <p class="lesson-no">Lesson <b>06</b></p>
+  <h2>Who is a player? The court filter</h2>
+  <p class="sub">Simple rules on the court map remove referees, benches and passers-by.</p>
+  <figure>
+    <div class="frame">
+      <svg viewBox="-340 -360 2185 1805" role="img" aria-label="Top view of the court with the zones used by the filter">
+        <rect x="-300" y="-300" width="2105" height="1705" class="s-keep" stroke-width="6"/>
+        <rect x="0" y="0" width="1505" height="1105" class="s-court"/>
+        <rect x="509.5" y="0" width="484" height="578.5" class="s-paint"/>
+        <path d="M90.5,0 L90.5,301.7 A677,677 0 0 0 1414.5,301.7 L1414.5,0" class="s-line" stroke-width="8"/>
+        <rect x="0" y="0" width="1505" height="1105" class="s-line" stroke-width="8"/>
+        <line x1="662" y1="120" x2="843" y2="120" class="s-fgstroke" stroke-width="10"/>
+        <circle cx="752.5" cy="160" r="23" class="s-ballstroke" stroke-width="8"/>
+        <!-- zones -->
+        <rect x="0" y="-300" width="1505" height="400" class="s-zone"/>
+        <rect x="-300" y="1002.5" width="802.5" height="402.5" class="s-zone"/>
+        <rect x="1002.5" y="1002.5" width="802.5" height="402.5" class="s-zone"/>
+        <g class="s-text" font-size="58">
+          <text x="380" y="-190">End-line band (referee spot)</text>
+          <text x="-280" y="1360">Corner zone</text>
+          <text x="1260" y="1360">Corner zone</text>
+          <text x="-290" y="-320" class="s-muted">Dashed: 3 m beyond the lines, anything further is dropped</text>
+          <text x="560" y="400" font-size="52">paint</text>
+          <text x="610" y="900" font-size="52">three-point line</text>
+        </g>
+      </svg>
+    </div>
+    <figcaption><b>The court as the filter sees it</b>, drawn to scale in centimetres (basket at the top). Orange zones are where referees and bystanders stand. A track that spends more than half its time in an orange zone is removed.</figcaption>
+  </figure>
+  <div class="prose">
+    <p>Once every box has a court position, rules can decide who is playing:</p>
+  </div>
+  <ul class="check">
+    <li class="n">Never on the court for <strong>10 frames in a row</strong> → not a player.</li>
+    <li class="n">More than half its time in the <strong>end-line band</strong> (3 m outside to 1 m inside) → probably a referee.</li>
+    <li class="n">More than half its time in the <strong>far corner zones</strong> → probably a bystander.</li>
+    <li class="n">Any single box more than <strong>3 m outside</strong> the court → dropped.</li>
+  </ul>
+  <p class="prose">On the tutorial clip this kept <strong>23 of 38 tracks</strong>. We rendered a check video: grey boxes for everything the detector found, coloured boxes for what survived. Only bib-wearing players got coloured boxes.</p>
+  <div class="key">
+    <span class="tag">Watch out</span>
+    <p>These rules were designed for the training camera. The challenge camera stands in a different corner, and the answer key shows real players up to 6 m outside the lines. The 3 m margin may need tuning.</p>
+  </div>
+<div class="more"><h4>Learn more</h4><ul><li><span class="kind r">Paper</span><span><a href="https://arxiv.org/abs/2503.18282" target="_blank" rel="noopener">TrackID3x3 paper, section 4.2 "Exclusion of non-players"</a> <span class="by">· where our filter rules come from</span></span></li></ul></div>
+</section>
+
+<!-- 7 -->
+<section class="lesson" id="identity">
+  <p class="lesson-no">Lesson <b>07</b></p>
+  <h2>Who is who? Numbers, colours and rosters</h2>
+  <p class="sub">Reading jersey numbers, splitting teams, and a fix that gained 0.12.</p>
+  <div class="prose">
+    <h3>Reading the number: OCR</h3>
+    <p><strong>OCR</strong> (optical character recognition) reads text in images. We use <strong>EasyOCR</strong>, told to look only for digits. For each tracklet we pick up to 40 frames, enlarge the player crop 2×, read it, and <strong>vote</strong>: each reading adds its confidence to that number's score, and the highest total wins. One bad reading cannot outvote many good ones.</p>
+    <h3>Splitting the teams: colour</h3>
+    <p>We cut out each player's upper body and measure its colours as a <strong>histogram</strong> in <strong>HSV</strong> space (hue = which colour, saturation = how vivid). Then <strong>k-means</strong> sorts all tracklets into 2 groups by colour. The groups have no names yet.</p>
+    <h3>Naming the teams: A or B</h3>
+    <p>Team A is defined as the team attacking at the start. In frame 1, the player closest to the middle of the top line is taken as the attacker, so their colour group becomes A. The closest player to them is the defender, and that group becomes B.</p>
+    <h3>The roster</h3>
+    <p>Each game has a known <strong>roster</strong>: three numbers per team. In the tutorial: A = {4, 10, 12}, B = {6, 9, 11}. Team + number is a player's <strong>identity</strong>, for example A10. Two teams may share a number (in IMG_0108 both teams have a 6 and a 9), so the number alone is never enough.</p>
+  </div>
+  <div class="key">
+    <span class="tag">Case study: the missing player</span>
+    <p>On the laptop, player B11 vanished from the whole clip. Comparing tracks with the answer key showed why: the colour grouping put B11's tracks in team B correctly, but OCR misread "11" as "4" or "12". Those numbers do not exist in team B, so the tracks were thrown away.</p>
+    <p>The fix (<code>resolve_jerseys</code>): trust the colour, treat an impossible number as a misread, and if a team is missing exactly one number, give its unread tracks that number. Score: <strong>0.617 → 0.741</strong>. Our first attempt, trusting the number over the colour, made the score <em>worse</em> (0.524). Always measure.</p>
+  </div>
+<div class="more"><h4>Learn more</h4><ul><li><span class="kind v">Video</span><span><a href="https://www.youtube.com/watch?v=4b5d3muPQmA" target="_blank" rel="noopener">K-means clustering</a> <span class="by">· StatQuest with Josh Starmer</span></span></li><li><span class="kind v">Video</span><span><a href="https://www.youtube.com/watch?v=NAw2_NtGNaA" target="_blank" rel="noopener">The HSV colour model</a> <span class="by">· Thales Sehn Körting</span></span></li><li><span class="kind r">Code</span><span><a href="https://github.com/JaidedAI/EasyOCR" target="_blank" rel="noopener">EasyOCR</a> <span class="by">· the OCR library we use</span></span></li><li><span class="kind r">Docs</span><span><a href="https://scikit-learn.org/stable/modules/clustering.html" target="_blank" rel="noopener">Clustering guide</a> <span class="by">· scikit-learn</span></span></li></ul></div>
+</section>
+
+<!-- 8 -->
+<section class="lesson" id="post">
+  <p class="lesson-no">Lesson <b>08</b></p>
+  <h2>Filling the gaps and writing the answer</h2>
+  <p class="sub">Joining tracklets, interpolating, and why every frame needs six rows.</p>
+  <div class="prose">
+    <p>After identification, several tracklets share one identity (B11 was made of 7 pieces). We merge them: for each frame and identity we keep the most confident box. Where a player is briefly missing, <strong>linear interpolation</strong> draws a straight line between the last position before the gap and the first after it.</p>
+    <p>Finally we write the file. The rules say <strong>every frame is scored, including before the game starts</strong>. A frame where we output only 5 players guarantees a missed player.</p>
+  </div>
+  <div class="key">
+    <span class="tag">Planned improvement</span>
+    <p>Always output every known player in every frame, holding their first or last known position at the ends. Because a prediction only ever matches the same identity, an added row can turn a miss into a hit but can never cost more than the miss it replaces. A change that cannot lower the score is rare.</p>
+  </div>
+<div class="more"><h4>Learn more</h4><ul><li><span class="kind r">Paper</span><span><a href="https://arxiv.org/abs/2503.18282" target="_blank" rel="noopener">TrackID3x3 paper, section 4.2 "Post-processing"</a> <span class="by">· interpolation, extrapolation, 6-player limit</span></span></li></ul></div>
+</section>
+
+<!-- 9 -->
+<section class="lesson" id="score">
+  <p class="lesson-no">Lesson <b>09</b></p>
+  <h2>Keeping score: TI-HOTA</h2>
+  <p class="sub">How close is close enough, and why a wrong name scores zero.</p>
+  <div class="prose">
+    <p>The organisers have the true answer file, the <strong>ground truth</strong>. The score, <strong>TI-HOTA</strong>, compares our rows with it frame by frame. Two similarities are multiplied:</p>
+    <p><strong>Location similarity</strong>: 1 when we are exactly on the spot, falling as the distance grows. The formula is exp(ln 0.05 × d² / τ²) with τ = 100 cm.<br><strong>Identity similarity</strong>: 1 if team and number both match, otherwise 0.</p>
+  </div>
+  <figure>
+    <div class="frame">
+      <svg id="locsim" viewBox="0 0 640 300" role="img" aria-label="Location similarity versus distance in centimetres">
+        <g id="locsim-grid"></g>
+        <path id="locsim-curve" class="s-acc" stroke-width="3.5"/>
+        <g id="locsim-marks"></g>
+      </svg>
+    </div>
+    <figcaption><b>Credit for a correct identity, by distance</b>, drawn from the official formula. At 14 cm you earn 0.94 of a match; at 50 cm only 0.47; at 1 m almost nothing. Precise feet matter.</figcaption>
+  </figure>
+  <div class="prose">
+    <h3>Counting hits and misses</h3>
+    <p>In each frame, predictions are paired with true players by the <strong>Hungarian method</strong>, which finds the best one-to-one pairing. Then every row falls into one of three bins:</p>
+  </div>
+  <figure>
+    <div class="frame">
+      <svg viewBox="0 0 680 220" role="img" aria-label="Example of true positive, false positive and false negative">
+        <g font-size="14" class="s-text">
+          <circle cx="90" cy="100" r="60" class="s-acc" stroke-width="1.5" stroke-dasharray="5 4"/>
+          <circle cx="90" cy="100" r="9" class="s-a"/><text x="62" y="78">truth A4</text>
+          <rect x="102" y="104" width="14" height="14" class="s-ball"/><text x="70" y="140">guess A4</text>
+          <text x="58" y="195" font-size="17" class="s-text">✓ True positive</text>
+
+          <circle cx="300" cy="100" r="60" class="s-acc" stroke-width="1.5" stroke-dasharray="5 4"/>
+          <circle cx="300" cy="100" r="9" class="s-b"/><text x="272" y="78">truth B6</text>
+          <rect x="310" y="104" width="14" height="14" class="s-ball"/><text x="282" y="140">guess B9</text>
+          <text x="236" y="195" font-size="17">✗ False pos. + false neg.</text>
+
+          <circle cx="480" cy="100" r="9" class="s-a"/><text x="450" y="78">truth A10</text>
+          <text x="440" y="195" font-size="17">✗ False negative</text>
+
+          <rect x="600" y="94" width="14" height="14" class="s-ball"/><text x="570" y="78">guess B11</text>
+          <text x="572" y="195" font-size="17">✗ False positive</text>
+        </g>
+      </svg>
+    </div>
+    <figcaption><b>Three outcomes.</b> Dashed circles show 1 m. The middle case is close but has the wrong number, so it counts as both a wrong guess and a missed player. Position cannot rescue a wrong identity.</figcaption>
+  </figure>
+  <div class="prose">
+    <p><strong>DetA</strong> (detection accuracy) = hits ÷ (hits + wrong guesses + misses). <strong>AssA</strong> (association accuracy) asks, for each true player, how consistently they got the right name over time, then averages over the six players. TI-HOTA is the square root of DetA × AssA, averaged over 19 strictness levels (α from 0.05 to 0.95). At the strictest level a match must be within about 13 cm.</p>
+  </div>
+  <div class="key">
+    <span class="tag">Key idea</span>
+    <p>AssA is averaged equally over the six players, as the organisers confirmed. A player you never find scores 0 for one sixth of AssA. That is why the missing B11 was so expensive. We checked our scorer against the official notebook: identical to six decimals.</p>
+  </div>
+<div class="more"><h4>Learn more</h4><ul><li><span class="kind v">Video</span><span><a href="https://www.youtube.com/watch?v=cQ5MsiGaDY8" target="_blank" rel="noopener">The Munkres assignment algorithm (Hungarian algorithm)</a> <span class="by">· CompSci</span></span></li><li><span class="kind r">Paper</span><span><a href="https://arxiv.org/abs/2009.07736" target="_blank" rel="noopener">HOTA: a higher order metric for evaluating multi-object tracking</a> <span class="by">· the metric TI-HOTA extends</span></span></li><li><span class="kind r">Code</span><span><a href="https://github.com/open-starlab/TrackID3x3/blob/main/script/compute_TI-HOTA.ipynb" target="_blank" rel="noopener">Official TI-HOTA notebook</a> <span class="by">· what the organisers score with</span></span></li><li><span class="kind r">Read</span><span><a href="https://cp-algorithms.com/graph/hungarian-algorithm.html" target="_blank" rel="noopener">Hungarian algorithm, step by step</a> <span class="by">· cp-algorithms</span></span></li><li><span class="kind r">Docs</span><span><a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.linear_sum_assignment.html" target="_blank" rel="noopener">linear_sum_assignment</a> <span class="by">· the SciPy function the scorer calls</span></span></li></ul></div>
+</section>
+
+<!-- 10 -->
+<section class="lesson" id="engineering">
+  <p class="lesson-no">Lesson <b>10</b></p>
+  <h2>Building it properly</h2>
+  <p class="sub">From a notebook to a project anyone can rerun and trust.</p>
+  <div class="two">
+    <div>
+      <h4>Modules, not one long notebook</h4>
+      <p>The tutorial was one long Colab notebook. We split it into seven Python files, one per stage, then made them an installable <strong>package</strong> (<code>pip install -e .</code>) so <code>import trackid3x3</code> works the same on a laptop and on Colab.</p>
+    </div>
+    <div>
+      <h4>Tests</h4>
+      <p>Small automatic checks prove the scorer is right: a perfect answer scores 1.0, an empty one 0, swapped numbers lower AssA, a 150 cm shift scores 0. Eleven tests now run in seconds with <code>pytest</code>.</p>
+    </div>
+    <div>
+      <h4>Git: a time machine for code</h4>
+      <p>Every change is a <strong>commit</strong> with a message. <strong>Push</strong> sends commits to GitHub, where Colab downloads them. A <strong>tag</strong> (<code>baseline-v0</code>) names one exact version so we can always return to it.</p>
+    </div>
+    <div>
+      <h4>Laptop and Colab</h4>
+      <p>Colab gives a free cloud GPU (Tesla T4); the laptop has an RTX 4050. The <strong>runner notebook</strong> clones the code, installs it, links the data on Google Drive, and runs the same commands as the laptop.</p>
+    </div>
+  </div>
+  <div class="key">
+    <span class="tag">Surprise: two GPUs, two scores</span>
+    <p>The identical code scored 0.635 on Colab's T4 and 0.617 on the laptop. Different chips round numbers very slightly differently, which flipped a borderline OCR reading of B11. Lesson: compare versions only on the same machine, and build the method so one shaky reading cannot swing the result.</p>
+  </div>
+  <div class="prose">
+    <h3>Bugs we caught along the way</h3>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Bug</th><th>Symptom</th><th>Fix</th></tr></thead>
+      <tbody>
+        <tr><td>Relative output path</td><td>YOLO saved results into another project's folder</td><td>Use an absolute path</td></tr>
+        <tr><td>Label files append</td><td>Re-running would duplicate every detection</td><td>Delete old tracking output first</td></tr>
+        <tr><td>Missing player crashed the run</td><td>No output file at all</td><td>Warn and continue with the others</td></tr>
+        <tr><td>CPU-only torch on the laptop</td><td>GPU unused</td><td>Install the CUDA build</td></tr>
+        <tr><td><code>\n</code> written into a notebook cell</td><td>"unrecognized arguments: n"</td><td>One command per line</td></tr>
+      </tbody>
+    </table>
+  </div>
+<div class="more"><h4>Learn more</h4><ul><li><span class="kind v">Video</span><span><a href="https://www.youtube.com/watch?v=RGOj5yH7evk" target="_blank" rel="noopener">Git and GitHub for beginners: crash course</a> <span class="by">· freeCodeCamp.org</span></span></li><li><span class="kind v">Video</span><span><a href="https://www.youtube.com/watch?v=5sgJsCah9bs" target="_blank" rel="noopener">Google Colab for Python beginners</a> <span class="by">· Visually Explained</span></span></li><li><span class="kind r">Book</span><span><a href="https://git-scm.com/book/en/v2" target="_blank" rel="noopener">Pro Git</a> <span class="by">· free official Git book</span></span></li><li><span class="kind r">Docs</span><span><a href="https://docs.pytest.org/en/stable/getting-started.html" target="_blank" rel="noopener">Get started with pytest</a> <span class="by">· writing tests</span></span></li><li><span class="kind r">Docs</span><span><a href="https://packaging.python.org/en/latest/guides/writing-pyproject-toml/" target="_blank" rel="noopener">Writing pyproject.toml</a> <span class="by">· making an installable package</span></span></li></ul></div>
+</section>
+
+<!-- 11 -->
+<section class="lesson" id="data">
+  <p class="lesson-no">Lesson <b>11</b></p>
+  <h2>Data and rules: practice versus exam</h2>
+  <p class="sub">What we may learn from, what we may only run on, and how to test honestly.</p>
+  <div class="two">
+    <div>
+      <h4>Training set (8 games)</h4>
+      <ul>
+        <li>Videos with full answers: boxes, positions, teams, numbers</li>
+        <li>Rosters and court calibration</li>
+        <li>The <strong>only</strong> data we may train or tune on</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Challenge set (2 games)</h4>
+      <ul>
+        <li>Videos, calibration and rosters, answers hidden</li>
+        <li>Run once, submit once, by 3 November</li>
+        <li>No training on them, no hand corrections</li>
+      </ul>
+    </div>
+  </div>
+  <div class="prose">
+    <h3>Testing without the exam answers</h3>
+    <p>Since the challenge answers are hidden, we test on training games the model did <strong>not</strong> learn from: train on six, test on two, rotate. This is <strong>leave-videos-out validation</strong>. Testing on a game you trained on gives a flattering number, because the model has partly memorised it (<strong>overfitting</strong>).</p>
+    <h3>What the data audit found</h3>
+  </div>
+  <ul class="check">
+    <li class="y">Every training video has boxes and answers from frame 1, with no gaps.</li>
+    <li class="n">IMG_0104's header claims 24 more frames than it contains.</li>
+    <li class="n">All 8 training videos have a variable frame rate.</li>
+    <li class="n">IMG_0105 has 25 frames where one player appears twice.</li>
+    <li class="n">Some frames in 0104, 0106 and 0111 have only 5 players.</li>
+  </ul>
+<div class="more"><h4>Learn more</h4><ul><li><span class="kind v">Video</span><span><a href="https://www.youtube.com/watch?v=fSytzGwwBVw" target="_blank" rel="noopener">Machine learning fundamentals: cross validation</a> <span class="by">· StatQuest with Josh Starmer</span></span></li><li><span class="kind r">Site</span><span><a href="https://sites.google.com/view/abc2027-trackid3x3-challenge/registration" target="_blank" rel="noopener">Official rules: data use, training and code sharing</a> <span class="by">· read section C</span></span></li></ul></div>
+</section>
+
+<!-- 12 -->
+<section class="lesson" id="journey">
+  <p class="lesson-no">Lesson <b>12</b></p>
+  <h2>What we did, step by step</h2>
+  <p class="sub">The project so far, and where each score came from.</p>
+  <figure>
+    <div class="frame">
+      <svg viewBox="0 0 680 270" role="img" aria-label="Bar chart of TI-HOTA scores">
+        <g class="s-muted" font-size="13">
+          <line x1="250" y1="20" x2="250" y2="230" class="s-grid"/><text x="246" y="250">0</text>
+          <line x1="350" y1="20" x2="350" y2="230" class="s-grid"/><text x="338" y="250">0.25</text>
+          <line x1="450" y1="20" x2="450" y2="230" class="s-grid"/><text x="440" y="250">0.5</text>
+          <line x1="550" y1="20" x2="550" y2="230" class="s-grid"/><text x="538" y="250">0.75</text>
+          <line x1="650" y1="20" x2="650" y2="230" class="s-grid"/><text x="644" y="250">1</text>
+        </g>
+        <g font-size="14" class="s-text">
+          <text x="0" y="42">Notebook, Colab T4</text>
+          <rect x="250" y="28" width="254" height="20" class="s-court"/><text x="510" y="43">0.635</text>
+          <text x="0" y="82">Our scripts, Colab T4</text>
+          <rect x="250" y="68" width="254" height="20" class="s-court"/><text x="510" y="83">0.635</text>
+          <text x="0" y="122">Our scripts, laptop</text>
+          <rect x="250" y="108" width="246.8" height="20" class="s-paint"/><text x="502" y="123">0.617</text>
+          <text x="0" y="162">+ roster fix, laptop</text>
+          <rect x="250" y="148" width="296.4" height="20" class="s-ball"/><text x="552" y="163">0.741</text>
+          <text x="0" y="202">Paper, outdoor clips</text>
+          <rect x="250" y="188" width="284" height="20" class="s-paint"/><text x="540" y="203">0.710</text>
+        </g>
+      </svg>
+    </div>
+    <figcaption><b>TI-HOTA on the 37-second tutorial clip</b> (the paper's number is an average over its own outdoor clips, for reference). The roster fix only helps when OCR misses a player, which is why it changes nothing on Colab.</figcaption>
+  </figure>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Step</th><th>What we did</th><th>Why it matters</th></tr></thead>
+      <tbody>
+        <tr><td>D3.2</td><td>Notebook split into 7 modules + one run command</td><td>Each stage can be improved alone</td></tr>
+        <tr><td>D3.3–3.4</td><td>Scorer script + 4 tests</td><td>Every later decision is judged by it</td></tr>
+        <tr><td>D3.5–3.6</td><td>Reproduced 0.6351 exactly on Colab, tagged <code>baseline-v0</code></td><td>Proof the refactor broke nothing</td></tr>
+        <tr><td>—</td><td>Overlay video, found and fixed the missing B11</td><td>0.617 → 0.741 on the laptop</td></tr>
+        <tr><td>D4.1</td><td>Case-safe <code>.gitignore</code>, hand-pinned packages</td><td>No giant videos in git; Colab installs cleanly</td></tr>
+        <tr><td>D4.2</td><td>Installable <code>trackid3x3</code> package</td><td>Same imports everywhere</td></tr>
+        <tr><td>D4.3</td><td>Audit of all 8 training videos</td><td>Frame numbering is trustworthy</td></tr>
+        <tr><td>D4.4</td><td>Court template + calibration tools</td><td>Verified calibration for every video</td></tr>
+        <tr><td>D4.7</td><td>Scorer matched against the official notebook</td><td>Our number is the organisers' number</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="prose">
+    <h3>Next</h3>
+    <p>Read the official calibration files in the pipeline, load rosters per game, and run on all 8 training games for the first real score. Then the biggest expected gains: six players in every frame, joining broken tracks, and better jersey reading for the small 720p challenge images.</p>
+  </div>
+<div class="more"><h4>Learn more</h4><ul><li><span class="kind r">Site</span><span><a href="https://quantumxphoenix.github.io/TrackID3x3-roadmap/" target="_blank" rel="noopener">Our 10-day build roadmap</a> <span class="by">· every step, ticked as we go</span></span></li></ul></div>
+</section>
+
+<!-- Glossary -->
+<section class="lesson" id="glossary">
+  <p class="lesson-no">Reference</p>
+  <h2>Glossary</h2>
+  <p class="sub">Every term used in this guide, in plain words.</p>
+  <div class="gl-tools">
+    <label for="gl-search" class="note">Filter</label>
+    <input id="gl-search" type="search" placeholder="Type a word, e.g. track" autocomplete="off">
+    <span id="gl-count"></span>
+  </div>
+  <dl class="gl" id="gl"></dl>
+</section>
+
+<footer>
+  Built from the TrackID3x3 project as of 19 October 2026. Numbers come from our own runs on the tutorial clip and the official training data.
+</footer>
+</main>
+</div>
+
+<script>
+// Location-similarity chart, drawn from the official formula.
+(function () {
+  var W = 640, H = 300, L = 56, R = 20, T = 20, B = 46;
+  var maxD = 150, sx = function (d) { return L + d / maxD * (W - L - R); };
+  var sy = function (v) { return T + (1 - v) * (H - T - B); };
+  var sim = function (d) { return Math.exp(Math.log(0.05) * d * d / 10000); };
+  var ns = "http://www.w3.org/2000/svg";
+  var grid = document.getElementById("locsim-grid"), marks = document.getElementById("locsim-marks");
+  function el(tag, attrs, parent, text) {
+    var e = document.createElementNS(ns, tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (text != null) e.textContent = text;
+    parent.appendChild(e); return e;
+  }
+  [0, 0.25, 0.5, 0.75, 1].forEach(function (v) {
+    el("line", { x1: L, x2: W - R, y1: sy(v), y2: sy(v), "class": "s-grid" }, grid);
+    el("text", { x: L - 8, y: sy(v) + 4, "text-anchor": "end", "class": "s-muted", "font-size": 13 }, grid, v);
+  });
+  [0, 25, 50, 75, 100, 125, 150].forEach(function (d) {
+    el("text", { x: sx(d), y: H - B + 20, "text-anchor": "middle", "class": "s-muted", "font-size": 13 }, grid, d);
+  });
+  el("text", { x: (L + W - R) / 2, y: H - 6, "text-anchor": "middle", "class": "s-muted", "font-size": 13 }, grid, "distance from the true position (cm)");
+  var p = "";
+  for (var d = 0; d <= maxD; d += 1) p += (d ? "L" : "M") + sx(d).toFixed(1) + "," + sy(sim(d)).toFixed(1);
+  document.getElementById("locsim-curve").setAttribute("d", p);
+  [14, 30, 50, 100].forEach(function (d) {
+    var v = sim(d);
+    el("circle", { cx: sx(d), cy: sy(v), r: 5, "class": "s-ball" }, marks);
+    el("text", { x: sx(d) + 8, y: sy(v) - 8, "class": "s-text", "font-size": 14 }, marks, d + " cm → " + v.toFixed(2));
+  });
+})();
+
+// Glossary
+var TERMS = [
+  ["Pixel", "basics", "One tiny coloured square of a digital image, stored as red, green and blue numbers."],
+  ["Frame", "basics", "One still picture in a video. Our videos show about 30 per second."],
+  ["Resolution", "basics", "Image size in pixels. Training is 3840×2160 (4K); the challenge is 1280×720."],
+  ["FPS (frames per second)", "basics", "How many frames a video shows each second. Ours: 29.97."],
+  ["Variable frame rate (VFR)", "basics", "Frames are not perfectly evenly spaced in time, common on phones. Count frames one by one instead of computing them from time."],
+  ["Container header", "basics", "Summary data stored at the start of a video file. Its frame count can be wrong (IMG_0104 claims 11,400; it has 11,376)."],
+  ["Bounding box", "detection", "A rectangle around an object: top-left x and y, width and height, in pixels."],
+  ["Object detection", "detection", "Finding objects in an image and drawing a box around each one."],
+  ["Confidence", "detection", "A 0 to 1 score saying how sure a model is about its answer."],
+  ["YOLO", "detection", "\"You Only Look Once\": a fast family of detection networks. We use YOLO11x."],
+  ["COCO", "detection", "A large public photo dataset with 80 object types. YOLO learned from it; class 0 is person."],
+  ["Pretrained model", "detection", "A model someone already trained on public data. Allowed by the rules if disclosed."],
+  ["Fine-tuning", "training", "Training a pretrained model a little more on your own data. For us: only on the official Training set."],
+  ["Tracking", "tracking", "Linking the same person's boxes across frames so they keep one ID."],
+  ["Track ID", "tracking", "The number the tracker gives one person. It means nothing about their real identity."],
+  ["Tracklet", "tracking", "One unbroken piece of a track. Tracks break when a player is hidden, so one player can have many tracklets."],
+  ["ByteTrack", "tracking", "The tracker we use. It predicts motion and pairs boxes by overlap."],
+  ["Occlusion", "tracking", "One person blocking another from the camera's view."],
+  ["ID switch / ID exchange", "tracking", "The tracker gives a person the wrong ID, often swapping two players who crossed. The costliest error."],
+  ["MOT format", "tracking", "A standard text format for tracks: frame, id, x, y, width, height, confidence, -1, -1, -1."],
+  ["Homography", "geometry", "A 3×3 table of numbers that maps points on a flat surface between two views, here image pixels to court centimetres."],
+  ["Inverse homography", "geometry", "The same mapping backwards: court centimetres to image pixels. Used to draw answers on video."],
+  ["Calibration", "geometry", "Working out the homography for a camera, from points whose image and court positions are both known."],
+  ["Court registration", "geometry", "The organisers' file of the four court corners in pixels and centimetres, one per camera setup."],
+  ["Court template", "geometry", "Our list of 11 court landmarks in centimetres, used to check a calibration."],
+  ["Court coordinates", "geometry", "Position on a flat map of the court in centimetres. x runs 0 to 1505 along the end line, y 0 to 1105 away from the basket."],
+  ["Foot point", "geometry", "The middle of a box's bottom edge, where the player touches the floor. This is the point we map."],
+  ["Court filter", "pipeline", "Rules on court positions that remove referees, spectators and benches."],
+  ["OCR", "identity", "Optical character recognition: reading text from images. We use EasyOCR for jersey digits."],
+  ["Voting", "identity", "Combining many noisy readings into one answer by adding up scores per candidate."],
+  ["HSV", "identity", "A way to describe colour by hue (which colour), saturation (how vivid) and value (how bright)."],
+  ["Histogram", "identity", "A count of how often each value appears, here how much of each colour a torso crop contains."],
+  ["k-means", "identity", "An algorithm that sorts items into k groups by similarity. We use k = 2 to split the teams by colour."],
+  ["Roster", "identity", "The six valid identities in a game: three jersey numbers per team."],
+  ["Identity", "identity", "Team plus jersey number, for example A10. It must match exactly to score."],
+  ["Team A / Team B", "identity", "A is the team attacking at the start of the video, B the team defending."],
+  ["Interpolation", "pipeline", "Filling a gap by drawing a straight line between the positions before and after it."],
+  ["Ground truth (GT)", "scoring", "The correct answers, made by people. The training set has them; the challenge keeps them hidden."],
+  ["TI-HOTA", "scoring", "The challenge score. Combines how well players are found (DetA) and how consistently they keep the right name (AssA)."],
+  ["LocSim", "scoring", "Location similarity: 1 at the exact spot, 0.47 at 50 cm, 0.05 at 1 m."],
+  ["IdSim", "scoring", "Identity similarity: 1 if team and number both match, otherwise 0."],
+  ["τ (tau)", "scoring", "The distance scale in the score: 100 cm."],
+  ["α threshold", "scoring", "A strictness level for counting a match. TI-HOTA averages 19 levels from 0.05 to 0.95."],
+  ["Hungarian method", "scoring", "An algorithm that finds the best one-to-one pairing between two lists, here predictions and true players."],
+  ["True positive (TP)", "scoring", "A prediction that matches a true player."],
+  ["False positive (FP)", "scoring", "A prediction that matches no true player."],
+  ["False negative (FN)", "scoring", "A true player with no matching prediction."],
+  ["DetA", "scoring", "Detection accuracy: TP ÷ (TP + FP + FN)."],
+  ["AssA", "scoring", "Association accuracy: how consistently each true player keeps the right identity, averaged equally over players."],
+  ["Validation", "training", "Testing on data the method has not learned from, to estimate how it will do on the real exam."],
+  ["Leave-videos-out", "training", "Validation where whole games are held out, so frames of one game are never on both sides."],
+  ["Overfitting", "training", "Doing well on data you learned from but worse on new data, because the model memorised instead of learning."],
+  ["Domain shift", "training", "When test data looks different from training data. Ours: 4K training versus 720p challenge from another corner."],
+  ["Oracle experiment", "training", "Replacing one stage's output with the true answer to measure how many points that stage costs."],
+  ["Pseudo-label", "training", "A model's own guess used as a training label. Forbidden on the challenge videos."],
+  ["GPU / CUDA", "engineering", "A graphics chip that runs neural networks fast; CUDA is NVIDIA's software for it."],
+  ["Floating-point differences", "engineering", "Different chips round tiny decimals differently, so the same code can give slightly different results."],
+  ["Git commit / push / tag", "engineering", "Save a snapshot of code with a message / upload snapshots to GitHub / name one exact snapshot."],
+  ["Virtual environment", "engineering", "A private folder of Python libraries for one project (.venv)."],
+  ["Editable install", "engineering", "pip install -e . : the package imports straight from the source folder, so edits take effect at once."],
+  ["Unit test", "engineering", "A small automatic check that one piece of code gives the expected answer."],
+  ["Reproducibility", "engineering", "Anyone running the same code and data gets the same result. Required for the final submission."],
+  ["ffprobe", "engineering", "A command-line tool that reads video details and can count frames by decoding them."]
+];
+(function () {
+  var dl = document.getElementById("gl"), input = document.getElementById("gl-search"), count = document.getElementById("gl-count");
+  TERMS.sort(function (a, b) { return a[0].localeCompare(b[0]); });
+  var items = TERMS.map(function (t) {
+    var div = document.createElement("div");
+    var dt = document.createElement("dt"); dt.textContent = t[0];
+    var sm = document.createElement("small"); sm.textContent = t[1]; dt.appendChild(sm);
+    var dd = document.createElement("dd"); dd.textContent = t[2];
+    div.appendChild(dt); div.appendChild(dd); dl.appendChild(div);
+    return { el: div, text: (t[0] + " " + t[1] + " " + t[2]).toLowerCase() };
+  });
+  function update() {
+    var q = input.value.trim().toLowerCase(), n = 0;
+    items.forEach(function (it) { var show = !q || it.text.indexOf(q) !== -1; it.el.hidden = !show; if (show) n++; });
+    count.textContent = n + " of " + items.length + " terms";
+  }
+  input.addEventListener("input", update);
+  update();
+})();
+</script>
+
+</body></html>

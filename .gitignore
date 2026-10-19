@@ -10,3 +10,5 @@ node_modules/
 
 # Optional: If you prefer not to commit your Supabase project credentials in git:
 # supabase-config.js
+
+diagram.png
